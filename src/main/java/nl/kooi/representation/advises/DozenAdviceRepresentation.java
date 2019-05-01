@@ -1,4 +1,4 @@
-package nl.kooi.representation.advice;
+package nl.kooi.representation.advises;
 
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;

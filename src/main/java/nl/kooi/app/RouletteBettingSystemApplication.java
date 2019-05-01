@@ -3,9 +3,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class RouletteOutcomeApplication {
+public class RouletteBettingSystemApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(RouletteOutcomeApplication.class, args);
+        SpringApplication.run(RouletteBettingSystemApplication.class, args);
     }
 }
