@@ -1,20 +1,19 @@
-package nl.kooi.app.domain.advises.Game.Roulette.RouletteOneToOne.OddEven;
+package nl.kooi.app.domain.advises.Game.Roulette.RouletteOneToOne;
 
 
 import nl.kooi.app.domain.RouletteDomainObject;
-import nl.kooi.app.domain.advises.Game.Roulette.RouletteOneToOne.RouletteOneToOne;
 import nl.kooi.representation.Outcome;
+import nl.kooi.representation.advises.AdviceRepresentation;
 
 /**
  * @author Laurens van der Kooi
  */
 
 public class OddEven extends RouletteOneToOne {
-    private Outcome outcome;
     private boolean[] hitArray = {true, true};
     private RouletteDomainObject roulette;
 
-    public OddEven(double chipValue, char bettingSystem, int delay, RouletteDomainObject roulette) {
+    public OddEven(String chipValue, char bettingSystem, int delay, RouletteDomainObject roulette) {
         super(chipValue, bettingSystem, delay, roulette);
     }
 
@@ -23,4 +22,8 @@ public class OddEven extends RouletteOneToOne {
         hitArray[1] = roulette.getOddEven().equals(Outcome.EVEN);
     }
 
+    @Override
+    public AdviceRepresentation toRepresentation() {
+        return null;
+    }
 }

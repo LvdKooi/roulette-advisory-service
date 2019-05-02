@@ -1,30 +1,36 @@
 package nl.kooi.app.domain.advises.Game;
 
+import nl.kooi.representation.advises.AdviceRepresentation;
+import nl.kooi.representation.advises.RowAdviceRepresentation;
+
+import java.math.BigDecimal;
+
 /**
  * @author Laurens van der Kooi
  */
 
 public abstract class Game {
 
-    private double chipValue;
+    private BigDecimal chipValue;
     private char bettingSystem;
 
-    public Game(double chipValue, char bettingSystem) {
-        this.chipValue = chipValue;
+    public Game(String chipValue, char bettingSystem) {
+        this.chipValue = new BigDecimal(chipValue).setScale(2);
         this.bettingSystem = bettingSystem;
     }
 
-    public void setChipValue(double chipValue) {
-        this.chipValue = chipValue;
+    public void setChipValue(String chipValue) {
+        this.chipValue = new BigDecimal(chipValue).setScale(2);
     }
 
 
-    public double getChipValue() {
+    public BigDecimal getChipValue() {
         return chipValue;
     }
 
     public char getBettingSystem() {
-        return bettingSystem; }
+        return bettingSystem;
+    }
 
     public abstract String toString();
 
@@ -32,5 +38,6 @@ public abstract class Game {
 
     protected abstract void setAdvice(boolean[] hitArray);
 
-
+    public abstract AdviceRepresentation toRepresentation();
 }
+

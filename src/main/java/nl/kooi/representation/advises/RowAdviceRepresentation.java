@@ -3,7 +3,7 @@ package nl.kooi.representation.advises;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
-public class RowAdviceRepresentation {
+public class RowAdviceRepresentation extends AdviceRepresentation {
     @NotNull
     public BigDecimal lowRow;
 

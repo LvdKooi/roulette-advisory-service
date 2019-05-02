@@ -1,9 +1,9 @@
-package nl.kooi.app.domain.advises.Game.Roulette.RouletteTwoToOne.DozenGame;
+package nl.kooi.app.domain.advises.Game.Roulette.RouletteTwoToOne;
 
 
 import nl.kooi.app.domain.RouletteDomainObject;
-import nl.kooi.app.domain.advises.Game.Roulette.RouletteTwoToOne.RouletteTwoToOne;
 import nl.kooi.representation.Outcome;
+import nl.kooi.representation.advises.AdviceRepresentation;
 
 /**
  * @author Laurens van der Kooi
@@ -12,10 +12,9 @@ import nl.kooi.representation.Outcome;
 public class DozenGame extends RouletteTwoToOne {
 
     private boolean[] hitArray = {true, true, true};
-    private Outcome outcome;
     private RouletteDomainObject roulette;
 
-    public DozenGame(double chipValue, char bettingSystem, RouletteDomainObject roulette) {
+    public DozenGame(String chipValue, char bettingSystem, RouletteDomainObject roulette) {
         super(chipValue, bettingSystem, roulette);
                }
 
@@ -25,6 +24,11 @@ public class DozenGame extends RouletteTwoToOne {
         hitArray[1] = roulette.getDozen() == (Outcome.SECOND);
         hitArray[2] = roulette.getDozen() == (Outcome.THIRD);
         this.setAdvice(hitArray);
+    }
+
+    @Override
+    public AdviceRepresentation toRepresentation() {
+        return null;
     }
 
 }
