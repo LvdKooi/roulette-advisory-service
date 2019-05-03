@@ -1,8 +1,14 @@
 package nl.kooi.app.domain.advises.Game.Roulette.RouletteOneToOne;
 
+import nl.kooi.app.domain.BettingSystem.OneToOneBettingSystem;
+import nl.kooi.app.domain.BettingSystem.TwoToOneBettingSystem;
 import nl.kooi.app.domain.RouletteDomainObject;
 import nl.kooi.representation.Outcome;
 import nl.kooi.representation.advises.AdviceRepresentation;
+import nl.kooi.representation.advises.DozenAdviceRepresentation;
+import nl.kooi.representation.advises.RedBlackAdviceRepresentation;
+
+import java.math.BigDecimal;
 
 /**
  * @author Laurens van der Kooi
@@ -11,6 +17,7 @@ import nl.kooi.representation.advises.AdviceRepresentation;
 public class RedBlack extends RouletteOneToOne {
     private boolean[] hitArray = {true, true};
     private RouletteDomainObject roulette;
+    private OneToOneBettingSystem bettingSystem;
 
     public RedBlack(String chipValue, char bettingSystem, int delay, RouletteDomainObject roulette) {
         super(chipValue, bettingSystem, delay, roulette);
@@ -24,7 +31,11 @@ public class RedBlack extends RouletteOneToOne {
     }
 
     @Override
-    public AdviceRepresentation toRepresentation() {
-        return null;
+    public RedBlackAdviceRepresentation toRepresentation() {
+        int[] adviceArray = bettingSystem.getAdviceArray();
+        RedBlackAdviceRepresentation representation = new RedBlackAdviceRepresentation();
+        representation.red = getChipValue().multiply(new BigDecimal(adviceArray[0]));
+        representation.black = getChipValue().multiply(new BigDecimal(adviceArray[1]));
+        return representation;
     }
 }
