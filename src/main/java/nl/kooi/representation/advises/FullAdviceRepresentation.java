@@ -4,17 +4,17 @@ import javax.validation.constraints.NotNull;
 
 public class FullAdviceRepresentation extends AdviceRepresentation {
     @NotNull
-    DozenAdviceRepresentation dozenAdvice;
+    public DozenAdviceRepresentation dozenAdvice;
 
     @NotNull
-    RowAdviceRepresentation rowAdvice;
+    public RowAdviceRepresentation rowAdvice;
 
     @NotNull
-    HalfAdviceRepresentation halfAdvice;
+    public HalfAdviceRepresentation halfAdvice;
 
     @NotNull
-    RedBlackAdviceRepresentation redBlackAdvice;
+    public RedBlackAdviceRepresentation redBlackAdvice;
 
     @NotNull
-    OddEvenAdviceRepresentation oddEvenAdvice;
+    public OddEvenAdviceRepresentation oddEvenAdvice;
 }
