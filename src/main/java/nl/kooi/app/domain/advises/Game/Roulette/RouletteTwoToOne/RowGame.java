@@ -10,7 +10,6 @@ import nl.kooi.app.domain.BettingSystem.TwoToOneBettingSystem;
 import nl.kooi.app.domain.RouletteDomainObject;
 import nl.kooi.representation.Outcome;
 import nl.kooi.representation.advises.RowAdviceRepresentation;
-
 import java.math.BigDecimal;
 
 /**
@@ -19,15 +18,15 @@ import java.math.BigDecimal;
 
 public class RowGame extends RouletteTwoToOne {
     private boolean[] hitArray = {true, true, true};
-    private TwoToOneBettingSystem bettingSystem;
-    private RouletteDomainObject roulette;
 
-    public RowGame(String chipValue, char bettingSystem, RouletteDomainObject roulette) {
-        super(chipValue, bettingSystem, roulette);
+    private TwoToOneBettingSystem bettingSystem;
+
+    public RowGame(String chipValue, char bettingSystem) {
+        super(chipValue, bettingSystem);
     }
 
     @Override
-    public void setHits(int outcome) {
+    public void setHits(RouletteDomainObject roulette) {
         hitArray[0] = roulette.getRow().equals(Outcome.LOW);
         hitArray[1] = roulette.getRow().equals(Outcome.MID);
         hitArray[2] = roulette.getRow().equals(Outcome.HI);

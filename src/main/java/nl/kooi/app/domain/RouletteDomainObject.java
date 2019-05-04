@@ -76,6 +76,17 @@ public class RouletteDomainObject {
         }
     }
 
+    public void setOutcome(int outcome) {
+        validOutcomeCheck(outcome);
+        this.outcome = outcome;
+        this.redBlack = redBlack(outcome);
+        this.oddEven = oddEven(outcome);
+        this.half = half(outcome);
+        this.row = row(outcome);
+        this.dozen = dozen(outcome);
+        this.isZero = isZero(outcome);
+    }
+
     public int getOutcome() {
         return outcome;
     }
@@ -162,11 +173,11 @@ public class RouletteDomainObject {
     public String toString() {
         return
                 "OUTCOME: " + this.outcome +
-                " DOZEN: " + this.dozen +
-                " ROW: " + this.row +
-                " BLACK/RED: " + this.redBlack +
-                " ODD/EVEN: " + this.oddEven +
-                " HALFS: " + this.half + " ";
+                        " DOZEN: " + this.dozen +
+                        " ROW: " + this.row +
+                        " BLACK/RED: " + this.redBlack +
+                        " ODD/EVEN: " + this.oddEven +
+                        " HALFS: " + this.half + " ";
     }
 
     public RouletteRepresentationObject toRepresentation() {

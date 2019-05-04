@@ -1,9 +1,7 @@
 package nl.kooi.app.domain.advises.Game.Roulette.RouletteOneToOne;
 
 import nl.kooi.app.domain.BettingSystem.OneToOneBettingSystem;
-import nl.kooi.app.domain.RouletteDomainObject;
 import nl.kooi.app.domain.advises.Game.Game;
-
 import java.math.BigDecimal;
 
 /**
@@ -12,12 +10,11 @@ import java.math.BigDecimal;
 
 public abstract class RouletteOneToOne extends Game {
     private OneToOneBettingSystem bettingSystem;
-    private RouletteDomainObject roulette;
 
-    public RouletteOneToOne(String chipValue, char bettingSystem, int delay, RouletteDomainObject roulette) {
-        super(chipValue, bettingSystem);
-        this.bettingSystem = new OneToOneBettingSystem(2, delay, getBettingSystem());
-        this.roulette = roulette;
+    public RouletteOneToOne(String chipValue, char bettingSystem, int delay) {
+        super(chipValue);
+        this.bettingSystem = new OneToOneBettingSystem(2, 4, bettingSystem);
+
     }
 
     @Override
@@ -28,7 +25,7 @@ public abstract class RouletteOneToOne extends Game {
 
     public void printAdvice() {
 
-        for(int advice : bettingSystem.getAdviceArray())
+        for (int advice : bettingSystem.getAdviceArray())
             System.out.print(getChipValue().multiply(new BigDecimal(advice)) + "\t\t");
         System.out.println();
     }
@@ -37,7 +34,6 @@ public abstract class RouletteOneToOne extends Game {
     public String toString() {
         return null;
     }
-
 
 
 }

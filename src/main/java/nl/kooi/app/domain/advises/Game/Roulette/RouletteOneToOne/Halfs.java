@@ -3,11 +3,7 @@ package nl.kooi.app.domain.advises.Game.Roulette.RouletteOneToOne;
 import nl.kooi.app.domain.BettingSystem.OneToOneBettingSystem;
 import nl.kooi.app.domain.RouletteDomainObject;
 import nl.kooi.representation.Outcome;
-import nl.kooi.representation.advises.AdviceRepresentation;
 import nl.kooi.representation.advises.HalfAdviceRepresentation;
-import nl.kooi.representation.advises.OddEvenAdviceRepresentation;
-import nl.kooi.representation.advises.RowAdviceRepresentation;
-
 import java.math.BigDecimal;
 
 /**
@@ -17,15 +13,15 @@ import java.math.BigDecimal;
 public class Halfs extends RouletteOneToOne {
 
     private boolean[] hitArray = {true, true};
-    private RouletteDomainObject roulette;
+
     private OneToOneBettingSystem bettingSystem;
 
-    public Halfs(String chipValue, char bettingSystem, int delay, RouletteDomainObject roulette) {
-        super(chipValue, bettingSystem, delay, roulette);
+    public Halfs(String chipValue, char bettingSystem, int delay) {
+        super(chipValue, bettingSystem, delay);
     }
 
     @Override
-    public void setHits(int outcome) {
+    public void setHits(RouletteDomainObject roulette) {
         hitArray[0] = roulette.getHalf().equals(Outcome.FIRST);
         hitArray[1] = roulette.getHalf().equals(Outcome.SECOND);
 

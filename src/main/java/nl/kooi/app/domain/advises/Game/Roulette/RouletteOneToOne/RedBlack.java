@@ -4,10 +4,7 @@ import nl.kooi.app.domain.BettingSystem.OneToOneBettingSystem;
 import nl.kooi.app.domain.BettingSystem.TwoToOneBettingSystem;
 import nl.kooi.app.domain.RouletteDomainObject;
 import nl.kooi.representation.Outcome;
-import nl.kooi.representation.advises.AdviceRepresentation;
-import nl.kooi.representation.advises.DozenAdviceRepresentation;
 import nl.kooi.representation.advises.RedBlackAdviceRepresentation;
-
 import java.math.BigDecimal;
 
 /**
@@ -16,15 +13,16 @@ import java.math.BigDecimal;
 
 public class RedBlack extends RouletteOneToOne {
     private boolean[] hitArray = {true, true};
-    private RouletteDomainObject roulette;
+
+
     private OneToOneBettingSystem bettingSystem;
 
-    public RedBlack(String chipValue, char bettingSystem, int delay, RouletteDomainObject roulette) {
-        super(chipValue, bettingSystem, delay, roulette);
+    public RedBlack(String chipValue, char bettingSystem, int delay) {
+        super(chipValue, bettingSystem, delay);
     }
 
     @Override
-    public void setHits(int outcome) {
+    public void setHits(RouletteDomainObject roulette) {
         hitArray[0] = roulette.getRedBlack().equals(Outcome.RED);
         hitArray[1] = roulette.getRedBlack().equals(Outcome.BLACK);
 

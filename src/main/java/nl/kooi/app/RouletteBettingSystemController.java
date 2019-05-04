@@ -1,5 +1,6 @@
 package nl.kooi.app;
 
+import com.sun.media.jfxmedia.logging.Logger;
 import nl.kooi.app.domain.RouletteDomainObject;
 import nl.kooi.app.domain.advises.Game.Game;
 import nl.kooi.app.domain.advises.Game.Roulette.RouletteOneToOne.Halfs;
@@ -10,30 +11,46 @@ import nl.kooi.app.domain.advises.Game.Roulette.RouletteTwoToOne.RowGame;
 import nl.kooi.representation.Outcome;
 import nl.kooi.representation.RouletteRepresentationObject;
 import nl.kooi.representation.advises.FullAdviceRepresentation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Scope;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import static com.sun.media.jfxmedia.logging.Logger.*;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 
 @RequestMapping(path = "/roulette-betting-system")
+@Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
 @RestController
 public class RouletteBettingSystemController {
-    private Game[] gameArray;
-    private static RouletteDomainObject rouletteDomainObject = new RouletteDomainObject(0);
+
+    private Game gameArray[] =
+            {new OddEven("0", 'D', 4),
+            new RedBlack("0", 'D', 4),
+            new Halfs("0", 'D', 4),
+            new DozenGame("0", 'D'),
+            new RowGame("0", 'D')};
+
+    private RouletteDomainObject roulette = new RouletteDomainObject(0);
 
     @RequestMapping(path = "/startgame", method = PUT, produces = "application/json")
     public void startGame(@RequestParam("chipvalue") String chipValue) {
-        gameArray = new Game[]{new OddEven(chipValue, 'D', 4, rouletteDomainObject), new RedBlack(chipValue, 'D', 4, rouletteDomainObject), new Halfs(chipValue, 'D', 4, rouletteDomainObject), new DozenGame(chipValue, 'D', rouletteDomainObject), new RowGame(chipValue, 'D', rouletteDomainObject)};
+        for (Game game : gameArray) {
+            game.setChipValue(chipValue);
+        }
     }
 
     @RequestMapping(path = "/startgame/outcome", method = PUT, produces = "application/json")
     public void setOutcome(@RequestParam("outcome") int outcome) {
+        roulette.setOutcome(outcome);
         for (Game game : gameArray) {
-            game.setHits(outcome);
+            game.setHits(roulette);
         }
+
     }
 
     @RequestMapping(path = "/startgame/advice", method = GET, produces = "application/json")

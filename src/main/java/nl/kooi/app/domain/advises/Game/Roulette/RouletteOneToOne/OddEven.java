@@ -4,10 +4,7 @@ package nl.kooi.app.domain.advises.Game.Roulette.RouletteOneToOne;
 import nl.kooi.app.domain.BettingSystem.OneToOneBettingSystem;
 import nl.kooi.app.domain.RouletteDomainObject;
 import nl.kooi.representation.Outcome;
-import nl.kooi.representation.advises.AdviceRepresentation;
 import nl.kooi.representation.advises.OddEvenAdviceRepresentation;
-import nl.kooi.representation.advises.RedBlackAdviceRepresentation;
-
 import java.math.BigDecimal;
 
 /**
@@ -16,14 +13,14 @@ import java.math.BigDecimal;
 
 public class OddEven extends RouletteOneToOne {
     private boolean[] hitArray = {true, true};
-    private RouletteDomainObject roulette;
     private OneToOneBettingSystem bettingSystem;
 
-    public OddEven(String chipValue, char bettingSystem, int delay, RouletteDomainObject roulette) {
-        super(chipValue, bettingSystem, delay, roulette);
+    public OddEven(String chipValue, char bettingSystem, int delay) {
+        super(chipValue, bettingSystem, delay);
     }
 
-    public void setHits(int outcome) {
+    @Override
+    public void setHits(RouletteDomainObject roulette) {
         hitArray[0] = roulette.getOddEven().equals(Outcome.ODD);
         hitArray[1] = roulette.getOddEven().equals(Outcome.EVEN);
     }
