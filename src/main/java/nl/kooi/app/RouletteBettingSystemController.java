@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+
 import static com.sun.media.jfxmedia.logging.Logger.*;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.PUT;
@@ -28,39 +30,52 @@ import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 @RestController
 public class RouletteBettingSystemController {
 
-    private Game gameArray[] =
-            {new OddEven("0", 'D', 4),
-            new RedBlack("0", 'D', 4),
-            new Halfs("0", 'D', 4),
-            new DozenGame("0", 'D'),
-            new RowGame("0", 'D')};
+
+    private String chipValue;
 
     private RouletteDomainObject roulette = new RouletteDomainObject(0);
 
+    private ArrayList<Integer> outcomeList = new ArrayList();
+
     @RequestMapping(path = "/startgame", method = PUT, produces = "application/json")
     public void startGame(@RequestParam("chipvalue") String chipValue) {
-        for (Game game : gameArray) {
-            game.setChipValue(chipValue);
-        }
+        this.chipValue = chipValue;
     }
 
     @RequestMapping(path = "/startgame/outcome", method = PUT, produces = "application/json")
-    public void setOutcome(@RequestParam("outcome") int outcome) {
-        roulette.setOutcome(outcome);
-        for (Game game : gameArray) {
-            game.setHits(roulette);
+    public FullAdviceRepresentation setOutcome(@RequestParam("outcome") int outcome) {
+        outcomeList.add(outcome);
+
+        Game gameArray[] =
+                {new OddEven(chipValue, 'D', 4),
+                        new RedBlack(chipValue, 'D', 4),
+                        new Halfs(chipValue, 'D', 4),
+                        new DozenGame(chipValue, 'D'),
+                        new RowGame(chipValue, 'D')};
+
+        for(int singleOutcome : outcomeList) {
+            roulette.setOutcome(singleOutcome);
+            for (Game game : gameArray) {
+                game.setHits(roulette);
+            }
         }
 
-    }
-
-    @RequestMapping(path = "/startgame/advice", method = GET, produces = "application/json")
-    public FullAdviceRepresentation getAdvice() {
         FullAdviceRepresentation representation = new FullAdviceRepresentation();
         for (Game game : gameArray) {
             representation = toRepresentationHelper(game, representation);
         }
         return representation;
+
     }
+
+//    @RequestMapping(path = "/startgame/advice", method = GET, produces = "application/json")
+//    public FullAdviceRepresentation getAdvice() {
+//        FullAdviceRepresentation representation = new FullAdviceRepresentation();
+//        for (Game game : gameArray) {
+//            representation = toRepresentationHelper(game, representation);
+//        }
+//        return representation;
+//    }
 
     private static FullAdviceRepresentation toRepresentationHelper(Game game, FullAdviceRepresentation representation) {
         if (game instanceof DozenGame)

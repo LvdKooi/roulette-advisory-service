@@ -14,8 +14,6 @@ public class Halfs extends RouletteOneToOne {
 
     private boolean[] hitArray = {true, true};
 
-    private OneToOneBettingSystem bettingSystem;
-
     public Halfs(String chipValue, char bettingSystem, int delay) {
         super(chipValue, bettingSystem, delay);
     }

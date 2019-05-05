@@ -14,9 +14,6 @@ import java.math.BigDecimal;
 public class RedBlack extends RouletteOneToOne {
     private boolean[] hitArray = {true, true};
 
-
-    private OneToOneBettingSystem bettingSystem;
-
     public RedBlack(String chipValue, char bettingSystem, int delay) {
         super(chipValue, bettingSystem, delay);
     }

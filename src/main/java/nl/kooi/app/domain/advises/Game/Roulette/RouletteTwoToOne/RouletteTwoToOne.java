@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 
 public abstract class RouletteTwoToOne extends Game {
 
-    private TwoToOneBettingSystem bettingSystem;
+    protected TwoToOneBettingSystem bettingSystem;
 
     public RouletteTwoToOne(String chipValue, char bettingSystem) {
         super(chipValue);

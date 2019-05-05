@@ -17,9 +17,6 @@ public class DozenGame extends RouletteTwoToOne {
 
     private boolean[] hitArray = {true, true, true};
 
-
-    private TwoToOneBettingSystem bettingSystem;
-
     public DozenGame(String chipValue, char bettingSystem) {
         super(chipValue, bettingSystem);
                }

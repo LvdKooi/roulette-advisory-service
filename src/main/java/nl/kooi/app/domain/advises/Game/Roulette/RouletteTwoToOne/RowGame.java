@@ -19,8 +19,6 @@ import java.math.BigDecimal;
 public class RowGame extends RouletteTwoToOne {
     private boolean[] hitArray = {true, true, true};
 
-    private TwoToOneBettingSystem bettingSystem;
-
     public RowGame(String chipValue, char bettingSystem) {
         super(chipValue, bettingSystem);
     }
