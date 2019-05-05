@@ -22,7 +22,7 @@ public class RedBlack extends RouletteOneToOne {
     public void setHits(RouletteDomainObject roulette) {
         hitArray[0] = roulette.getRedBlack().equals(Outcome.RED);
         hitArray[1] = roulette.getRedBlack().equals(Outcome.BLACK);
-
+        this.setAdvice(hitArray);
     }
 
     @Override

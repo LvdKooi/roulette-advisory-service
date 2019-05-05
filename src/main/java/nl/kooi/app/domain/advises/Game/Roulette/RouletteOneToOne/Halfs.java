@@ -22,6 +22,7 @@ public class Halfs extends RouletteOneToOne {
     public void setHits(RouletteDomainObject roulette) {
         hitArray[0] = roulette.getHalf().equals(Outcome.FIRST);
         hitArray[1] = roulette.getHalf().equals(Outcome.SECOND);
+        this.setAdvice(hitArray);
 
     }
 

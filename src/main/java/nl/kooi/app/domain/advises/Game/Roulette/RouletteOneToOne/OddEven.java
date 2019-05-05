@@ -23,6 +23,7 @@ public class OddEven extends RouletteOneToOne {
     public void setHits(RouletteDomainObject roulette) {
         hitArray[0] = roulette.getOddEven().equals(Outcome.ODD);
         hitArray[1] = roulette.getOddEven().equals(Outcome.EVEN);
+        this.setAdvice(hitArray);
     }
 
     @Override

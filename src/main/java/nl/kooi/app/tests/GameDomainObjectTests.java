@@ -21,23 +21,25 @@ public class GameDomainObjectTests {
 
     @Test
     public void oddEvenTests() {
-        Game game = new OddEven("5", 'D', 4);
+        RouletteOneToOne game = new OddEven("5", 'D', 4);
         ArrayList<Integer> outcomeList = new ArrayList<>();
         outcomeList.add(1);
-        outcomeList.add(2);
         outcomeList.add(3);
-        outcomeList.add(4);
         outcomeList.add(5);
-        outcomeList.add(6);
         outcomeList.add(7);
+        outcomeList.add(9);
+        outcomeList.add(11);
+        outcomeList.add(13);
 
         for(int singleOutcome : outcomeList) {
             roulette.setOutcome(singleOutcome);
             game.setHits(roulette);
                         }
 
+        game.printAdvice();
 
     }
+
 }
 
 
