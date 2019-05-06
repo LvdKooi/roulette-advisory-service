@@ -73,8 +73,8 @@
                             <goal>copy</goal>
                         </goals>
                         <configuration>
-                            <sourceFile>target/RouletteOutcomeSB-1.0-SNAPSHOT.jar</sourceFile>
-                            <destinationFile>docker/RouletteOutcomeService.jar</destinationFile>
+                            <sourceFile>target/RouletteBettingSystem-1.0-SNAPSHOT.jar</sourceFile>
+                            <destinationFile>docker/RouletteBettingSystem.jar</destinationFile>
                         </configuration>
                     </execution>
                 </executions>

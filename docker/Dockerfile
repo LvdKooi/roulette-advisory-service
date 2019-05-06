@@ -1,7 +1,7 @@
 FROM java:openjdk-8-jdk
 
-ADD RouletteOutcomeService.jar /
+ADD RouletteBettingSystem.jar /
 
-CMD ["java", "-jar", "RouletteOutcomeService.jar"]
+CMD ["java", "-jar", "RouletteBettingSystem.jar"]
 
 EXPOSE 8080

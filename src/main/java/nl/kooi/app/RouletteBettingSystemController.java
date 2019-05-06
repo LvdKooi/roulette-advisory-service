@@ -1,6 +1,6 @@
 package nl.kooi.app;
 
-import com.sun.media.jfxmedia.logging.Logger;
+
 import nl.kooi.app.domain.RouletteDomainObject;
 import nl.kooi.app.domain.advises.Game.Game;
 import nl.kooi.app.domain.advises.Game.Roulette.RouletteOneToOne.Halfs;
@@ -8,21 +8,14 @@ import nl.kooi.app.domain.advises.Game.Roulette.RouletteOneToOne.OddEven;
 import nl.kooi.app.domain.advises.Game.Roulette.RouletteOneToOne.RedBlack;
 import nl.kooi.app.domain.advises.Game.Roulette.RouletteTwoToOne.DozenGame;
 import nl.kooi.app.domain.advises.Game.Roulette.RouletteTwoToOne.RowGame;
-import nl.kooi.representation.Outcome;
-import nl.kooi.representation.RouletteRepresentationObject;
 import nl.kooi.representation.advises.FullAdviceRepresentation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
-
-import static com.sun.media.jfxmedia.logging.Logger.*;
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 
 @RequestMapping(path = "/roulette-betting-system")
