@@ -1,8 +1,10 @@
 package nl.kooi.infrastructure.model;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.util.Set;
-
+@Data
 @Entity
 @Table(name = "sessions")
 public class Sessions {

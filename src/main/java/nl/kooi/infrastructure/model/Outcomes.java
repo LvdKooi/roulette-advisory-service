@@ -1,7 +1,10 @@
 package nl.kooi.infrastructure.model;
 
+import lombok.Data;
+
 import javax.persistence.*;
 
+@Data
 @Entity
 public class Outcomes {
     @Id
