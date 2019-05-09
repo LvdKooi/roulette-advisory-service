@@ -28,7 +28,7 @@ public class RouletteBettingSystemController {
 
     private RouletteDomainObject roulette = new RouletteDomainObject(0);
 
-    private ArrayList<Integer> outcomeList = new ArrayList();
+    private ArrayList<Integer> outcomeList = new ArrayList<>();
 
     @RequestMapping(path = "/startgame", method = PUT, produces = "application/json")
     public void startGame(@RequestParam("chipvalue") String chipValue) {

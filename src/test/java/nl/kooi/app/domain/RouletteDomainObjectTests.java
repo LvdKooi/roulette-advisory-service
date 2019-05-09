@@ -1,4 +1,4 @@
-package nl.kooi.app.tests;
+package nl.kooi.app.domain;
 
 import nl.kooi.app.domain.RouletteDomainObject;
 import nl.kooi.app.exceptions.notValidOutcomeException;

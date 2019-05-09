@@ -1,4 +1,4 @@
-package nl.kooi.app.tests;
+package nl.kooi.app.domain;
 
 import nl.kooi.app.domain.advises.Game.Game;
 import nl.kooi.app.domain.advises.Game.Roulette.RouletteOneToOne.OddEven;
@@ -26,7 +26,7 @@ public class GameDomainObjectTests {
         Game game = new OddEven("5", 'D', 4);
         OddEvenAdviceRepresentation representation;
         Integer[] outcomeArray = {1,3,5,7,9,11,13};
-        ArrayList<Integer> outcomeList = new ArrayList();
+        ArrayList<Integer> outcomeList = new ArrayList<>();
 
         for(Integer outcome : outcomeArray){
             outcomeList.add(outcome);
