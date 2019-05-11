@@ -1,8 +1,8 @@
 version: '3.7'
 services:
-  bs-mysql:
-    container_name: bs-mysql
-    image: mysql:8.0.14
+  db-service:
+    container_name: db
+    image: mysql:latest
     environment:
       MYSQL_DATABASE: test
       MYSQL_USER: rest
@@ -10,24 +10,27 @@ services:
       MYSQL_ROOT_PASSWORD: bs123
       MYSQL_ROOT_HOST: '%'
     ports:
-      - "3307:3307"
-    restart: always
+      - "3306:3306"
+    volumes:
+          - .:/data/mysql
 
   web:
     container_name: bs-rest
-    build: .
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    depends_on:
+        - db-service
     ports:
       - "8080:8080"
     volumes:
-      - .:/code
-    depends_on:
-      - bs-mysql
+      - .:/data/roulettebettingsystem
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://bs-mysql:3307/test&password=bs123
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db-service:3306/test?useSSL=false
       - SPRING_DATASOURCE_USERNAME=rest
       - SPRING_DATASOURCE_PASSWORD=bs123
-      - SPRING_DATASOURCE_DRIVER-CLASS-NAME=com.mysql.jdbc.Driver
       - SPRING_JPA_HIBERNATE_DDL-AUTO=create
       - SPRING_JPA_DATABASE-PLATFORM=org.hibernate.dialect.MySQL57Dialect
       - SPRING_JPA_GENERATE-DDL=true
       - SPRING_JPA_SHOW-SQL=true
+
