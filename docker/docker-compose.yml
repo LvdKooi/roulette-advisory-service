@@ -1,17 +1,20 @@
-version: '3'
+version: '3.7'
 services:
   bs-mysql:
     container_name: bs-mysql
-    image: mysql/mysql-server:5.7
+    image: mysql:8.0.14
     environment:
       MYSQL_DATABASE: test
+      MYSQL_USER: rest
+      MYSQL_PASSWORD: bs123
       MYSQL_ROOT_PASSWORD: bs123
       MYSQL_ROOT_HOST: '%'
     ports:
-      - "3306:3306"
+      - "3307:3307"
     restart: always
 
   web:
+    container_name: bs-rest
     build: .
     ports:
       - "8080:8080"
@@ -19,3 +22,12 @@ services:
       - .:/code
     depends_on:
       - bs-mysql
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://bs-mysql:3307/test&password=bs123
+      - SPRING_DATASOURCE_USERNAME=rest
+      - SPRING_DATASOURCE_PASSWORD=bs123
+      - SPRING_DATASOURCE_DRIVER-CLASS-NAME=com.mysql.jdbc.Driver
+      - SPRING_JPA_HIBERNATE_DDL-AUTO=create
+      - SPRING_JPA_DATABASE-PLATFORM=org.hibernate.dialect.MySQL57Dialect
+      - SPRING_JPA_GENERATE-DDL=true
+      - SPRING_JPA_SHOW-SQL=true
