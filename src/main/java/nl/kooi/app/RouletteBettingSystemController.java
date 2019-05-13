@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
+
 import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 
 @RequestMapping(path = "/roulette-betting-system")
@@ -26,7 +27,7 @@ public class RouletteBettingSystemController {
 
     private String chipValue;
 
-    private RouletteDomainObject roulette = new RouletteDomainObject(0);
+    private static RouletteDomainObject roulette = new RouletteDomainObject(0);
 
     private ArrayList<Integer> outcomeList = new ArrayList<>();
 
@@ -37,7 +38,9 @@ public class RouletteBettingSystemController {
 
     @RequestMapping(path = "/startgame/outcome", method = PUT, produces = "application/json")
     public FullAdviceRepresentation setOutcome(@RequestParam("outcome") int outcome) {
+
         outcomeList.add(outcome);
+
 
         Game gameArray[] =
                 {new OddEven(chipValue, 'D', 4),
@@ -46,10 +49,14 @@ public class RouletteBettingSystemController {
                         new DozenGame(chipValue, 'D'),
                         new RowGame(chipValue, 'D')};
 
-        for(int singleOutcome : outcomeList) {
-            roulette.setOutcome(singleOutcome);
-            for (Game game : gameArray) {
-                game.setHits(roulette);
+        synchronized (roulette) { // thread-safe usage of the roulette object
+        for (int singleOutcome : outcomeList) {
+
+                roulette.setOutcome(singleOutcome);
+
+                for (Game game : gameArray) {
+                    game.setHits(roulette);
+                }
             }
         }
 

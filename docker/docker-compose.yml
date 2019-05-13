@@ -1,4 +1,4 @@
-version: '3'
+version: '2.1'
 services:
   db:
     container_name: db
@@ -14,8 +14,8 @@ services:
     volumes:
           - .:/data/mysql
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3306"]
-      interval: 30s
+      test: "/usr/bin/mysql --user=rest --password=bs123 --execute \"SHOW DATABASES;\""
+      interval: 10s
       timeout: 10s
       retries: 5
 
@@ -25,9 +25,11 @@ services:
       context: ./
       dockerfile: Dockerfile
     depends_on:
-        - db
+      db:
+       condition: service_healthy
     ports:
       - "8080:8080"
     volumes:
       - .:/data/roulettebettingsystem
+
 
