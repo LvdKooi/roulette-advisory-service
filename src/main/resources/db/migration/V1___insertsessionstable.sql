@@ -5,3 +5,4 @@ create table sessions (
   date_time DATE not null
 );
 
+
