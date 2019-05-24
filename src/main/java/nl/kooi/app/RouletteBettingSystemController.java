@@ -8,9 +8,14 @@ import nl.kooi.app.domain.advises.Game.Roulette.RouletteOneToOne.OddEven;
 import nl.kooi.app.domain.advises.Game.Roulette.RouletteOneToOne.RedBlack;
 import nl.kooi.app.domain.advises.Game.Roulette.RouletteTwoToOne.DozenGame;
 import nl.kooi.app.domain.advises.Game.Roulette.RouletteTwoToOne.RowGame;
+import nl.kooi.infrastructure.model.Sessions;
+import nl.kooi.infrastructure.repository.SessionsRepository;
 import nl.kooi.representation.advises.FullAdviceRepresentation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,6 +29,8 @@ import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 @RestController
 public class RouletteBettingSystemController {
 
+    @Autowired
+    SessionsRepository sessionsRepository;
 
     private String chipValue;
 
@@ -31,10 +38,17 @@ public class RouletteBettingSystemController {
 
     private ArrayList<Integer> outcomeList = new ArrayList<>();
 
-    @RequestMapping(path = "/startgame", method = PUT, produces = "application/json")
-    public void startGame(@RequestParam("chipvalue") String chipValue) {
-        this.chipValue = chipValue;
+    @RequestMapping(path = "/{userId}/startgame", method = PUT, produces = "application/json")
+    public ResponseEntity ResponseEntity(@PathVariable("userId") int userId, @RequestParam("chipvalue") String chipValue) {
+
+        Sessions session = new Sessions();
+        session.setChipValue(chipValue);
+        session.setUserId(userId);
+        return ResponseEntity.ok(sessionsRepository.save(session));
+
     }
+
+
 
     @RequestMapping(path = "/startgame/outcome", method = PUT, produces = "application/json")
     public FullAdviceRepresentation setOutcome(@RequestParam("outcome") int outcome) {
