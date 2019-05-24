@@ -8,7 +8,10 @@ import nl.kooi.app.domain.advises.Game.Roulette.RouletteOneToOne.OddEven;
 import nl.kooi.app.domain.advises.Game.Roulette.RouletteOneToOne.RedBlack;
 import nl.kooi.app.domain.advises.Game.Roulette.RouletteTwoToOne.DozenGame;
 import nl.kooi.app.domain.advises.Game.Roulette.RouletteTwoToOne.RowGame;
+import nl.kooi.app.exceptions.notValidOutcomeException;
+import nl.kooi.infrastructure.model.Outcomes;
 import nl.kooi.infrastructure.model.Sessions;
+import nl.kooi.infrastructure.repository.OutcomesRepository;
 import nl.kooi.infrastructure.repository.SessionsRepository;
 import nl.kooi.representation.advises.FullAdviceRepresentation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +23,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.websocket.server.PathParam;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
 
 import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 
@@ -32,7 +39,8 @@ public class RouletteBettingSystemController {
     @Autowired
     SessionsRepository sessionsRepository;
 
-    private String chipValue;
+    @Autowired
+    OutcomesRepository outcomesRepository;
 
     private static RouletteDomainObject roulette = new RouletteDomainObject(0);
 
@@ -48,13 +56,24 @@ public class RouletteBettingSystemController {
 
     }
 
+    @RequestMapping(path = "/{userId}/{sessionsId}/outcome", method = PUT, produces = "application/json")
+    public FullAdviceRepresentation setOutcome(@PathVariable("userId") Integer userId, @PathVariable("sessionsId") Integer sessionId, @RequestParam("outcome") int outcome) {
+        System.out.println(userId);
+        System.out.println(sessionId);
+        Sessions session = sessionsRepository.findById(sessionId).get();
+        System.out.println(session);
 
+        Outcomes outcomes = new Outcomes();
+        outcomes.setSession(session);
+        outcomes.setOutcome(outcome);
 
-    @RequestMapping(path = "/startgame/outcome", method = PUT, produces = "application/json")
-    public FullAdviceRepresentation setOutcome(@RequestParam("outcome") int outcome) {
+        outcomesRepository.save(outcomes);
 
-        outcomeList.add(outcome);
+        Collection<Outcomes> outcomesList = outcomesRepository.findBySessionId(sessionId);
 
+        System.out.println(outcomesList);
+
+        String chipValue = session.getChipValue();
 
         Game gameArray[] =
                 {new OddEven(chipValue, 'D', 4),
@@ -64,9 +83,9 @@ public class RouletteBettingSystemController {
                         new RowGame(chipValue, 'D')};
 
         synchronized (roulette) { // thread-safe usage of the roulette object
-        for (int singleOutcome : outcomeList) {
+            for (Outcomes singleOutcome: outcomesList) {
 
-                roulette.setOutcome(singleOutcome);
+                roulette.setOutcome(singleOutcome.getOutcome());
 
                 for (Game game : gameArray) {
                     game.setHits(roulette);
@@ -81,6 +100,39 @@ public class RouletteBettingSystemController {
         return representation;
 
     }
+
+
+//    @RequestMapping(path = "/startgame/outcome", method = PUT, produces = "application/json")
+//    public FullAdviceRepresentation setOutcome(@RequestParam("outcome") int outcome) {
+//
+//        outcomeList.add(outcome);
+//
+//
+//        Game gameArray[] =
+//                {new OddEven(chipValue, 'D', 4),
+//                        new RedBlack(chipValue, 'D', 4),
+//                        new Halfs(chipValue, 'D', 4),
+//                        new DozenGame(chipValue, 'D'),
+//                        new RowGame(chipValue, 'D')};
+//
+//        synchronized (roulette) { // thread-safe usage of the roulette object
+//        for (int singleOutcome : outcomeList) {
+//
+//                roulette.setOutcome(singleOutcome);
+//
+//                for (Game game : gameArray) {
+//                    game.setHits(roulette);
+//                }
+//            }
+//        }
+//
+//        FullAdviceRepresentation representation = new FullAdviceRepresentation();
+//        for (Game game : gameArray) {
+//            representation = toRepresentationHelper(game, representation);
+//        }
+//        return representation;
+//
+//    }
 
 //    @RequestMapping(path = "/startgame/advice", method = GET, produces = "application/json")
 //    public FullAdviceRepresentation getAdvice() {
