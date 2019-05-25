@@ -6,9 +6,8 @@
 package nl.kooi.app.domain.advises.Game.Roulette.RouletteTwoToOne;
 
 
-import nl.kooi.app.domain.BettingSystem.TwoToOneBettingSystem;
 import nl.kooi.app.domain.RouletteDomainObject;
-import nl.kooi.representation.Outcome;
+import nl.kooi.representation.RouletteOutcome;
 import nl.kooi.representation.advises.RowAdviceRepresentation;
 import java.math.BigDecimal;
 
@@ -25,9 +24,9 @@ public class RowGame extends RouletteTwoToOne {
 
     @Override
     public void setHits(RouletteDomainObject roulette) {
-        hitArray[0] = roulette.getRow().equals(Outcome.LOW);
-        hitArray[1] = roulette.getRow().equals(Outcome.MID);
-        hitArray[2] = roulette.getRow().equals(Outcome.HI);
+        hitArray[0] = roulette.getRow().equals(RouletteOutcome.LOW);
+        hitArray[1] = roulette.getRow().equals(RouletteOutcome.MID);
+        hitArray[2] = roulette.getRow().equals(RouletteOutcome.HI);
         this.setAdvice(hitArray);
     }
 

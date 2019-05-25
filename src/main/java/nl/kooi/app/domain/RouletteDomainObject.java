@@ -1,7 +1,7 @@
 package nl.kooi.app.domain;
 
 import nl.kooi.app.exceptions.notValidOutcomeException;
-import nl.kooi.representation.Outcome;
+import nl.kooi.representation.RouletteOutcome;
 import nl.kooi.representation.RouletteRepresentationObject;
 
 import java.util.Arrays;
@@ -18,11 +18,11 @@ public class RouletteDomainObject {
     private static final int[] RED_NUMBERS;
     private static final int[] BLACK_NUMBERS;
     private int outcome;
-    private Outcome redBlack;
-    private Outcome oddEven;
-    private Outcome half;
-    private Outcome row;
-    private Outcome dozen;
+    private RouletteOutcome redBlack;
+    private RouletteOutcome oddEven;
+    private RouletteOutcome half;
+    private RouletteOutcome row;
+    private RouletteOutcome dozen;
     private boolean isZero;
 
     public RouletteDomainObject(int outcome) {
@@ -72,7 +72,7 @@ public class RouletteDomainObject {
 
     private static void validOutcomeCheck(int outcome) {
         if (!(outcome > -1 && outcome < 37)) {
-            throw new notValidOutcomeException("Not a valid Roulette outcome. Outcome can only be within the range of 0 - 36.");
+            throw new notValidOutcomeException("Not a valid Roulette outcome. RouletteOutcome can only be within the range of 0 - 36.");
         }
     }
 
@@ -91,23 +91,23 @@ public class RouletteDomainObject {
         return outcome;
     }
 
-    public Outcome getRedBlack() {
+    public RouletteOutcome getRedBlack() {
         return redBlack;
     }
 
-    public Outcome getOddEven() {
+    public RouletteOutcome getOddEven() {
         return oddEven;
     }
 
-    public Outcome getHalf() {
+    public RouletteOutcome getHalf() {
         return half;
     }
 
-    public Outcome getRow() {
+    public RouletteOutcome getRow() {
         return row;
     }
 
-    public Outcome getDozen() {
+    public RouletteOutcome getDozen() {
         return dozen;
     }
 
@@ -115,53 +115,53 @@ public class RouletteDomainObject {
         return isZero;
     }
 
-    private static Outcome dozen(int currentInput) {
+    private static RouletteOutcome dozen(int currentInput) {
         if (currentInput > 0 && currentInput < 13) {
-            return Outcome.FIRST;
+            return RouletteOutcome.FIRST;
         } else if (currentInput > 12 && currentInput < 25) {
-            return Outcome.SECOND;
+            return RouletteOutcome.SECOND;
         } else if (currentInput > 24 && currentInput < 37) {
-            return Outcome.THIRD;
+            return RouletteOutcome.THIRD;
         } else {
-            return Outcome.ZERO;
+            return RouletteOutcome.ZERO;
         }
     }
 
-    private static Outcome row(int currentInput) {
+    private static RouletteOutcome row(int currentInput) {
         if (Arrays.binarySearch(FIRST_ROW, currentInput) > -1) {
-            return Outcome.LOW;
+            return RouletteOutcome.LOW;
         } else if (Arrays.binarySearch(SECOND_ROW, currentInput) > -1) {
-            return Outcome.MID;
+            return RouletteOutcome.MID;
         } else if (Arrays.binarySearch(THIRD_ROW, currentInput) > -1) {
-            return Outcome.HI;
+            return RouletteOutcome.HI;
         } else {
-            return Outcome.ZERO;
+            return RouletteOutcome.ZERO;
         }
     }
 
-    private static Outcome redBlack(int currentInput) {
+    private static RouletteOutcome redBlack(int currentInput) {
         if (Arrays.binarySearch(RED_NUMBERS, currentInput) > -1) {
-            return Outcome.RED;
+            return RouletteOutcome.RED;
         } else if (Arrays.binarySearch(BLACK_NUMBERS, currentInput) > -1) {
-            return Outcome.BLACK;
+            return RouletteOutcome.BLACK;
         } else {
-            return Outcome.ZERO;
+            return RouletteOutcome.ZERO;
         }
     }
 
-    private static Outcome oddEven(int currentInput) {
+    private static RouletteOutcome oddEven(int currentInput) {
         if (isZero(currentInput)) {
-            return Outcome.ZERO;
+            return RouletteOutcome.ZERO;
         } else {
-            return currentInput % 2 == 0 ? Outcome.EVEN : Outcome.ODD;
+            return currentInput % 2 == 0 ? RouletteOutcome.EVEN : RouletteOutcome.ODD;
         }
     }
 
-    private static Outcome half(int currentInput) {
+    private static RouletteOutcome half(int currentInput) {
         if (isZero(currentInput)) {
-            return Outcome.ZERO;
+            return RouletteOutcome.ZERO;
         } else {
-            return currentInput < 19 ? Outcome.FIRST : Outcome.SECOND;
+            return currentInput < 19 ? RouletteOutcome.FIRST : RouletteOutcome.SECOND;
         }
     }
 

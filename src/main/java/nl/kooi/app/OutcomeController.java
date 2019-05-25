@@ -1,10 +1,8 @@
 package nl.kooi.app;
 
 import lombok.extern.slf4j.Slf4j;
-import nl.kooi.infrastructure.model.Outcomes;
-import nl.kooi.infrastructure.model.Sessions;
-import nl.kooi.infrastructure.repository.OutcomesRepository;
-import nl.kooi.infrastructure.repository.SessionsRepository;
+import nl.kooi.infrastructure.model.Outcome;
+import nl.kooi.infrastructure.repository.OutcomeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,24 +15,24 @@ import java.util.Optional;
 @RestController
 @Slf4j
 
-public class OutcomesController {
+public class OutcomeController {
 
     @Autowired
-    OutcomesRepository outcomesRepository;
+    OutcomeRepository outcomeRepository;
 
     @GetMapping
-    public ResponseEntity<List<Outcomes>> findAll() {
-        return ResponseEntity.ok(outcomesRepository.findAll());
+    public ResponseEntity<List<Outcome>> findAll() {
+        return ResponseEntity.ok(outcomeRepository.findAll());
     }
 
     @PostMapping
-    public ResponseEntity create(@Valid @RequestBody Outcomes outcomes) {
-        return ResponseEntity.ok(outcomesRepository.save(outcomes));
+    public ResponseEntity create(@Valid @RequestBody Outcome outcome) {
+        return ResponseEntity.ok(outcomeRepository.save(outcome));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Outcomes> findById(@PathVariable int id) {
-        Optional<Outcomes> stock = outcomesRepository.findById(id);
+    public ResponseEntity<Outcome> findById(@PathVariable int id) {
+        Optional<Outcome> stock = outcomeRepository.findById(id);
         if (!stock.isPresent()) {
             log.error("Id " + id + " is not existed");
             ResponseEntity.badRequest().build();
@@ -44,23 +42,23 @@ public class OutcomesController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Outcomes> update(@PathVariable int id, @Valid @RequestBody Outcomes outcomes) {
-        if (!outcomesRepository.findById(id).isPresent()) {
+    public ResponseEntity<Outcome> update(@PathVariable int id, @Valid @RequestBody Outcome outcome) {
+        if (!outcomeRepository.findById(id).isPresent()) {
             log.error("Id " + id + " is not existed");
             ResponseEntity.badRequest().build();
         }
 
-        return ResponseEntity.ok(outcomesRepository.save(outcomes));
+        return ResponseEntity.ok(outcomeRepository.save(outcome));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity delete(@PathVariable int id) {
-        if (!outcomesRepository.findById(id).isPresent()) {
+        if (!outcomeRepository.findById(id).isPresent()) {
             log.error("Id " + id + " is not existed");
             ResponseEntity.badRequest().build();
         }
 
-        outcomesRepository.deleteById(id);
+        outcomeRepository.deleteById(id);
 
         return ResponseEntity.ok().build();
     }

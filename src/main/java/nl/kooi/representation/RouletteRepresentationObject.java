@@ -7,19 +7,19 @@ public class RouletteRepresentationObject {
     public Integer outcome;
 
     @NotNull
-    public Outcome redBlack;
+    public RouletteOutcome redBlack;
 
     @NotNull
-    public Outcome oddEven;
+    public RouletteOutcome oddEven;
 
     @NotNull
-    public Outcome half;
+    public RouletteOutcome half;
 
     @NotNull
-    public Outcome row;
+    public RouletteOutcome row;
 
     @NotNull
-    public Outcome dozen;
+    public RouletteOutcome dozen;
 
     @NotNull
     public Boolean isZero;

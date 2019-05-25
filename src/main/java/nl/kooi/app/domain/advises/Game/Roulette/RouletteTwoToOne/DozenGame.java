@@ -1,9 +1,8 @@
 package nl.kooi.app.domain.advises.Game.Roulette.RouletteTwoToOne;
 
 
-import nl.kooi.app.domain.BettingSystem.TwoToOneBettingSystem;
 import nl.kooi.app.domain.RouletteDomainObject;
-import nl.kooi.representation.Outcome;
+import nl.kooi.representation.RouletteOutcome;
 import nl.kooi.representation.advises.DozenAdviceRepresentation;
 
 
@@ -23,9 +22,9 @@ public class DozenGame extends RouletteTwoToOne {
 
     @Override
     public void setHits(RouletteDomainObject roulette){
-       hitArray[0] = roulette.getDozen().equals(Outcome.FIRST);
-        hitArray[1] = roulette.getDozen().equals(Outcome.SECOND);
-        hitArray[2] = roulette.getDozen().equals(Outcome.THIRD);
+       hitArray[0] = roulette.getDozen().equals(RouletteOutcome.FIRST);
+        hitArray[1] = roulette.getDozen().equals(RouletteOutcome.SECOND);
+        hitArray[2] = roulette.getDozen().equals(RouletteOutcome.THIRD);
         this.setAdvice(hitArray);
     }
 

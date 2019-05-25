@@ -1,9 +1,7 @@
 package nl.kooi.app.domain.advises.Game.Roulette.RouletteOneToOne;
 
-import nl.kooi.app.domain.BettingSystem.OneToOneBettingSystem;
-import nl.kooi.app.domain.BettingSystem.TwoToOneBettingSystem;
 import nl.kooi.app.domain.RouletteDomainObject;
-import nl.kooi.representation.Outcome;
+import nl.kooi.representation.RouletteOutcome;
 import nl.kooi.representation.advises.RedBlackAdviceRepresentation;
 import java.math.BigDecimal;
 
@@ -20,8 +18,8 @@ public class RedBlack extends RouletteOneToOne {
 
     @Override
     public void setHits(RouletteDomainObject roulette) {
-        hitArray[0] = roulette.getRedBlack().equals(Outcome.RED);
-        hitArray[1] = roulette.getRedBlack().equals(Outcome.BLACK);
+        hitArray[0] = roulette.getRedBlack().equals(RouletteOutcome.RED);
+        hitArray[1] = roulette.getRedBlack().equals(RouletteOutcome.BLACK);
         this.setAdvice(hitArray);
     }
 

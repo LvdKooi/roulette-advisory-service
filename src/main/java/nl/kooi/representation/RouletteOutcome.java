@@ -1,5 +1,5 @@
 package nl.kooi.representation;
 
-public enum  Outcome {
+public enum RouletteOutcome {
         LOW, MID, HI, ZERO, BLACK, RED, ODD, EVEN, FIRST, SECOND, THIRD
     }
