@@ -1,11 +1,10 @@
 package nl.kooi.infrastructure.model;
 
-        import lombok.Data;
-        import org.hibernate.annotations.CreationTimestamp;
-        import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
-        import javax.persistence.*;
-        import java.time.LocalDateTime;
+import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Data
 @Entity
