@@ -7,7 +7,7 @@ import nl.kooi.app.domain.advises.Game.Roulette.RouletteOneToOne.OddEven;
 import nl.kooi.app.domain.advises.Game.Roulette.RouletteOneToOne.RedBlack;
 import nl.kooi.app.domain.advises.Game.Roulette.RouletteTwoToOne.DozenGame;
 import nl.kooi.app.domain.advises.Game.Roulette.RouletteTwoToOne.RowGame;
-import nl.kooi.infrastructure.model.Outcome;
+import nl.kooi.app.domain.model.Outcome;
 import nl.kooi.representation.advises.FullAdviceRepresentation;
 
 import java.util.ArrayList;

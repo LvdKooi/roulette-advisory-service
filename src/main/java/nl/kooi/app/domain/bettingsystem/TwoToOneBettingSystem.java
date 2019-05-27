@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package nl.kooi.app.domain.BettingSystem;
+package nl.kooi.app.domain.bettingsystem;
 
 /**
  * @author Laurens van der Kooi

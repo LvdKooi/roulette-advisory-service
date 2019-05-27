@@ -2,18 +2,13 @@ package nl.kooi.app.domain;
 
 import nl.kooi.app.domain.advises.Game.Game;
 import nl.kooi.app.domain.advises.Game.Roulette.RouletteOneToOne.OddEven;
-import nl.kooi.app.domain.advises.Game.Roulette.RouletteOneToOne.RouletteOneToOne;
 import nl.kooi.representation.advises.OddEvenAdviceRepresentation;
-import org.junit.jupiter.api.Test;
-import nl.kooi.app.domain.RouletteDomainObject;
-import nl.kooi.app.exceptions.notValidOutcomeException;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
 import static org.hamcrest.Matchers.is;
 
 

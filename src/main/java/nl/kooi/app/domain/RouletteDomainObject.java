@@ -1,6 +1,6 @@
 package nl.kooi.app.domain;
 
-import nl.kooi.app.exceptions.notValidOutcomeException;
+import nl.kooi.app.exceptions.NotValidOutcomeException;
 import nl.kooi.representation.RouletteOutcome;
 import nl.kooi.representation.RouletteRepresentationObject;
 
@@ -72,7 +72,7 @@ public class RouletteDomainObject {
 
     private static void validOutcomeCheck(int outcome) {
         if (!(outcome > -1 && outcome < 37)) {
-            throw new notValidOutcomeException("Not a valid Roulette outcome. RouletteOutcome can only be within the range of 0 - 36.");
+            throw new NotValidOutcomeException("Not a valid Roulette outcome. RouletteOutcome can only be within the range of 0 - 36.");
         }
     }
 

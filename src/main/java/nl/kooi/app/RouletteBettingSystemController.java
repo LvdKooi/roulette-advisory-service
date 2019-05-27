@@ -4,9 +4,9 @@ package nl.kooi.app;
 import lombok.extern.slf4j.Slf4j;
 import nl.kooi.app.domain.RouletteDomainObject;
 import nl.kooi.app.domain.advises.FullAdvice;
-import nl.kooi.app.exceptions.nonExistingSessionsException;
-import nl.kooi.infrastructure.model.Outcome;
-import nl.kooi.infrastructure.model.Session;
+import nl.kooi.app.exceptions.NonExistingSessionException;
+import nl.kooi.app.domain.model.Outcome;
+import nl.kooi.app.domain.model.Session;
 import nl.kooi.infrastructure.repository.OutcomeRepository;
 import nl.kooi.infrastructure.repository.SessionRepository;
 import nl.kooi.representation.advises.FullAdviceRepresentation;
@@ -56,7 +56,7 @@ public class RouletteBettingSystemController {
 
         Optional<Session> session = sessionRepository.findByIdAndUserId(sessionId, userId);
         if (!session.isPresent()) {
-            throw new nonExistingSessionsException("Session Id not found");
+            throw new NonExistingSessionException("Session Id not found");
         }
 
         Outcome outcomes = new Outcome();

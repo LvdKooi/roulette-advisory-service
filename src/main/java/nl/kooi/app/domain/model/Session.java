@@ -1,4 +1,4 @@
-package nl.kooi.infrastructure.model;
+package nl.kooi.app.domain.model;
 
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;

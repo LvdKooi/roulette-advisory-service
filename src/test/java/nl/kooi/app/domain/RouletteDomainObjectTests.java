@@ -1,11 +1,9 @@
 package nl.kooi.app.domain;
 
-import nl.kooi.app.domain.RouletteDomainObject;
-import nl.kooi.app.exceptions.notValidOutcomeException;
+import nl.kooi.app.exceptions.NotValidOutcomeException;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
 import static org.hamcrest.Matchers.is;
 
 public class RouletteDomainObjectTests {
@@ -17,7 +15,7 @@ public class RouletteDomainObjectTests {
             try {
                 RouletteDomainObject domainObject = new RouletteDomainObject(outcome);
 
-            } catch (notValidOutcomeException e) {
+            } catch (NotValidOutcomeException e) {
                 assertThat("Invalid outcome gives a clear exception", e.getMessage(), is("Not a valid Roulette outcome. RouletteOutcome can only be within the range of 0 - 36."));
             }
         }
