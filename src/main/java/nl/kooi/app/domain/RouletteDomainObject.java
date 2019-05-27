@@ -72,7 +72,7 @@ public class RouletteDomainObject {
 
     private static void validOutcomeCheck(int outcome) {
         if (!(outcome > -1 && outcome < 37)) {
-            throw new NotValidOutcomeException("Not a valid Roulette outcome. RouletteOutcome can only be within the range of 0 - 36.");
+            throw new NotValidOutcomeException("Not a valid roulette outcome. RouletteOutcome can only be within the range of 0 - 36.");
         }
     }
 

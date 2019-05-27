@@ -1,4 +1,4 @@
-package nl.kooi.app.domain.advises.Game;
+package nl.kooi.app.domain.advises.game;
 
 import nl.kooi.app.domain.RouletteDomainObject;
 import nl.kooi.representation.advises.AdviceRepresentation;

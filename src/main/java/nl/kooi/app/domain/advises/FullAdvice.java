@@ -1,12 +1,12 @@
 package nl.kooi.app.domain.advises;
 
 import nl.kooi.app.domain.RouletteDomainObject;
-import nl.kooi.app.domain.advises.Game.Game;
-import nl.kooi.app.domain.advises.Game.Roulette.RouletteOneToOne.HalfAdvice;
-import nl.kooi.app.domain.advises.Game.Roulette.RouletteOneToOne.OddEvenAdvice;
-import nl.kooi.app.domain.advises.Game.Roulette.RouletteOneToOne.RedBlackAdvice;
-import nl.kooi.app.domain.advises.Game.Roulette.RouletteTwoToOne.DozenAdvice;
-import nl.kooi.app.domain.advises.Game.Roulette.RouletteTwoToOne.ColumnAdvice;
+import nl.kooi.app.domain.advises.game.Game;
+import nl.kooi.app.domain.advises.game.roulette.rouletteonetoone.HalfAdvice;
+import nl.kooi.app.domain.advises.game.roulette.rouletteonetoone.OddEvenAdvice;
+import nl.kooi.app.domain.advises.game.roulette.rouletteonetoone.RedBlackAdvice;
+import nl.kooi.app.domain.advises.game.roulette.roulettetwotoone.DozenAdvice;
+import nl.kooi.app.domain.advises.game.roulette.roulettetwotoone.ColumnAdvice;
 import nl.kooi.app.domain.model.Outcome;
 import nl.kooi.representation.advises.FullAdviceRepresentation;
 

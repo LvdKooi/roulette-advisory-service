@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package nl.kooi.app.domain.advises.Game.Roulette.RouletteTwoToOne;
+package nl.kooi.app.domain.advises.game.roulette.roulettetwotoone;
 
 
 import nl.kooi.app.domain.RouletteDomainObject;

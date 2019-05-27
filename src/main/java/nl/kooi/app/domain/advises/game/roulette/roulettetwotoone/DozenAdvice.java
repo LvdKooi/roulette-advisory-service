@@ -1,4 +1,4 @@
-package nl.kooi.app.domain.advises.Game.Roulette.RouletteTwoToOne;
+package nl.kooi.app.domain.advises.game.roulette.roulettetwotoone;
 
 
 import nl.kooi.app.domain.RouletteDomainObject;

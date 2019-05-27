@@ -16,7 +16,7 @@ public class RouletteDomainObjectTests {
                 RouletteDomainObject domainObject = new RouletteDomainObject(outcome);
 
             } catch (NotValidOutcomeException e) {
-                assertThat("Invalid outcome gives a clear exception", e.getMessage(), is("Not a valid Roulette outcome. RouletteOutcome can only be within the range of 0 - 36."));
+                assertThat("Invalid outcome gives a clear exception", e.getMessage(), is("Not a valid roulette outcome. RouletteOutcome can only be within the range of 0 - 36."));
             }
         }
     }
