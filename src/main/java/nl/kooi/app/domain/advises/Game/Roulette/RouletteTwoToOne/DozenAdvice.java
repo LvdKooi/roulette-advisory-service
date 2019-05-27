@@ -12,11 +12,11 @@ import java.math.BigDecimal;
  * @author Laurens van der Kooi
  */
 
-public class DozenGame extends RouletteTwoToOne {
+public class DozenAdvice extends RouletteTwoToOne {
 
     private boolean[] hitArray = {true, true, true};
 
-    public DozenGame(String chipValue, char bettingSystem) {
+    public DozenAdvice(String chipValue, char bettingSystem) {
         super(chipValue, bettingSystem);
                }
 
@@ -32,9 +32,9 @@ public class DozenGame extends RouletteTwoToOne {
     public DozenAdviceRepresentation toRepresentation() {
         int[] adviceArray = bettingSystem.getAdviceArray();
         DozenAdviceRepresentation representation = new DozenAdviceRepresentation();
-        representation.lowDozen = getChipValue().multiply(new BigDecimal(adviceArray[0]));
-        representation.midDozen = getChipValue().multiply(new BigDecimal(adviceArray[1]));
-        representation.hiDozen = getChipValue().multiply(new BigDecimal(adviceArray[2]));
+        representation.firstDozen = getChipValue().multiply(new BigDecimal(adviceArray[0]));
+        representation.secondDozen = getChipValue().multiply(new BigDecimal(adviceArray[1]));
+        representation.thirdDozen = getChipValue().multiply(new BigDecimal(adviceArray[2]));
         return representation;
     }
 

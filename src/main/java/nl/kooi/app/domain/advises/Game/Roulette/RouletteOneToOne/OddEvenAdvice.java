@@ -10,10 +10,10 @@ import java.math.BigDecimal;
  * @author Laurens van der Kooi
  */
 
-public class OddEven extends RouletteOneToOne {
+public class OddEvenAdvice extends RouletteOneToOne {
     private boolean[] hitArray = {true, true};
 
-    public OddEven(String chipValue, char bettingSystem, int delay) {
+    public OddEvenAdvice(String chipValue, char bettingSystem, int delay) {
         super(chipValue, bettingSystem, delay);
 
     }

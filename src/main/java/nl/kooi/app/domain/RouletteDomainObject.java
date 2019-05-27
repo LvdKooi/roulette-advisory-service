@@ -12,16 +12,16 @@ import java.util.Arrays;
 
 public class RouletteDomainObject {
 
-    private static final int[] FIRST_ROW;
-    private static final int[] SECOND_ROW;
-    private static final int[] THIRD_ROW;
+    private static final int[] FIRST_COLUMN;
+    private static final int[] SECOND_COLUMN;
+    private static final int[] THIRD_COLUMN;
     private static final int[] RED_NUMBERS;
     private static final int[] BLACK_NUMBERS;
     private int outcome;
     private RouletteOutcome redBlack;
     private RouletteOutcome oddEven;
     private RouletteOutcome half;
-    private RouletteOutcome row;
+    private RouletteOutcome column;
     private RouletteOutcome dozen;
     private boolean isZero;
 
@@ -31,23 +31,23 @@ public class RouletteDomainObject {
         this.redBlack = redBlack(outcome);
         this.oddEven = oddEven(outcome);
         this.half = half(outcome);
-        this.row = row(outcome);
+        this.column = column(outcome);
         this.dozen = dozen(outcome);
         this.isZero = isZero(outcome);
     }
 
     static {
-        FIRST_ROW = new int[12];
-        SECOND_ROW = new int[12];
-        THIRD_ROW = new int[12];
+        FIRST_COLUMN = new int[12];
+        SECOND_COLUMN = new int[12];
+        THIRD_COLUMN = new int[12];
         RED_NUMBERS = new int[18];
         BLACK_NUMBERS = new int[18];
 
-        // populating rows
+        // populating columns
         for (int i = 1, j = 0; i < 37; i += 3, j++) {
-            FIRST_ROW[j] = i;
-            SECOND_ROW[j] = i + 1;
-            THIRD_ROW[j] = i + 2;
+            FIRST_COLUMN[j] = i;
+            SECOND_COLUMN[j] = i + 1;
+            THIRD_COLUMN[j] = i + 2;
         }
 
         //populating red + black
@@ -82,7 +82,7 @@ public class RouletteDomainObject {
         this.redBlack = redBlack(outcome);
         this.oddEven = oddEven(outcome);
         this.half = half(outcome);
-        this.row = row(outcome);
+        this.column = column(outcome);
         this.dozen = dozen(outcome);
         this.isZero = isZero(outcome);
     }
@@ -103,8 +103,8 @@ public class RouletteDomainObject {
         return half;
     }
 
-    public RouletteOutcome getRow() {
-        return row;
+    public RouletteOutcome getColumn() {
+        return column;
     }
 
     public RouletteOutcome getDozen() {
@@ -127,13 +127,13 @@ public class RouletteDomainObject {
         }
     }
 
-    private static RouletteOutcome row(int currentInput) {
-        if (Arrays.binarySearch(FIRST_ROW, currentInput) > -1) {
-            return RouletteOutcome.LOW;
-        } else if (Arrays.binarySearch(SECOND_ROW, currentInput) > -1) {
-            return RouletteOutcome.MID;
-        } else if (Arrays.binarySearch(THIRD_ROW, currentInput) > -1) {
-            return RouletteOutcome.HI;
+    private static RouletteOutcome column(int currentInput) {
+        if (Arrays.binarySearch(FIRST_COLUMN, currentInput) > -1) {
+            return RouletteOutcome.FIRST;
+        } else if (Arrays.binarySearch(SECOND_COLUMN, currentInput) > -1) {
+            return RouletteOutcome.SECOND;
+        } else if (Arrays.binarySearch(THIRD_COLUMN, currentInput) > -1) {
+            return RouletteOutcome.THIRD;
         } else {
             return RouletteOutcome.ZERO;
         }
@@ -174,7 +174,7 @@ public class RouletteDomainObject {
         return
                 "OUTCOME: " + this.outcome +
                         " DOZEN: " + this.dozen +
-                        " ROW: " + this.row +
+                        " COLUMN: " + this.column +
                         " BLACK/RED: " + this.redBlack +
                         " ODD/EVEN: " + this.oddEven +
                         " HALFS: " + this.half + " ";
@@ -188,7 +188,7 @@ public class RouletteDomainObject {
         representation.oddEven = this.oddEven;
         representation.redBlack = this.redBlack;
         representation.outcome = this.outcome;
-        representation.row = this.row;
+        representation.column = this.column;
         return representation;
     }
 

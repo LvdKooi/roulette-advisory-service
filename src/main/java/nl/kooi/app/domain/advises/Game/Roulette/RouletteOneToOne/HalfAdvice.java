@@ -9,11 +9,11 @@ import java.math.BigDecimal;
  * @author Laurens van der Kooi
  */
 
-public class Halfs extends RouletteOneToOne {
+public class HalfAdvice extends RouletteOneToOne {
 
     private boolean[] hitArray = {true, true};
 
-    public Halfs(String chipValue, char bettingSystem, int delay) {
+    public HalfAdvice(String chipValue, char bettingSystem, int delay) {
         super(chipValue, bettingSystem, delay);
     }
 

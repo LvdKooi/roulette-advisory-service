@@ -38,10 +38,10 @@ public class RouletteOutcomeController {
         return representation.half;
     }
 
-    @RequestMapping(path = "{outcome}/row", method = GET, produces = "application/json")
-    public RouletteOutcome sayRow(@PathVariable("outcome") int outcome) {
+    @RequestMapping(path = "{outcome}/column", method = GET, produces = "application/json")
+    public RouletteOutcome sayColumn(@PathVariable("outcome") int outcome) {
         RouletteRepresentationObject representation = new RouletteDomainObject(outcome).toRepresentation();
-        return representation.row;
+        return representation.column;
     }
 
     @RequestMapping(path = "{outcome}/dozen", method = GET, produces = "application/json")

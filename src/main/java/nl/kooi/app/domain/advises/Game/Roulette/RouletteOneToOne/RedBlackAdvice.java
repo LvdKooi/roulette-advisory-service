@@ -9,10 +9,10 @@ import java.math.BigDecimal;
  * @author Laurens van der Kooi
  */
 
-public class RedBlack extends RouletteOneToOne {
+public class RedBlackAdvice extends RouletteOneToOne {
     private boolean[] hitArray = {true, true};
 
-    public RedBlack(String chipValue, char bettingSystem, int delay) {
+    public RedBlackAdvice(String chipValue, char bettingSystem, int delay) {
         super(chipValue, bettingSystem, delay);
     }
 

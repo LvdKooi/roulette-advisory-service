@@ -16,7 +16,7 @@ public class RouletteRepresentationObject {
     public RouletteOutcome half;
 
     @NotNull
-    public RouletteOutcome row;
+    public RouletteOutcome column;
 
     @NotNull
     public RouletteOutcome dozen;

@@ -5,12 +5,12 @@ import java.math.BigDecimal;
 
 public class DozenAdviceRepresentation extends AdviceRepresentation {
     @NotNull
-    public BigDecimal lowDozen;
+    public BigDecimal firstDozen;
 
     @NotNull
-    public BigDecimal midDozen;
+    public BigDecimal secondDozen;
 
     @NotNull
-    public BigDecimal hiDozen;
+    public BigDecimal thirdDozen;
 
 }

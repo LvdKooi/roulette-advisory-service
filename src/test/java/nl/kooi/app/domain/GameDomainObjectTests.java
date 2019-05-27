@@ -1,7 +1,7 @@
 package nl.kooi.app.domain;
 
 import nl.kooi.app.domain.advises.Game.Game;
-import nl.kooi.app.domain.advises.Game.Roulette.RouletteOneToOne.OddEven;
+import nl.kooi.app.domain.advises.Game.Roulette.RouletteOneToOne.OddEvenAdvice;
 import nl.kooi.representation.advises.OddEvenAdviceRepresentation;
 import org.junit.jupiter.api.Test;
 
@@ -18,7 +18,7 @@ public class GameDomainObjectTests {
 
     @Test
     public void oddEvenTests() {
-        Game game = new OddEven("5", 'D', 4);
+        Game game = new OddEvenAdvice("5", 'D', 4);
         OddEvenAdviceRepresentation representation;
         Integer[] outcomeArray = {1,3,5,7,9,11,13};
         ArrayList<Integer> outcomeList = new ArrayList<>();

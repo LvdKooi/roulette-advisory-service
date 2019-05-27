@@ -2,11 +2,11 @@ package nl.kooi.app.domain.advises;
 
 import nl.kooi.app.domain.RouletteDomainObject;
 import nl.kooi.app.domain.advises.Game.Game;
-import nl.kooi.app.domain.advises.Game.Roulette.RouletteOneToOne.Halfs;
-import nl.kooi.app.domain.advises.Game.Roulette.RouletteOneToOne.OddEven;
-import nl.kooi.app.domain.advises.Game.Roulette.RouletteOneToOne.RedBlack;
-import nl.kooi.app.domain.advises.Game.Roulette.RouletteTwoToOne.DozenGame;
-import nl.kooi.app.domain.advises.Game.Roulette.RouletteTwoToOne.RowGame;
+import nl.kooi.app.domain.advises.Game.Roulette.RouletteOneToOne.HalfAdvice;
+import nl.kooi.app.domain.advises.Game.Roulette.RouletteOneToOne.OddEvenAdvice;
+import nl.kooi.app.domain.advises.Game.Roulette.RouletteOneToOne.RedBlackAdvice;
+import nl.kooi.app.domain.advises.Game.Roulette.RouletteTwoToOne.DozenAdvice;
+import nl.kooi.app.domain.advises.Game.Roulette.RouletteTwoToOne.ColumnAdvice;
 import nl.kooi.app.domain.model.Outcome;
 import nl.kooi.representation.advises.FullAdviceRepresentation;
 
@@ -27,11 +27,11 @@ public class FullAdvice {
         this.outcomeList = outcomeList;
 
         gameArray = new ArrayList<>();
-        gameArray.add(new OddEven(chipValue, 'D', 4));
-        gameArray.add(new RedBlack(chipValue, 'D', 4));
-        gameArray.add(new Halfs(chipValue, 'D', 4));
-        gameArray.add(new DozenGame(chipValue, 'D'));
-        gameArray.add(new RowGame(chipValue, 'D'));
+        gameArray.add(new OddEvenAdvice(chipValue, 'D', 4));
+        gameArray.add(new RedBlackAdvice(chipValue, 'D', 4));
+        gameArray.add(new HalfAdvice(chipValue, 'D', 4));
+        gameArray.add(new DozenAdvice(chipValue, 'D'));
+        gameArray.add(new ColumnAdvice(chipValue, 'D'));
 
         for (Outcome singleOutcome : outcomeList) {
             roulette.setOutcome(singleOutcome.getOutcome());
@@ -51,16 +51,16 @@ public class FullAdvice {
 
 
     private static FullAdviceRepresentation toRepresentationHelper(Game game, FullAdviceRepresentation representation) {
-        if (game instanceof DozenGame)
-            representation.dozenAdvice = ((DozenGame) game).toRepresentation();
-        if (game instanceof RowGame)
-            representation.rowAdvice = ((RowGame) game).toRepresentation();
-        if (game instanceof RedBlack)
-            representation.redBlackAdvice = ((RedBlack) game).toRepresentation();
-        if (game instanceof OddEven)
-            representation.oddEvenAdvice = ((OddEven) game).toRepresentation();
-        if (game instanceof Halfs)
-            representation.halfAdvice = ((Halfs) game).toRepresentation();
+        if (game instanceof DozenAdvice)
+            representation.dozenAdvice = ((DozenAdvice) game).toRepresentation();
+        if (game instanceof ColumnAdvice)
+            representation.columnAdvice = ((ColumnAdvice) game).toRepresentation();
+        if (game instanceof RedBlackAdvice)
+            representation.redBlackAdvice = ((RedBlackAdvice) game).toRepresentation();
+        if (game instanceof OddEvenAdvice)
+            representation.oddEvenAdvice = ((OddEvenAdvice) game).toRepresentation();
+        if (game instanceof HalfAdvice)
+            representation.halfAdvice = ((HalfAdvice) game).toRepresentation();
         return representation;
     }
 

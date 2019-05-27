@@ -7,7 +7,7 @@ public class FullAdviceRepresentation extends AdviceRepresentation {
     public DozenAdviceRepresentation dozenAdvice;
 
     @NotNull
-    public RowAdviceRepresentation rowAdvice;
+    public ColumnAdviceRepresentation columnAdvice;
 
     @NotNull
     public HalfAdviceRepresentation halfAdvice;
