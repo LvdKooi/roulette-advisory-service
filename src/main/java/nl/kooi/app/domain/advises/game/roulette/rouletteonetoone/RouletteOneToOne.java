@@ -13,7 +13,7 @@ public abstract class RouletteOneToOne extends Game {
 
     public RouletteOneToOne(String chipValue, char bettingSystem, int delay) {
         super(chipValue);
-        this.bettingSystem = new OneToOneBettingSystem(2, 4, bettingSystem);
+        this.bettingSystem = new OneToOneBettingSystem(2, delay, bettingSystem);
 
     }
 

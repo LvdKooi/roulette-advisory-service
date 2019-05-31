@@ -27,9 +27,9 @@ public class FullAdvice {
         this.outcomeList = outcomeList;
 
         gameArray = new ArrayList<>();
-        gameArray.add(new OddEvenAdvice(chipValue, 'D', 4));
-        gameArray.add(new RedBlackAdvice(chipValue, 'D', 4));
-        gameArray.add(new HalfAdvice(chipValue, 'D', 4));
+        gameArray.add(new OddEvenAdvice(chipValue, 'D', 8));
+        gameArray.add(new RedBlackAdvice(chipValue, 'D', 8));
+        gameArray.add(new HalfAdvice(chipValue, 'D', 8));
         gameArray.add(new DozenAdvice(chipValue, 'D'));
         gameArray.add(new ColumnAdvice(chipValue, 'D'));
 
