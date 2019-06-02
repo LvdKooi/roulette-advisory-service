@@ -17,6 +17,7 @@ public class Outcome {
     @ManyToOne
     private Session session;
     private int outcome;
+    private String totalProfit;
 
     @CreationTimestamp
     private LocalDateTime dateTime;

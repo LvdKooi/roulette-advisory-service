@@ -11,6 +11,7 @@ public class BettingSystem {
     private int totalRounds;
     private char system;
     private boolean[] outcomeArray = {true, true, true, true};
+    private int profitCounter;
 
     public BettingSystem(int bettingFactor, int delay, char system) {
         this.BETTING_FACTOR = bettingFactor;
@@ -140,6 +141,10 @@ public class BettingSystem {
         copy.setWinCount(this.winCount);
         copy.setLossCount(this.lossCount);
         return copy;
+    }
+
+    public int getProfitCounter() {
+        return profitCounter;
     }
 
 }

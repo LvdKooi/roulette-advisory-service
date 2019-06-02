@@ -32,5 +32,7 @@ public abstract class Game {
     protected abstract void setAdvice(boolean[] hitArray);
 
     public abstract AdviceRepresentation toRepresentation();
+
+    public abstract BigDecimal getProfit();
 }
 

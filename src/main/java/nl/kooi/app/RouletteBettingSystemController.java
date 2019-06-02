@@ -9,6 +9,8 @@ import nl.kooi.app.domain.model.Outcome;
 import nl.kooi.app.domain.model.Session;
 import nl.kooi.infrastructure.repository.OutcomeRepository;
 import nl.kooi.infrastructure.repository.SessionRepository;
+import nl.kooi.representation.RouletteOutcome;
+import nl.kooi.representation.RouletteRepresentationObject;
 import nl.kooi.representation.advises.FullAdviceRepresentation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
@@ -19,8 +21,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigDecimal;
 import java.util.*;
 
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 
 @Slf4j
@@ -59,18 +63,32 @@ public class RouletteBettingSystemController {
             throw new NonExistingSessionException("Session Id not found");
         }
 
+        String chipValue = session.get().getChipValue();
         Outcome outcomes = new Outcome();
         outcomes.setSession(session.get());
         outcomes.setOutcome(outcome);
+        outcomes.setTotalProfit("0");
 
-        outcomeRepository.save(outcomes);
+        int id = outcomeRepository.save(outcomes).getId();
 
         Collection<Outcome> outcomeList = outcomeRepository.findBySessionIdOrderByIdAsc(sessionId);
 
-        String chipValue = session.get().getChipValue();
+        outcomes = outcomeRepository.findById(id).get();
+
+        FullAdvice fullAdvice = new FullAdvice(chipValue, roulette, outcomeList);
+
+        outcomes.setTotalProfit(fullAdvice.getTotalProfit().toString());
+
+        outcomeRepository.deleteById(id);
+
+        outcomeRepository.save(outcomes);
+
+        outcomeList = outcomeRepository.findBySessionIdOrderByIdAsc(sessionId);
 
         synchronized (roulette) {
             return new FullAdvice(chipValue, roulette, outcomeList).toRepresentation();
         }
     }
+
+
 }

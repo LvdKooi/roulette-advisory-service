@@ -14,6 +14,7 @@ public class OneToOneBettingSystem extends BettingSystem {
     private boolean[][] outcomeArray;
     private int[] adviceArray;
     private int winLossCountArray[][];
+    private int profitCounter;
 
 
     public OneToOneBettingSystem(int bettingFactor, int delay, char system) {
@@ -70,10 +71,14 @@ public class OneToOneBettingSystem extends BettingSystem {
 
                 // situation 1: a bet was made but it didn't hit
                 if (adviceArray[i] > 0 && !hitArray[i]) {
+                    profitCounter -= adviceArray[i];
+
                     adviceArray[i] *= super.getBettingFactor();
 
                     // situation 2: a bet was made, the bet was won but conditions still meet: time to bet again.
                 } else if (winLossCountArray[i][1] >= getDelay() - 1 && hitArray[i]) {
+
+                    profitCounter += adviceArray[i];
                     adviceArray[i] = 1;
 
                     for (int j = 0; j < 2; j++) {
@@ -96,43 +101,48 @@ public class OneToOneBettingSystem extends BettingSystem {
                     adviceArray[i] = Math.max(1, adviceArray[i] *= super.getBettingFactor());
 
 
+                    // situation 4: the number of losses doesn't match the conditions, no bets adviced.
+                } else {
+                    if (adviceArray[i] > 0) {
+                        for (int j = 0; j < 2; j++) {
+                            if (i == j) {
+                                continue;
+                            }
+                            if (adviceArray[j] > 0) {
+                                adviceArray[j] = 0;
 
-                // situation 4: the number of losses doesn't match the conditions, no bets adviced.
-            } else{
-                if (adviceArray[i] > 0) {
-                    for (int j = 0; j < 2; j++) {
-                        if (i == j) {
-                            continue;
+                            }
+
                         }
-                        if (adviceArray[j] > 0) {
+
+                    }
+                    adviceArray[i] = 0;
+                }
+
+                // final check: if there is an advice for all fields (which can occur in the rare event of a zero streak), override the lowest advice
+                if (adviceArray[0] > 0 && adviceArray[1] > 0) {
+                    int obsoleteAdvice = Math.min(adviceArray[0], adviceArray[1]);
+                    for (int j = 0; j < adviceArray.length; j++) {
+                        if (adviceArray[j] == obsoleteAdvice) {
                             adviceArray[j] = 0;
-
+                            break;
                         }
-
-                    }
-
-                }
-                adviceArray[i] = 0;
-            }
-
-            // final check: if there is an advice for all fields (which can occur in the rare event of a zero streak), override the lowest advice
-            if (adviceArray[0] > 0 && adviceArray[1] > 0) {
-                int obsoleteAdvice = Math.min(adviceArray[0], adviceArray[1]);
-                for (int j = 0; j < adviceArray.length; j++) {
-                    if (adviceArray[j] == obsoleteAdvice) {
-                        adviceArray[j] = 0;
-                        break;
                     }
                 }
-            }
 
+            }
         }
-    }
 
-}
+    }
 
 
     public int[] getAdviceArray() {
         return adviceArray;
     }
+
+    @Override
+    public int getProfitCounter() {
+        return profitCounter;
+    }
+
 }

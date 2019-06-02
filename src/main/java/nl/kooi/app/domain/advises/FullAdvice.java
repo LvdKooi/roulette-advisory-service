@@ -10,6 +10,7 @@ import nl.kooi.app.domain.advises.game.roulette.roulettetwotoone.ColumnAdvice;
 import nl.kooi.app.domain.model.Outcome;
 import nl.kooi.representation.advises.FullAdviceRepresentation;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -20,6 +21,7 @@ public class FullAdvice {
     private RouletteDomainObject roulette;
     private Collection<Outcome> outcomeList;
     private List<Game> gameArray;
+    private BigDecimal totalProfit = new BigDecimal(0).setScale(2);
 
     public FullAdvice(String chipValue, RouletteDomainObject roulette, Collection<Outcome> outcomeList) {
         this.chipValue = chipValue;
@@ -39,6 +41,8 @@ public class FullAdvice {
             }
         }
 
+
+
     public FullAdviceRepresentation toRepresentation() {
 
         FullAdviceRepresentation representation = new FullAdviceRepresentation();
@@ -48,7 +52,6 @@ public class FullAdvice {
         return representation;
 
     }
-
 
     private static FullAdviceRepresentation toRepresentationHelper(Game game, FullAdviceRepresentation representation) {
         if (game instanceof DozenAdvice)
@@ -62,6 +65,12 @@ public class FullAdvice {
         if (game instanceof HalfAdvice)
             representation.halfAdvice = ((HalfAdvice) game).toRepresentation();
         return representation;
+    }
+
+    public BigDecimal getTotalProfit(){
+        gameArray.stream().forEach(g -> totalProfit = totalProfit.add(g.getProfit()));
+
+        return totalProfit;
     }
 
 
