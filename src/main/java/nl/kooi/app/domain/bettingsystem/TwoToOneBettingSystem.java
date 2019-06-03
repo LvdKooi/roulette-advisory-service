@@ -15,6 +15,7 @@ public class TwoToOneBettingSystem extends BettingSystem {
     private int[] adviceArray;
     private int winLossCountArray[][];
     private int profitCounter;
+    private  int maxProfit;
 
     public TwoToOneBettingSystem(int bettingFactor, int delay, char system) {
         super(bettingFactor, delay, system);
@@ -60,6 +61,7 @@ public class TwoToOneBettingSystem extends BettingSystem {
     }
 
     public void compoundDefferedMartingGale(boolean[] hitArray) {
+
         updateOutcomeArray(hitArray);
         setRounds();
         setWinLossCountArray(hitArray);
@@ -180,16 +182,18 @@ public class TwoToOneBettingSystem extends BettingSystem {
 
     //    helper method to set profitCounter
     private void profitCounter(boolean[] hitArray) {
-        int maxProfit = 0;
+
 
         for (int i = 0; i < 3; i++) {
-            if (winLossCountArray[i][1] >= getDelay() - 1 && hitArray[i]) {
+
+            if (adviceArray[i] > 0 && !hitArray[i]) {
+                profitCounter -= adviceArray[i];
+            }
+           else  if (adviceArray[i] > 0 && winLossCountArray[i][1] >= getDelay() - 1 && hitArray[i]) {
                 profitCounter = ++maxProfit;
                 break;
-            } else if (adviceArray[i] > 0 && !hitArray[i]) {
-                profitCounter -= adviceArray[i];
-            } else {
-                if (adviceArray[i] > 0) {
+            }  else {
+                if (adviceArray[i] > 0 && !(winLossCountArray[i][1] >= getDelay() - 1 && !hitArray[i])) {
 
                     profitCounter = ++maxProfit;
                     break;

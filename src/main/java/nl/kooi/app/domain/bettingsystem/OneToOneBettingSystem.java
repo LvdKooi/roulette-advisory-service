@@ -15,6 +15,7 @@ public class OneToOneBettingSystem extends BettingSystem {
     private int[] adviceArray;
     private int winLossCountArray[][];
     private int profitCounter;
+    private int maxProfit;
 
     public OneToOneBettingSystem(int bettingFactor, int delay, char system) {
         super(bettingFactor, delay, system);
@@ -148,16 +149,15 @@ public class OneToOneBettingSystem extends BettingSystem {
     }
 
     private void profitCounter(boolean[] hitArray) {
-        int maxProfit = 0;
 
         for (int i = 0; i < 2; i++) {
-            if (winLossCountArray[i][1] >= getDelay() - 1 && hitArray[i]) {
+            if (adviceArray[i] > 0 && !hitArray[i]) {
+                profitCounter -= adviceArray[i];
+            } else if (adviceArray[i] > 0 && winLossCountArray[i][1] >= getDelay() - 1 && hitArray[i]) {
                 profitCounter = ++maxProfit;
                 break;
-            } else if (adviceArray[i] > 0 && !hitArray[i]) {
-                profitCounter -= adviceArray[i];
             } else {
-                if (adviceArray[i] > 0) {
+                if (adviceArray[i] > 0 && !(winLossCountArray[i][1] >= getDelay() - 1 && !hitArray[i])) {
 
                     profitCounter = ++maxProfit;
                     break;
