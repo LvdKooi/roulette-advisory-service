@@ -15,13 +15,13 @@ public class TwoToOneBettingSystem extends BettingSystem {
     private int[] adviceArray;
     private int winLossCountArray[][];
     private int profitCounter;
+    private int maxProfit;
 
 
     public TwoToOneBettingSystem(int bettingFactor, int delay, char system) {
         super(bettingFactor, delay, system);
         outcomeArray = new boolean[3][delay];
         adviceArray = new int[3];
-        profitCounter = 0;
 
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < delay; j++) {
@@ -66,24 +66,26 @@ public class TwoToOneBettingSystem extends BettingSystem {
         setRounds();
         setWinLossCountArray(hitArray);
 
+
         if (getTotalRounds() > getDelay()) {
+
+            // calculate profitCounter
+            profitCounter(hitArray);
+
             //loop through results and determine advice
             for (int i = 0; i < 3; i++) {
 
                 // situation 1: a bet was made but it didn't hit
                 if (adviceArray[i] > 0 && !hitArray[i]) {
 
-                    profitCounter -= adviceArray[i];
                     adviceArray[i] *= super.getBettingFactor();
-
 
 
                     // situation 2: a bet was made, the bet was won but conditions still meet: time to bet again.
                 } else if (winLossCountArray[i][1] >= getDelay() - 1 && hitArray[i]) {
 
-                    profitCounter += adviceArray[i] * 2;
-                    adviceArray[i] = 1;
 
+                    adviceArray[i] = 1;
 
 
                     for (int j = 0; j < 3; j++) {
@@ -126,8 +128,6 @@ public class TwoToOneBettingSystem extends BettingSystem {
 
                     //if a bet was adviced (meaning that the bet has now won, and the field isn't eligable for a new bet)...
                     if (adviceArray[i] > 0) {
-
-                        profitCounter += adviceArray[i] * 2;
 
                         //...find the other bet of last round.
                         for (int j = 0; j < 3; j++) {
@@ -179,4 +179,23 @@ public class TwoToOneBettingSystem extends BettingSystem {
     public int getProfitCounter() {
         return profitCounter;
     }
+
+    //    helper method to set profitCounter
+    private void profitCounter(boolean[] hitArray) {
+        for (int i = 0; i < 3; i++) {
+            if (winLossCountArray[i][1] >= getDelay() - 1 && hitArray[i]) {
+                profitCounter = ++maxProfit;
+                break;
+            } else if (adviceArray[i] > 0 && !hitArray[i]) {
+                profitCounter -= adviceArray[i];
+            } else {
+                if (adviceArray[i] > 0) {
+
+                    profitCounter = ++maxProfit;
+                    break;
+                }
+            }
+        }
+    }
 }
+

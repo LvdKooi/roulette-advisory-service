@@ -15,6 +15,7 @@ public class OneToOneBettingSystem extends BettingSystem {
     private int[] adviceArray;
     private int winLossCountArray[][];
     private int profitCounter;
+    private int maxProfit;
 
 
     public OneToOneBettingSystem(int bettingFactor, int delay, char system) {
@@ -66,19 +67,22 @@ public class OneToOneBettingSystem extends BettingSystem {
         setWinLossCountArray(hitArray);
 
         if (getTotalRounds() > getDelay()) {
+
+            // calculate profitCounter
+            profitCounter(hitArray);
+
             //looping through results and determining advice
             for (int i = 0; i < 2; i++) {
 
                 // situation 1: a bet was made but it didn't hit
                 if (adviceArray[i] > 0 && !hitArray[i]) {
-                    profitCounter -= adviceArray[i];
+
 
                     adviceArray[i] *= super.getBettingFactor();
 
                     // situation 2: a bet was made, the bet was won but conditions still meet: time to bet again.
                 } else if (winLossCountArray[i][1] >= getDelay() - 1 && hitArray[i]) {
 
-                    profitCounter += adviceArray[i];
                     adviceArray[i] = 1;
 
                     for (int j = 0; j < 2; j++) {
@@ -143,6 +147,23 @@ public class OneToOneBettingSystem extends BettingSystem {
     @Override
     public int getProfitCounter() {
         return profitCounter;
+    }
+
+    private void profitCounter(boolean[] hitArray) {
+        for (int i = 0; i < 2; i++) {
+            if (winLossCountArray[i][1] >= getDelay() - 1 && hitArray[i]) {
+                profitCounter = ++maxProfit;
+                break;
+            } else if (adviceArray[i] > 0 && !hitArray[i]) {
+                profitCounter -= adviceArray[i];
+            } else {
+                if (adviceArray[i] > 0) {
+
+                    profitCounter = ++maxProfit;
+                    break;
+                }
+            }
+        }
     }
 
 }
