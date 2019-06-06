@@ -4,6 +4,7 @@ package nl.kooi.app;
 import lombok.extern.slf4j.Slf4j;
 import nl.kooi.app.domain.RouletteDomainObject;
 import nl.kooi.app.domain.advises.FullAdvice;
+import nl.kooi.app.domain.metrics.SessionMetrics;
 import nl.kooi.app.exceptions.NonExistingSessionException;
 import nl.kooi.app.domain.model.Outcome;
 import nl.kooi.app.domain.model.Session;
@@ -12,6 +13,7 @@ import nl.kooi.infrastructure.repository.SessionRepository;
 import nl.kooi.representation.RouletteOutcome;
 import nl.kooi.representation.RouletteRepresentationObject;
 import nl.kooi.representation.advises.FullAdviceRepresentation;
+import nl.kooi.representation.metrics.SessionMetricsRepresentation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
@@ -24,8 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.math.BigDecimal;
 import java.util.*;
 
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.PUT;
+import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @Slf4j
 @RequestMapping(path = "/roulette-betting-system")
@@ -44,7 +45,7 @@ public class RouletteBettingSystemController {
     private ArrayList<Integer> outcomeList = new ArrayList<>();
 
     @RequestMapping(path = "/{userId}/startgame", method = PUT, produces = "application/json")
-    public ResponseEntity ResponseEntity(@PathVariable("userId") int userId, @RequestParam("chipvalue") String chipValue) {
+    public ResponseEntity startGame(@PathVariable("userId") int userId, @RequestParam("chipvalue") String chipValue) {
 
         Session session = new Session();
         session.setChipValue(chipValue);
@@ -88,6 +89,35 @@ public class RouletteBettingSystemController {
         synchronized (roulette) {
             return new FullAdvice(chipValue, roulette, outcomeList).toRepresentation();
         }
+    }
+
+    @RequestMapping(path = "/{userId}/{sessionsId}/metrics", method = GET, produces = "application/json")
+    public SessionMetricsRepresentation getMetrics(@PathVariable("userId") Integer userId, @PathVariable("sessionsId") Integer sessionId) {
+        Optional<Session> session = sessionRepository.findByIdAndUserId(sessionId, userId);
+        if (!session.isPresent()) {
+            throw new NonExistingSessionException("Session Id not found");
+        }
+        return new SessionMetrics(outcomeRepository.findBySessionIdOrderByIdAsc(sessionId)).toRepresentation();
+
+    }
+
+    @RequestMapping(path = "/testrun", method = POST, produces = "application/json")
+    public Long doTestRun(@RequestParam("numberOfRounds") int rounds) {
+
+        Session session = new Session();
+        session.setChipValue("1");
+        session.setUserId(1234);
+
+        int id = sessionRepository.save(session).getId();
+
+        for (int i = 0; i < rounds; i++) {
+
+            setOutcome(1234, id, (int) (Math.random() * 37));
+
+        }
+
+        return outcomeRepository.getLeastProfitAmount(id);
+
     }
 
 
