@@ -62,18 +62,19 @@ public class SessionMetrics {
 
     public SessionMetricsRepresentation toRepresentation() {
         SessionMetricsRepresentation representation = new SessionMetricsRepresentation();
-        representation.percentageBlack = roundsToPercentage(totalBlack, totalRounds);
-        representation.percentageRed = roundsToPercentage(totalRed, totalRounds);
-        representation.percentageOdd = roundsToPercentage(totalOdd, totalRounds);
-        representation.percentageEven = roundsToPercentage(totalEven, totalRounds);
-        representation.percentageFirstHalf = roundsToPercentage(totalFirstHalf, totalRounds);
-        representation.percentageSecondHalf = roundsToPercentage(totalSecondHalf, totalRounds);
-        representation.percentageFirstDozen = roundsToPercentage(totalFirstDozen, totalRounds);
-        representation.percentageSecondDozen = roundsToPercentage(totalSecondDozen, totalRounds);
-        representation.percentageThirdDozen = roundsToPercentage(totalThirdDozen, totalRounds);
-        representation.percentageFirstColumn = roundsToPercentage(totalFirstColumn, totalRounds);
-        representation.percentageSecondColumn = roundsToPercentage(totalSecondColumn, totalRounds);
-        representation.percentageThirdColumn = roundsToPercentage(totalThirdColumn, totalRounds);
+        representation.totalNumberOfRound = totalRounds;
+        representation.redBlackMetrics.percentageBlack = roundsToPercentage(totalBlack, totalRounds);
+        representation.redBlackMetrics.percentageRed = roundsToPercentage(totalRed, totalRounds);
+        representation.oddEvenMetrics.percentageOdd = roundsToPercentage(totalOdd, totalRounds);
+        representation.oddEvenMetrics.percentageEven = roundsToPercentage(totalEven, totalRounds);
+        representation.halfMetrics.percentageFirstHalf = roundsToPercentage(totalFirstHalf, totalRounds);
+        representation.halfMetrics.percentageSecondHalf = roundsToPercentage(totalSecondHalf, totalRounds);
+        representation.dozenMetrics.percentageFirstDozen = roundsToPercentage(totalFirstDozen, totalRounds);
+        representation.dozenMetrics.percentageSecondDozen = roundsToPercentage(totalSecondDozen, totalRounds);
+        representation.dozenMetrics.percentageThirdDozen = roundsToPercentage(totalThirdDozen, totalRounds);
+        representation.columnMetrics.percentageFirstColumn = roundsToPercentage(totalFirstColumn, totalRounds);
+        representation.columnMetrics.percentageSecondColumn = roundsToPercentage(totalSecondColumn, totalRounds);
+        representation.columnMetrics.percentageThirdColumn = roundsToPercentage(totalThirdColumn, totalRounds);
         representation.percentageZero = roundsToPercentage(totalZero, totalRounds);
         return representation;
 
