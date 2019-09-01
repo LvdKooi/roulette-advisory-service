@@ -2,7 +2,7 @@ package nl.kooi.representation.advises;
 
 import javax.validation.constraints.NotNull;
 
-public class FullAdviceRepresentation extends AdviceRepresentation {
+public class FullAdviceRepresentationV1 extends AdviceRepresentation {
     @NotNull
     public DozenAdviceRepresentation dozenAdvice;
 

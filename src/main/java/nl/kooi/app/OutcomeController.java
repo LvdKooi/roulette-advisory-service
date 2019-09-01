@@ -11,7 +11,7 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
-@RequestMapping(path = "/outcomes")
+@RequestMapping(path = "/outcomes/V1")
 @RestController
 @Slf4j
 

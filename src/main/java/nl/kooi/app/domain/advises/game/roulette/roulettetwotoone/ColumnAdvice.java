@@ -6,7 +6,7 @@
 package nl.kooi.app.domain.advises.game.roulette.roulettetwotoone;
 
 
-import nl.kooi.app.domain.RouletteDomainObject;
+import nl.kooi.app.domain.CompoundRouletteOutcomeObject;
 import nl.kooi.representation.RouletteOutcome;
 import nl.kooi.representation.advises.ColumnAdviceRepresentation;
 import java.math.BigDecimal;
@@ -23,7 +23,7 @@ public class ColumnAdvice extends RouletteTwoToOne {
     }
 
     @Override
-    public void setHits(RouletteDomainObject roulette) {
+    public void setHits(CompoundRouletteOutcomeObject roulette) {
         hitArray[0] = roulette.getColumn().equals(RouletteOutcome.FIRST);
         hitArray[1] = roulette.getColumn().equals(RouletteOutcome.SECOND);
         hitArray[2] = roulette.getColumn().equals(RouletteOutcome.THIRD);

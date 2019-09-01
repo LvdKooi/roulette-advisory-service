@@ -1,15 +1,23 @@
 package nl.kooi.app.domain.metrics;
 
-import nl.kooi.app.domain.RouletteDomainObject;
+import com.sun.media.jfxmedia.logging.Logger;
+import lombok.extern.slf4j.Slf4j;
+import nl.kooi.app.domain.CompoundRouletteOutcomeObject;
 import nl.kooi.app.domain.model.Outcome;
 import nl.kooi.representation.RouletteOutcome;
-import nl.kooi.representation.metrics.SessionMetricsRepresentation;
+import nl.kooi.representation.metrics.SessionMetricsRepresentationV1;
+import org.springframework.util.Assert;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 import java.util.Collection;
 
+import static java.math.RoundingMode.HALF_UP;
+
+@Slf4j
 public class SessionMetrics {
-    private RouletteDomainObject roulette;
+    private CompoundRouletteOutcomeObject roulette;
     private Collection<Outcome> outcomes;
     private BigDecimal biggestLoss;
     private BigDecimal biggestProfit;
@@ -30,7 +38,7 @@ public class SessionMetrics {
 
     public SessionMetrics(Collection<Outcome> outcomes) {
         this.outcomes = outcomes;
-        this.roulette = new RouletteDomainObject(0);
+        this.roulette = new CompoundRouletteOutcomeObject(0);
         totalRounds = outcomes.stream().count();
         outcomes.stream().forEach(outcome -> new CounterHelper(outcome));
 
@@ -60,9 +68,10 @@ public class SessionMetrics {
         }
     }
 
-    public SessionMetricsRepresentation toRepresentation() {
-        SessionMetricsRepresentation representation = new SessionMetricsRepresentation();
+    public SessionMetricsRepresentationV1 toRepresentation() {
+        SessionMetricsRepresentationV1 representation = new SessionMetricsRepresentationV1();
         representation.totalNumberOfRound = totalRounds;
+        Assert.isTrue(totalRounds >0, "Total rounds in SessionMetrics is corrupt or no outcomes have been recorded yet");
         representation.redBlackMetrics.percentageBlack = roundsToPercentage(totalBlack, totalRounds);
         representation.redBlackMetrics.percentageRed = roundsToPercentage(totalRed, totalRounds);
         representation.oddEvenMetrics.percentageOdd = roundsToPercentage(totalOdd, totalRounds);
@@ -82,8 +91,8 @@ public class SessionMetrics {
 
 
     private static BigDecimal roundsToPercentage(long numberOfHits, long numberOfRounds) {
-
-        return (new BigDecimal(numberOfHits).divide(new BigDecimal(numberOfRounds))).multiply(new BigDecimal(100)).setScale(2);
+        MathContext mc = new MathContext(10, RoundingMode.HALF_UP);
+        return new BigDecimal(numberOfHits).divide(new BigDecimal(numberOfRounds), mc).multiply(new BigDecimal(100),mc).setScale(3,HALF_UP);
     }
 
 

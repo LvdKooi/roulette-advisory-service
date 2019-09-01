@@ -14,7 +14,7 @@ import static org.hamcrest.Matchers.is;
 
 public class GameDomainObjectTests {
 
-    private static RouletteDomainObject roulette = new RouletteDomainObject(0);
+    private static CompoundRouletteOutcomeObject roulette = new CompoundRouletteOutcomeObject(0);
 
     @Test
     public void oddEvenTests() {

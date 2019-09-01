@@ -1,6 +1,6 @@
 package nl.kooi.app.domain.advises.game;
 
-import nl.kooi.app.domain.RouletteDomainObject;
+import nl.kooi.app.domain.CompoundRouletteOutcomeObject;
 import nl.kooi.representation.advises.AdviceRepresentation;
 import java.math.BigDecimal;
 
@@ -27,7 +27,7 @@ public abstract class Game {
 
     public abstract String toString();
 
-    public abstract void setHits(RouletteDomainObject roulette);
+    public abstract void setHits(CompoundRouletteOutcomeObject roulette);
 
     protected abstract void setAdvice(boolean[] hitArray);
 

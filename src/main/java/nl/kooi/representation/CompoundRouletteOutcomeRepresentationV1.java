@@ -2,7 +2,7 @@ package nl.kooi.representation;
 
 import javax.validation.constraints.NotNull;
 
-public class RouletteRepresentationObject {
+public class CompoundRouletteOutcomeRepresentationV1 {
     @NotNull
     public Integer outcome;
 

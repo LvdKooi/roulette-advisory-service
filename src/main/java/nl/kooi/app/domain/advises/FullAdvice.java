@@ -1,6 +1,6 @@
 package nl.kooi.app.domain.advises;
 
-import nl.kooi.app.domain.RouletteDomainObject;
+import nl.kooi.app.domain.CompoundRouletteOutcomeObject;
 import nl.kooi.app.domain.advises.game.Game;
 import nl.kooi.app.domain.advises.game.roulette.rouletteonetoone.HalfAdvice;
 import nl.kooi.app.domain.advises.game.roulette.rouletteonetoone.OddEvenAdvice;
@@ -8,7 +8,7 @@ import nl.kooi.app.domain.advises.game.roulette.rouletteonetoone.RedBlackAdvice;
 import nl.kooi.app.domain.advises.game.roulette.roulettetwotoone.DozenAdvice;
 import nl.kooi.app.domain.advises.game.roulette.roulettetwotoone.ColumnAdvice;
 import nl.kooi.app.domain.model.Outcome;
-import nl.kooi.representation.advises.FullAdviceRepresentation;
+import nl.kooi.representation.advises.FullAdviceRepresentationV1;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -18,12 +18,12 @@ import java.util.List;
 public class FullAdvice {
 
     private String chipValue;
-    private RouletteDomainObject roulette;
+    private CompoundRouletteOutcomeObject roulette;
     private Collection<Outcome> outcomeList;
     private List<Game> gameArray;
     private BigDecimal totalProfit = new BigDecimal(0).setScale(2);
 
-    public FullAdvice(String chipValue, RouletteDomainObject roulette, Collection<Outcome> outcomeList) {
+    public FullAdvice(String chipValue, CompoundRouletteOutcomeObject roulette, Collection<Outcome> outcomeList) {
         this.chipValue = chipValue;
         this.roulette = roulette;
         this.outcomeList = outcomeList;
@@ -43,9 +43,9 @@ public class FullAdvice {
 
 
 
-    public FullAdviceRepresentation toRepresentation() {
+    public FullAdviceRepresentationV1 toRepresentation() {
 
-        FullAdviceRepresentation representation = new FullAdviceRepresentation();
+        FullAdviceRepresentationV1 representation = new FullAdviceRepresentationV1();
         for (Game game : gameArray) {
             representation = toRepresentationHelper(game, representation);
         }
@@ -53,7 +53,7 @@ public class FullAdvice {
 
     }
 
-    private static FullAdviceRepresentation toRepresentationHelper(Game game, FullAdviceRepresentation representation) {
+    private static FullAdviceRepresentationV1 toRepresentationHelper(Game game, FullAdviceRepresentationV1 representation) {
         if (game instanceof DozenAdvice)
             representation.dozenAdvice = ((DozenAdvice) game).toRepresentation();
         if (game instanceof ColumnAdvice)

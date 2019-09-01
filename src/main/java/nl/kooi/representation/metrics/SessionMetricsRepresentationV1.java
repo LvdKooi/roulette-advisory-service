@@ -8,7 +8,7 @@ import nl.kooi.representation.metrics.roulettetwotoone.DozenMetricsRepresentatio
 
 import java.math.BigDecimal;
 
-public class SessionMetricsRepresentation {
+public class SessionMetricsRepresentationV1 {
     public long totalNumberOfRound;
     public HalfMetricsRepresentation halfMetrics;
     public OddEvenMetricsRepresentation oddEvenMetrics;
@@ -17,7 +17,7 @@ public class SessionMetricsRepresentation {
     public DozenMetricsRepresentation dozenMetrics;
     public BigDecimal percentageZero;
 
-    public SessionMetricsRepresentation() {
+    public SessionMetricsRepresentationV1() {
         halfMetrics = new HalfMetricsRepresentation();
         oddEvenMetrics = new OddEvenMetricsRepresentation();
         redBlackMetrics = new RedBlackMetricsRepresentation();

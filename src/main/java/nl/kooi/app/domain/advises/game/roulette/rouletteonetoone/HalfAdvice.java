@@ -1,6 +1,6 @@
 package nl.kooi.app.domain.advises.game.roulette.rouletteonetoone;
 
-import nl.kooi.app.domain.RouletteDomainObject;
+import nl.kooi.app.domain.CompoundRouletteOutcomeObject;
 import nl.kooi.representation.RouletteOutcome;
 import nl.kooi.representation.advises.HalfAdviceRepresentation;
 import java.math.BigDecimal;
@@ -18,7 +18,7 @@ public class HalfAdvice extends RouletteOneToOne {
     }
 
     @Override
-    public void setHits(RouletteDomainObject roulette) {
+    public void setHits(CompoundRouletteOutcomeObject roulette) {
         hitArray[0] = roulette.getHalf().equals(RouletteOutcome.FIRST);
         hitArray[1] = roulette.getHalf().equals(RouletteOutcome.SECOND);
         this.setAdvice(hitArray);

@@ -1,7 +1,7 @@
 package nl.kooi.app.domain.advises.game.roulette.rouletteonetoone;
 
 
-import nl.kooi.app.domain.RouletteDomainObject;
+import nl.kooi.app.domain.CompoundRouletteOutcomeObject;
 import nl.kooi.representation.RouletteOutcome;
 import nl.kooi.representation.advises.OddEvenAdviceRepresentation;
 import java.math.BigDecimal;
@@ -19,7 +19,7 @@ public class OddEvenAdvice extends RouletteOneToOne {
     }
 
     @Override
-    public void setHits(RouletteDomainObject roulette) {
+    public void setHits(CompoundRouletteOutcomeObject roulette) {
         hitArray[0] = roulette.getOddEven().equals(RouletteOutcome.ODD);
         hitArray[1] = roulette.getOddEven().equals(RouletteOutcome.EVEN);
         this.setAdvice(hitArray);
