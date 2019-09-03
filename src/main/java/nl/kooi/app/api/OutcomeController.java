@@ -1,4 +1,4 @@
-package nl.kooi.app;
+package nl.kooi.app.api;
 
 import lombok.extern.slf4j.Slf4j;
 import nl.kooi.app.domain.model.Outcome;
@@ -11,7 +11,7 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
-@RequestMapping(path = "/outcomes/V1")
+@RequestMapping(path = "/outcomes")
 @RestController
 @Slf4j
 

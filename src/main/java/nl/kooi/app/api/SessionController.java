@@ -1,4 +1,4 @@
-package nl.kooi.app;
+package nl.kooi.app.api;
 
 import lombok.extern.slf4j.Slf4j;
 import nl.kooi.app.domain.model.Session;

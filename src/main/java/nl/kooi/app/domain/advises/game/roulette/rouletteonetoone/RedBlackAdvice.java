@@ -1,8 +1,8 @@
 package nl.kooi.app.domain.advises.game.roulette.rouletteonetoone;
 
-import nl.kooi.app.domain.CompoundRouletteOutcomeObject;
+import nl.kooi.app.domain.CompoundRouletteOutcome;
 import nl.kooi.representation.RouletteOutcome;
-import nl.kooi.representation.advises.RedBlackAdviceRepresentation;
+import nl.kooi.representation.advises.rouletteonetoone.RedBlackAdviceV1;
 import java.math.BigDecimal;
 
 /**
@@ -17,16 +17,16 @@ public class RedBlackAdvice extends RouletteOneToOne {
     }
 
     @Override
-    public void setHits(CompoundRouletteOutcomeObject roulette) {
+    public void setHits(CompoundRouletteOutcome roulette) {
         hitArray[0] = roulette.getRedBlack().equals(RouletteOutcome.RED);
         hitArray[1] = roulette.getRedBlack().equals(RouletteOutcome.BLACK);
         this.setAdvice(hitArray);
     }
 
     @Override
-    public RedBlackAdviceRepresentation toRepresentation() {
+    public RedBlackAdviceV1 toRepresentationV1() {
         int[] adviceArray = bettingSystem.getAdviceArray();
-        RedBlackAdviceRepresentation representation = new RedBlackAdviceRepresentation();
+        RedBlackAdviceV1 representation = new RedBlackAdviceV1();
         representation.red = getChipValue().multiply(new BigDecimal(adviceArray[0]));
         representation.black = getChipValue().multiply(new BigDecimal(adviceArray[1]));
         return representation;

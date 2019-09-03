@@ -2,7 +2,7 @@ package nl.kooi.app.domain;
 
 import nl.kooi.app.exceptions.NotValidOutcomeException;
 import nl.kooi.representation.RouletteOutcome;
-import nl.kooi.representation.CompoundRouletteOutcomeRepresentationV1;
+import nl.kooi.representation.CompoundRouletteOutcomeV1;
 
 import java.util.Arrays;
 
@@ -10,7 +10,7 @@ import java.util.Arrays;
  * @author Laurens van der Kooi
  */
 
-public class CompoundRouletteOutcomeObject {
+public class CompoundRouletteOutcome {
 
     private static final int[] FIRST_COLUMN;
     private static final int[] SECOND_COLUMN;
@@ -25,7 +25,7 @@ public class CompoundRouletteOutcomeObject {
     private RouletteOutcome dozen;
     private boolean isZero;
 
-    public CompoundRouletteOutcomeObject(int outcome) {
+    public CompoundRouletteOutcome(int outcome) {
         validOutcomeCheck(outcome);
         this.outcome = outcome;
         this.redBlack = redBlack(outcome);
@@ -180,8 +180,8 @@ public class CompoundRouletteOutcomeObject {
                         " HALFS: " + this.half + " ";
     }
 
-    public CompoundRouletteOutcomeRepresentationV1 toRepresentation() {
-        CompoundRouletteOutcomeRepresentationV1 representation = new CompoundRouletteOutcomeRepresentationV1();
+    public CompoundRouletteOutcomeV1 toRepresentationV1() {
+        CompoundRouletteOutcomeV1 representation = new CompoundRouletteOutcomeV1();
         representation.dozen = this.dozen;
         representation.half = this.half;
         representation.isZero = this.isZero;

@@ -1,8 +1,8 @@
-package nl.kooi.app;
+package nl.kooi.app.api.v1;
 
 
 import lombok.extern.slf4j.Slf4j;
-import nl.kooi.app.domain.CompoundRouletteOutcomeObject;
+import nl.kooi.app.domain.CompoundRouletteOutcome;
 import nl.kooi.app.domain.advises.FullAdvice;
 import nl.kooi.app.domain.metrics.SessionMetrics;
 import nl.kooi.app.exceptions.NonExistingSessionException;
@@ -10,8 +10,8 @@ import nl.kooi.app.domain.model.Outcome;
 import nl.kooi.app.domain.model.Session;
 import nl.kooi.infrastructure.repository.OutcomeRepository;
 import nl.kooi.infrastructure.repository.SessionRepository;
-import nl.kooi.representation.advises.FullAdviceRepresentationV1;
-import nl.kooi.representation.metrics.SessionMetricsRepresentationV1;
+import nl.kooi.representation.advises.FullAdviceV1;
+import nl.kooi.representation.metrics.SessionMetricsV1;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
@@ -26,7 +26,7 @@ import java.util.*;
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @Slf4j
-@RequestMapping(path = "/roulette-betting-system/V1")
+@RequestMapping(path = "/roulette-betting-system")
 @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
 @RestController
 public class RouletteBettingSystemController {
@@ -37,7 +37,7 @@ public class RouletteBettingSystemController {
     @Autowired
     OutcomeRepository outcomeRepository;
 
-    private static CompoundRouletteOutcomeObject roulette = new CompoundRouletteOutcomeObject(0);
+    private static CompoundRouletteOutcome roulette = new CompoundRouletteOutcome(0);
 
     private ArrayList<Integer> outcomeList = new ArrayList<>();
 
@@ -51,8 +51,8 @@ public class RouletteBettingSystemController {
 
     }
 
-    @RequestMapping(path = "/{userId}/{sessionsId}/outcome", method = PUT, produces = "application/json")
-    public FullAdviceRepresentationV1 setOutcome(@PathVariable("userId") Integer userId, @PathVariable("sessionsId") Integer sessionId, @RequestParam("outcome") int outcome) {
+    @RequestMapping(path = "/{userId}/{sessionsId}/outcome/V1", method = PUT, produces = "application/json")
+    public FullAdviceV1 setOutcome(@PathVariable("userId") Integer userId, @PathVariable("sessionsId") Integer sessionId, @RequestParam("outcome") int outcome) {
 
         roulette.setOutcome(outcome); // to validate outcome;
 
@@ -84,17 +84,17 @@ public class RouletteBettingSystemController {
         outcomeList = outcomeRepository.findBySessionIdOrderByIdAsc(sessionId);
 
         synchronized (roulette) {
-            return new FullAdvice(chipValue, roulette, outcomeList).toRepresentation();
+            return new FullAdvice(chipValue, roulette, outcomeList).toRepresentationV1();
         }
     }
 
-    @RequestMapping(path = "/{userId}/{sessionsId}/metrics", method = GET, produces = "application/json")
-    public SessionMetricsRepresentationV1 getMetrics(@PathVariable("userId") Integer userId, @PathVariable("sessionsId") Integer sessionId) {
+    @RequestMapping(path = "/{userId}/{sessionsId}/metrics/V1", method = GET, produces = "application/json")
+    public SessionMetricsV1 getMetrics(@PathVariable("userId") Integer userId, @PathVariable("sessionsId") Integer sessionId) {
         Optional<Session> session = sessionRepository.findByIdAndUserId(sessionId, userId);
         if (!session.isPresent()) {
             throw new NonExistingSessionException("Session Id not found");
         }
-        return new SessionMetrics(outcomeRepository.findBySessionIdOrderByIdAsc(sessionId)).toRepresentation();
+        return new SessionMetrics(outcomeRepository.findBySessionIdOrderByIdAsc(sessionId)).toRepresentationV1();
 
     }
 

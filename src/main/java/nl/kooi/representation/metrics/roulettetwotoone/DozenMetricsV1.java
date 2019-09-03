@@ -7,7 +7,7 @@ import java.math.BigDecimal;
  * @author Laurens van der Kooi
  */
 
-public class DozenMetricsRepresentation {
+public class DozenMetricsV1 {
     public BigDecimal percentageFirstDozen;
     public BigDecimal percentageSecondDozen;
     public BigDecimal percentageThirdDozen;

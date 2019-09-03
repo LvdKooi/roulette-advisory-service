@@ -1,8 +1,8 @@
-package nl.kooi.app;
+package nl.kooi.app.api;
 
-import nl.kooi.app.domain.CompoundRouletteOutcomeObject;
+import nl.kooi.app.domain.CompoundRouletteOutcome;
 import nl.kooi.representation.RouletteOutcome;
-import nl.kooi.representation.CompoundRouletteOutcomeRepresentationV1;
+import nl.kooi.representation.CompoundRouletteOutcomeV1;
 
 
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,37 +16,37 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 public class RouletteOutcomeController {
 
     @RequestMapping(path = "/{outcome}", method = GET, produces = "application/json")
-    public CompoundRouletteOutcomeRepresentationV1 sayOutcome(@PathVariable("outcome") int outcome) {
-        return new CompoundRouletteOutcomeObject(outcome).toRepresentation();
+    public CompoundRouletteOutcomeV1 sayOutcome(@PathVariable("outcome") int outcome) {
+        return new CompoundRouletteOutcome(outcome).toRepresentationV1();
     }
 
     @RequestMapping(path = "{outcome}/redblack", method = GET, produces = "application/json")
     public RouletteOutcome sayRedBlack(@PathVariable("outcome") int outcome) {
-        CompoundRouletteOutcomeRepresentationV1 representation = new CompoundRouletteOutcomeObject(outcome).toRepresentation();
+        CompoundRouletteOutcomeV1 representation = new CompoundRouletteOutcome(outcome).toRepresentationV1();
         return representation.redBlack;
     }
 
     @RequestMapping(path = "{outcome}/oddeven", method = GET, produces = "application/json")
     public RouletteOutcome sayOddEven(@PathVariable("outcome") int outcome) {
-        CompoundRouletteOutcomeRepresentationV1 representation = new CompoundRouletteOutcomeObject(outcome).toRepresentation();
+        CompoundRouletteOutcomeV1 representation = new CompoundRouletteOutcome(outcome).toRepresentationV1();
         return representation.oddEven;
     }
 
     @RequestMapping(path = "{outcome}/half", method = GET, produces = "application/json")
     public RouletteOutcome sayHalf(@PathVariable("outcome") int outcome) {
-        CompoundRouletteOutcomeRepresentationV1 representation = new CompoundRouletteOutcomeObject(outcome).toRepresentation();
+        CompoundRouletteOutcomeV1 representation = new CompoundRouletteOutcome(outcome).toRepresentationV1();
         return representation.half;
     }
 
     @RequestMapping(path = "{outcome}/column", method = GET, produces = "application/json")
     public RouletteOutcome sayColumn(@PathVariable("outcome") int outcome) {
-        CompoundRouletteOutcomeRepresentationV1 representation = new CompoundRouletteOutcomeObject(outcome).toRepresentation();
+        CompoundRouletteOutcomeV1 representation = new CompoundRouletteOutcome(outcome).toRepresentationV1();
         return representation.column;
     }
 
     @RequestMapping(path = "{outcome}/dozen", method = GET, produces = "application/json")
     public RouletteOutcome sayDozen(@PathVariable("outcome") int outcome) {
-        CompoundRouletteOutcomeRepresentationV1 representation = new CompoundRouletteOutcomeObject(outcome).toRepresentation();
+        CompoundRouletteOutcomeV1 representation = new CompoundRouletteOutcome(outcome).toRepresentationV1();
         return representation.dozen;
     }
 }

@@ -1,11 +1,10 @@
 package nl.kooi.app.domain.metrics;
 
-import com.sun.media.jfxmedia.logging.Logger;
 import lombok.extern.slf4j.Slf4j;
-import nl.kooi.app.domain.CompoundRouletteOutcomeObject;
+import nl.kooi.app.domain.CompoundRouletteOutcome;
 import nl.kooi.app.domain.model.Outcome;
 import nl.kooi.representation.RouletteOutcome;
-import nl.kooi.representation.metrics.SessionMetricsRepresentationV1;
+import nl.kooi.representation.metrics.SessionMetricsV1;
 import org.springframework.util.Assert;
 
 import java.math.BigDecimal;
@@ -17,7 +16,7 @@ import static java.math.RoundingMode.HALF_UP;
 
 @Slf4j
 public class SessionMetrics {
-    private CompoundRouletteOutcomeObject roulette;
+    private CompoundRouletteOutcome roulette;
     private Collection<Outcome> outcomes;
     private BigDecimal biggestLoss;
     private BigDecimal biggestProfit;
@@ -38,7 +37,7 @@ public class SessionMetrics {
 
     public SessionMetrics(Collection<Outcome> outcomes) {
         this.outcomes = outcomes;
-        this.roulette = new CompoundRouletteOutcomeObject(0);
+        this.roulette = new CompoundRouletteOutcome(0);
         totalRounds = outcomes.stream().count();
         outcomes.stream().forEach(outcome -> new CounterHelper(outcome));
 
@@ -68,8 +67,8 @@ public class SessionMetrics {
         }
     }
 
-    public SessionMetricsRepresentationV1 toRepresentation() {
-        SessionMetricsRepresentationV1 representation = new SessionMetricsRepresentationV1();
+    public SessionMetricsV1 toRepresentationV1() {
+        SessionMetricsV1 representation = new SessionMetricsV1();
         representation.totalNumberOfRound = totalRounds;
         Assert.isTrue(totalRounds >0, "Total rounds in SessionMetrics is corrupt or no outcomes have been recorded yet");
         representation.redBlackMetrics.percentageBlack = roundsToPercentage(totalBlack, totalRounds);

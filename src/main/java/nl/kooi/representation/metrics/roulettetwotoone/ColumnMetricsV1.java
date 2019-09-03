@@ -12,7 +12,7 @@ import java.math.BigDecimal;
  * @author Laurens van der Kooi
  */
 
-public class ColumnMetricsRepresentation {
+public class ColumnMetricsV1 {
     public BigDecimal percentageFirstColumn;
     public BigDecimal percentageSecondColumn;
     public BigDecimal percentageThirdColumn;

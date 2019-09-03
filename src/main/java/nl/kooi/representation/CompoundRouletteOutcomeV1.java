@@ -2,7 +2,7 @@ package nl.kooi.representation;
 
 import javax.validation.constraints.NotNull;
 
-public class CompoundRouletteOutcomeRepresentationV1 {
+public class CompoundRouletteOutcomeV1 {
     @NotNull
     public Integer outcome;
 
