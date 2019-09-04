@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import nl.kooi.app.domain.CompoundRouletteOutcome;
 import nl.kooi.app.domain.advises.FullAdvice;
 import nl.kooi.app.domain.metrics.SessionMetrics;
-import nl.kooi.app.exceptions.NonExistingSessionException;
+import nl.kooi.app.exceptions.SessionNotFoundException;
 import nl.kooi.app.domain.model.Outcome;
 import nl.kooi.app.domain.model.Session;
 import nl.kooi.infrastructure.repository.OutcomeRepository;
@@ -58,7 +58,7 @@ public class RouletteBettingSystemController {
 
         Optional<Session> session = sessionRepository.findByIdAndUserId(sessionId, userId);
         if (!session.isPresent()) {
-            throw new NonExistingSessionException("Session Id not found");
+            throw new SessionNotFoundException("Session Id not found");
         }
 
         String chipValue = session.get().getChipValue();
@@ -92,7 +92,7 @@ public class RouletteBettingSystemController {
     public SessionMetricsV1 getMetrics(@PathVariable("userId") Integer userId, @PathVariable("sessionsId") Integer sessionId) {
         Optional<Session> session = sessionRepository.findByIdAndUserId(sessionId, userId);
         if (!session.isPresent()) {
-            throw new NonExistingSessionException("Session Id not found");
+            throw new SessionNotFoundException("Session Id not found");
         }
         return new SessionMetrics(outcomeRepository.findBySessionIdOrderByIdAsc(sessionId)).toRepresentationV1();
 

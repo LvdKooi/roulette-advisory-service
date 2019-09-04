@@ -4,8 +4,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(code = HttpStatus.NOT_FOUND)
-public class NonExistingSessionException extends RuntimeException {
-    public NonExistingSessionException(String message){
+public class SessionNotFoundException extends RuntimeException {
+    public SessionNotFoundException(String message){
         super(message);
     }
 
