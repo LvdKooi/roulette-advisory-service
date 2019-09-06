@@ -36,4 +36,13 @@ public abstract class RouletteTwoToOne extends Game {
         return null;
     }
 
+    @Override
+    public BigDecimal getProfit() {
+        System.out.println("profitCounter: " + bettingSystem.getProfitCounter());
+        System.out.println("chipValue: " + getChipValue());
+        System.out.println("profitFromAdviceObject: " +getChipValue().multiply(new BigDecimal(bettingSystem.getProfitCounter()).setScale(2)));
+
+        return getChipValue().multiply(new BigDecimal(bettingSystem.getProfitCounter()).setScale(2));
+    }
+
 }

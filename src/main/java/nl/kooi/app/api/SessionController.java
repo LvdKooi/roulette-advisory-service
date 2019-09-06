@@ -1,9 +1,10 @@
-package nl.kooi.app;
+package nl.kooi.app.api;
 
 import lombok.extern.slf4j.Slf4j;
 import nl.kooi.app.domain.model.Session;
 import nl.kooi.infrastructure.repository.SessionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,7 +36,7 @@ public class SessionController {
         Optional<Session> stock = sessionRepository.findById(id);
         if (!stock.isPresent()) {
             log.error("Id " + id + " is not existed");
-            ResponseEntity.badRequest().build();
+            return ResponseEntity.notFound().build();
         }
 
         return ResponseEntity.ok(stock.get());
@@ -45,7 +46,7 @@ public class SessionController {
     public ResponseEntity<Session> update(@PathVariable int id, @Valid @RequestBody Session session) {
         if (!sessionRepository.findById(id).isPresent()) {
             log.error("Id " + id + " is not existed");
-            ResponseEntity.badRequest().build();
+            return ResponseEntity.notFound().build();
         }
 
         return ResponseEntity.ok(sessionRepository.save(session));
@@ -55,7 +56,7 @@ public class SessionController {
     public ResponseEntity delete(@PathVariable int id) {
         if (!sessionRepository.findById(id).isPresent()) {
             log.error("Id " + id + " is not existed");
-            ResponseEntity.badRequest().build();
+            return ResponseEntity.notFound().build();
         }
 
         sessionRepository.deleteById(id);

@@ -1,9 +1,11 @@
-package nl.kooi.representation.advises;
+package nl.kooi.representation.advises.roulettetwotoone;
+
+import nl.kooi.representation.advises.AdviceRepresentation;
 
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
-public class ColumnAdviceRepresentation extends AdviceRepresentation {
+public class ColumnAdviceV1 extends AdviceRepresentation {
     @NotNull
     public BigDecimal firstColumn;
 

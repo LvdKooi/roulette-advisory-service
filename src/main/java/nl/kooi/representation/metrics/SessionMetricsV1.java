@@ -1,0 +1,29 @@
+package nl.kooi.representation.metrics;
+
+import nl.kooi.representation.metrics.rouletteonetoone.HalfMetricsV1;
+import nl.kooi.representation.metrics.rouletteonetoone.OddEvenMetricsV1;
+import nl.kooi.representation.metrics.rouletteonetoone.RedBlackMetricsRepresentation;
+import nl.kooi.representation.metrics.roulettetwotoone.ColumnMetricsV1;
+import nl.kooi.representation.metrics.roulettetwotoone.DozenMetricsV1;
+
+import java.math.BigDecimal;
+
+public class SessionMetricsV1 {
+    public long totalNumberOfRound;
+    public HalfMetricsV1 halfMetrics;
+    public OddEvenMetricsV1 oddEvenMetrics;
+    public RedBlackMetricsRepresentation redBlackMetrics;
+    public ColumnMetricsV1 columnMetrics;
+    public DozenMetricsV1 dozenMetrics;
+    public BigDecimal percentageZero;
+
+    public SessionMetricsV1() {
+        halfMetrics = new HalfMetricsV1();
+        oddEvenMetrics = new OddEvenMetricsV1();
+        redBlackMetrics = new RedBlackMetricsRepresentation();
+        columnMetrics = new ColumnMetricsV1();
+        dozenMetrics = new DozenMetricsV1();
+
+    }
+
+}

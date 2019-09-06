@@ -1,8 +1,8 @@
 package nl.kooi.app.domain.advises.game.roulette.rouletteonetoone;
 
-import nl.kooi.app.domain.RouletteDomainObject;
+import nl.kooi.app.domain.CompoundRouletteOutcome;
 import nl.kooi.representation.RouletteOutcome;
-import nl.kooi.representation.advises.HalfAdviceRepresentation;
+import nl.kooi.representation.advises.rouletteonetoone.HalfAdviceV1;
 import java.math.BigDecimal;
 
 /**
@@ -18,7 +18,7 @@ public class HalfAdvice extends RouletteOneToOne {
     }
 
     @Override
-    public void setHits(RouletteDomainObject roulette) {
+    public void setHits(CompoundRouletteOutcome roulette) {
         hitArray[0] = roulette.getHalf().equals(RouletteOutcome.FIRST);
         hitArray[1] = roulette.getHalf().equals(RouletteOutcome.SECOND);
         this.setAdvice(hitArray);
@@ -26,9 +26,9 @@ public class HalfAdvice extends RouletteOneToOne {
     }
 
     @Override
-    public HalfAdviceRepresentation toRepresentation() {
+    public HalfAdviceV1 toRepresentationV1() {
         int[] adviceArray = bettingSystem.getAdviceArray();
-        HalfAdviceRepresentation representation = new HalfAdviceRepresentation();
+        HalfAdviceV1 representation = new HalfAdviceV1();
         representation.firstHalf = getChipValue().multiply(new BigDecimal(adviceArray[0]));
         representation.secondHalf = getChipValue().multiply(new BigDecimal(adviceArray[1]));
         return representation;
