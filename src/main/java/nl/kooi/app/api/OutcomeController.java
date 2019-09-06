@@ -35,7 +35,7 @@ public class OutcomeController {
         Optional<Outcome> stock = outcomeRepository.findById(id);
         if (!stock.isPresent()) {
             log.error("Id " + id + " is not existed");
-            ResponseEntity.badRequest().build();
+            return ResponseEntity.notFound().build();
         }
 
         return ResponseEntity.ok(stock.get());
@@ -45,7 +45,7 @@ public class OutcomeController {
     public ResponseEntity<Outcome> update(@PathVariable int id, @Valid @RequestBody Outcome outcome) {
         if (!outcomeRepository.findById(id).isPresent()) {
             log.error("Id " + id + " is not existed");
-            ResponseEntity.badRequest().build();
+            return ResponseEntity.notFound().build();
         }
 
         return ResponseEntity.ok(outcomeRepository.save(outcome));
@@ -55,7 +55,7 @@ public class OutcomeController {
     public ResponseEntity delete(@PathVariable int id) {
         if (!outcomeRepository.findById(id).isPresent()) {
             log.error("Id " + id + " is not existed");
-            ResponseEntity.badRequest().build();
+            return ResponseEntity.notFound().build();
         }
 
         outcomeRepository.deleteById(id);
