@@ -17,6 +17,8 @@ import static java.math.RoundingMode.HALF_UP;
 @Slf4j
 public class SessionMetrics {
     private CompoundRouletteOutcome roulette;
+    private int sessionId;
+    private int outcomeId;
     private Collection<Outcome> outcomes;
     private BigDecimal biggestLoss;
     private BigDecimal biggestProfit;
@@ -39,8 +41,9 @@ public class SessionMetrics {
         this.outcomes = outcomes;
         this.roulette = new CompoundRouletteOutcome(0);
         totalRounds = outcomes.stream().count();
-        outcomes.stream().forEach(outcome -> new CounterHelper(outcome));
-
+        outcomes.forEach(outcome -> new CounterHelper(outcome));
+        sessionId = outcomes.stream().findAny().get().getSession().getId();
+        outcomeId = outcomes.stream().sorted((a, b) -> b.getId() - a.getId()).findFirst().get().getId();
     }
 
 
@@ -70,7 +73,7 @@ public class SessionMetrics {
     public SessionMetricsV1 toRepresentationV1() {
         SessionMetricsV1 representation = new SessionMetricsV1();
         representation.totalNumberOfRound = totalRounds;
-        Assert.isTrue(totalRounds >0, "Total rounds in SessionMetrics is corrupt or no outcomes have been recorded yet");
+        Assert.isTrue(totalRounds > 0, "Total rounds in SessionMetrics is corrupt or no outcomes have been recorded yet");
         representation.redBlackMetrics.percentageBlack = roundsToPercentage(totalBlack, totalRounds);
         representation.redBlackMetrics.percentageRed = roundsToPercentage(totalRed, totalRounds);
         representation.oddEvenMetrics.percentageOdd = roundsToPercentage(totalOdd, totalRounds);
@@ -84,6 +87,7 @@ public class SessionMetrics {
         representation.columnMetrics.percentageSecondColumn = roundsToPercentage(totalSecondColumn, totalRounds);
         representation.columnMetrics.percentageThirdColumn = roundsToPercentage(totalThirdColumn, totalRounds);
         representation.percentageZero = roundsToPercentage(totalZero, totalRounds);
+        representation.totalProfit = new BigDecimal(outcomes.stream().filter(o -> o.getId() == outcomeId).findFirst().get().getTotalProfit());
         return representation;
 
     }
@@ -91,7 +95,7 @@ public class SessionMetrics {
 
     private static BigDecimal roundsToPercentage(long numberOfHits, long numberOfRounds) {
         MathContext mc = new MathContext(10, RoundingMode.HALF_UP);
-        return new BigDecimal(numberOfHits).divide(new BigDecimal(numberOfRounds), mc).multiply(new BigDecimal(100),mc).setScale(3,HALF_UP);
+        return new BigDecimal(numberOfHits).divide(new BigDecimal(numberOfRounds), mc).multiply(new BigDecimal(100), mc).setScale(3, HALF_UP);
     }
 
 

@@ -16,6 +16,7 @@ public class SessionMetricsV1 {
     public ColumnMetricsV1 columnMetrics;
     public DozenMetricsV1 dozenMetrics;
     public BigDecimal percentageZero;
+    public BigDecimal totalProfit;
 
     public SessionMetricsV1() {
         halfMetrics = new HalfMetricsV1();

@@ -5,9 +5,9 @@ import lombok.extern.slf4j.Slf4j;
 import nl.kooi.app.domain.CompoundRouletteOutcome;
 import nl.kooi.app.domain.advises.FullAdvice;
 import nl.kooi.app.domain.metrics.SessionMetrics;
-import nl.kooi.app.exceptions.SessionNotFoundException;
 import nl.kooi.app.domain.model.Outcome;
 import nl.kooi.app.domain.model.Session;
+import nl.kooi.app.exceptions.SessionNotFoundException;
 import nl.kooi.infrastructure.repository.OutcomeRepository;
 import nl.kooi.infrastructure.repository.SessionRepository;
 import nl.kooi.representation.advises.FullAdviceV1;
@@ -21,7 +21,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Optional;
 
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
@@ -99,7 +101,7 @@ public class RouletteBettingSystemController {
     }
 
     @RequestMapping(path = "/testrun", method = POST, produces = "application/json")
-    public Long doTestRun(@RequestParam("numberOfRounds") int rounds) {
+    public SessionMetricsV1 doTestRun(@RequestParam("numberOfRounds") int rounds) {
 
         Session session = new Session();
         session.setChipValue("1");
@@ -113,7 +115,7 @@ public class RouletteBettingSystemController {
 
         }
 
-        return outcomeRepository.getLeastProfitAmount(id);
+        return getMetrics(1234, id);
 
     }
 
