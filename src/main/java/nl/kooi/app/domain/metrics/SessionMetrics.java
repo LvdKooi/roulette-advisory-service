@@ -3,30 +3,26 @@ package nl.kooi.app.domain.metrics;
 import lombok.extern.slf4j.Slf4j;
 import nl.kooi.app.domain.CompoundRouletteOutcome;
 import nl.kooi.app.domain.model.Outcome;
-import nl.kooi.infrastructure.repository.OutcomeRepository;
 import nl.kooi.representation.RouletteOutcome;
 import nl.kooi.representation.metrics.SessionMetricsV1;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
 import java.util.Collection;
+import java.util.Comparator;
+import java.util.stream.Collectors;
 
 import static java.math.RoundingMode.HALF_UP;
 
 @Slf4j
-@Component
 public class SessionMetrics {
-    @Autowired
-    private OutcomeRepository outcomeRepository;
-
     private CompoundRouletteOutcome roulette;
     private int sessionId;
     private int outcomeId;
     private Collection<Outcome> outcomes;
+    private Collection<Double> profits;
     private long totalRounds;
     private long totalFirstHalf;
     private long totalSecondHalf;
@@ -42,14 +38,14 @@ public class SessionMetrics {
     private long totalSecondDozen;
     private long totalThirdDozen;
 
-    public SessionMetrics getSessionMetrics(Collection<Outcome> outcomes) {
+    public SessionMetrics(Collection<Outcome> outcomes) {
         this.outcomes = outcomes;
         this.roulette = new CompoundRouletteOutcome(0);
         totalRounds = outcomes.stream().count();
         outcomes.forEach(outcome -> new CounterHelper(outcome));
         sessionId = outcomes.stream().findAny().get().getSession().getId();
         outcomeId = outcomes.stream().sorted((a, b) -> b.getId() - a.getId()).findFirst().get().getId();
-        return this;
+        profits = outcomes.stream().map(o -> Double.valueOf(o.getTotalProfit())).collect(Collectors.toList());
     }
 
 
@@ -94,8 +90,8 @@ public class SessionMetrics {
         representation.columnMetrics.percentageThirdColumn = roundsToPercentage(totalThirdColumn, totalRounds);
         representation.percentageZero = roundsToPercentage(totalZero, totalRounds);
         representation.currentProfit = new BigDecimal(outcomes.stream().filter(o -> o.getId() == outcomeId).findFirst().get().getTotalProfit());
-        representation.leastProfit = new BigDecimal(outcomeRepository.getLeastProfitAmount(sessionId));
-        representation.topProfit = new BigDecimal(outcomeRepository.getHighestProfitAmount(sessionId));
+        representation.leastProfit = new BigDecimal(profits.stream().min(Comparator.naturalOrder()).get());
+        representation.topProfit = new BigDecimal(profits.stream().max(Comparator.naturalOrder()).get());
         return representation;
 
     }
