@@ -9,14 +9,16 @@ import nl.kooi.representation.metrics.roulettetwotoone.DozenMetricsV1;
 import java.math.BigDecimal;
 
 public class SessionMetricsV1 {
-    public long totalNumberOfRound;
+    public long totalNumberOfRounds;
     public HalfMetricsV1 halfMetrics;
     public OddEvenMetricsV1 oddEvenMetrics;
     public RedBlackMetricsV1 redBlackMetrics;
     public ColumnMetricsV1 columnMetrics;
     public DozenMetricsV1 dozenMetrics;
     public BigDecimal percentageZero;
-    public BigDecimal totalProfit;
+    public BigDecimal currentProfit;
+    public BigDecimal leastProfit;
+    public BigDecimal topProfit;
 
     public SessionMetricsV1() {
         halfMetrics = new HalfMetricsV1();

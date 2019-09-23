@@ -39,6 +39,9 @@ public class RouletteBettingSystemController {
     @Autowired
     OutcomeRepository outcomeRepository;
 
+    @Autowired
+    SessionMetrics sessionMetrics;
+
     private static CompoundRouletteOutcome roulette = new CompoundRouletteOutcome(0);
 
     private ArrayList<Integer> outcomeList = new ArrayList<>();
@@ -96,7 +99,7 @@ public class RouletteBettingSystemController {
         if (!session.isPresent()) {
             throw new SessionNotFoundException("Session Id not found");
         }
-        return new SessionMetrics(outcomeRepository.findBySessionIdOrderByIdAsc(sessionId)).toRepresentationV1();
+        return sessionMetrics.getSessionMetrics(outcomeRepository.findBySessionIdOrderByIdAsc(sessionId)).toRepresentationV1();
 
     }
 
