@@ -1,8 +1,8 @@
 package nl.kooi.app.domain.advises.game.roulette.roulettetwotoone;
 
 
-import nl.kooi.app.domain.bettingsystem.TwoToOneBettingSystem;
 import nl.kooi.app.domain.advises.game.Game;
+import nl.kooi.app.domain.bettingsystem.TwoToOneBettingSystem;
 
 import java.math.BigDecimal;
 
@@ -25,12 +25,6 @@ public abstract class RouletteTwoToOne extends Game {
 
     }
 
-    public void printAdvice() {
-            for (int advice : bettingSystem.getAdviceArray())
-            System.out.print(getChipValue().multiply(new BigDecimal(advice)) + "\t\t");
-        System.out.println();
-    }
-
     @Override
     public String toString() {
         return null;
@@ -38,10 +32,6 @@ public abstract class RouletteTwoToOne extends Game {
 
     @Override
     public BigDecimal getProfit() {
-        System.out.println("profitCounter: " + bettingSystem.getProfitCounter());
-        System.out.println("chipValue: " + getChipValue());
-        System.out.println("profitFromAdviceObject: " +getChipValue().multiply(new BigDecimal(bettingSystem.getProfitCounter()).setScale(2)));
-
         return getChipValue().multiply(new BigDecimal(bettingSystem.getProfitCounter()).setScale(2));
     }
 

@@ -117,7 +117,7 @@ public class RouletteBettingSystemController {
         int id = sessionRepository.save(session).getId();
 
         LOGGER.info("Id of testsession is: {}", id);
-        LOGGER.info("SessionId of testsession is: {}", "1234");
+        LOGGER.info("UserId of testsession is: {}", "1234");
 
         for (int i = 0; i < rounds; i++) {
 
