@@ -12,6 +12,8 @@ import nl.kooi.infrastructure.repository.OutcomeRepository;
 import nl.kooi.infrastructure.repository.SessionRepository;
 import nl.kooi.representation.advises.FullAdviceV1;
 import nl.kooi.representation.metrics.SessionMetricsV1;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
@@ -27,11 +29,14 @@ import java.util.Optional;
 
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
+
 @Slf4j
 @RequestMapping(path = "/roulette-betting-system")
 @Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
 @RestController
 public class RouletteBettingSystemController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(RouletteBettingSystemController.class.getName());
 
     @Autowired
     SessionRepository sessionRepository;
@@ -71,6 +76,8 @@ public class RouletteBettingSystemController {
 
         int id = outcomeRepository.save(outcomes).getId();
 
+        LOGGER.info("Id of outcome is: {}", id);
+
         Collection<Outcome> outcomeList = outcomeRepository.findBySessionIdOrderByIdAsc(sessionId);
 
         outcomes = outcomeRepository.findById(id).get();
@@ -108,6 +115,9 @@ public class RouletteBettingSystemController {
         session.setUserId(1234);
 
         int id = sessionRepository.save(session).getId();
+
+        LOGGER.info("Id of testsession is: {}", id);
+        LOGGER.info("SessionId of testsession is: {}", "1234");
 
         for (int i = 0; i < rounds; i++) {
 
