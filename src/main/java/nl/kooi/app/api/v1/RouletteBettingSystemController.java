@@ -5,31 +5,35 @@ import lombok.extern.slf4j.Slf4j;
 import nl.kooi.app.domain.CompoundRouletteOutcome;
 import nl.kooi.app.domain.advises.FullAdvice;
 import nl.kooi.app.domain.metrics.SessionMetrics;
-import nl.kooi.app.exceptions.SessionNotFoundException;
 import nl.kooi.app.domain.model.Outcome;
 import nl.kooi.app.domain.model.Session;
+import nl.kooi.app.exceptions.SessionNotFoundException;
 import nl.kooi.infrastructure.repository.OutcomeRepository;
 import nl.kooi.infrastructure.repository.SessionRepository;
 import nl.kooi.representation.advises.FullAdviceV1;
 import nl.kooi.representation.metrics.SessionMetricsV1;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.context.annotation.Scope;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Optional;
 
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
+
 @Slf4j
 @RequestMapping(path = "/roulette-betting-system")
-@Scope(value = ConfigurableBeanFactory.SCOPE_SINGLETON)
 @RestController
 public class RouletteBettingSystemController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(RouletteBettingSystemController.class.getName());
 
     @Autowired
     SessionRepository sessionRepository;
@@ -69,6 +73,8 @@ public class RouletteBettingSystemController {
 
         int id = outcomeRepository.save(outcomes).getId();
 
+        LOGGER.info("Id of outcome is: {}", id);
+
         Collection<Outcome> outcomeList = outcomeRepository.findBySessionIdOrderByIdAsc(sessionId);
 
         outcomes = outcomeRepository.findById(id).get();
@@ -99,7 +105,7 @@ public class RouletteBettingSystemController {
     }
 
     @RequestMapping(path = "/testrun", method = POST, produces = "application/json")
-    public Long doTestRun(@RequestParam("numberOfRounds") int rounds) {
+    public SessionMetricsV1 doTestRun(@RequestParam("numberOfRounds") int rounds) {
 
         Session session = new Session();
         session.setChipValue("1");
@@ -107,13 +113,16 @@ public class RouletteBettingSystemController {
 
         int id = sessionRepository.save(session).getId();
 
+        LOGGER.info("Id of testsession is: {}", id);
+        LOGGER.info("UserId of testsession is: {}", "1234");
+
         for (int i = 0; i < rounds; i++) {
 
             setOutcome(1234, id, (int) (Math.random() * 37));
 
         }
 
-        return outcomeRepository.getLeastProfitAmount(id);
+        return getMetrics(1234, id);
 
     }
 

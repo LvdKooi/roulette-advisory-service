@@ -1,0 +1,14 @@
+spring:
+
+  datasource:
+    url: jdbc:mysql://db:3306/test
+    username: rest
+    password: bs123
+    driver-class-name: com.mysql.jdbc.Driver
+  jpa:
+    hibernate.ddl-auto: validate
+    database-platform: org.hibernate.dialect.MySQL57Dialect
+    generate-ddl: true
+    show-sql: false
+    repositories:
+        base-package: nl.kooi.infrastructure.repository

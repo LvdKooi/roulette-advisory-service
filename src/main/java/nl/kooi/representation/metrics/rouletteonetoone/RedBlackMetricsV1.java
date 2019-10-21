@@ -6,7 +6,7 @@ import java.math.BigDecimal;
  * @author Laurens van der Kooi
  */
 
-public class RedBlackMetricsRepresentation {
+public class RedBlackMetricsV1 {
     public BigDecimal percentageRed;
     public BigDecimal percentageBlack;
 }

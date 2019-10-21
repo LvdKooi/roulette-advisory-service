@@ -1,4 +1,4 @@
-package nl.kooi.app.api;
+package nl.kooi.app.api.v1;
 
 import nl.kooi.app.domain.CompoundRouletteOutcome;
 import nl.kooi.representation.RouletteOutcome;
