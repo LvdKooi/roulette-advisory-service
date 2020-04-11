@@ -18,14 +18,12 @@ import java.util.List;
 public class FullAdvice {
 
     private String chipValue;
-    private CompoundRouletteOutcome roulette;
     private Collection<Outcome> outcomeList;
     private List<Game> gameArray;
     private BigDecimal totalProfit = new BigDecimal(0).setScale(2);
 
-    public FullAdvice(String chipValue, CompoundRouletteOutcome roulette, Collection<Outcome> outcomeList) {
+    public FullAdvice(String chipValue, Collection<Outcome> outcomeList) {
         this.chipValue = chipValue;
-        this.roulette = roulette;
         this.outcomeList = outcomeList;
 
         gameArray = new ArrayList<>();
@@ -36,11 +34,9 @@ public class FullAdvice {
         gameArray.add(new ColumnAdvice(chipValue, 'D'));
 
         for (Outcome singleOutcome : outcomeList) {
-            roulette.setOutcome(singleOutcome.getOutcome());
-           gameArray.stream().forEach(g -> g.setHits(roulette));
+                gameArray.forEach(g -> g.setHits(new CompoundRouletteOutcome(singleOutcome.getOutcome())));
             }
         }
-
 
 
     public FullAdviceV1 toRepresentationV1() {

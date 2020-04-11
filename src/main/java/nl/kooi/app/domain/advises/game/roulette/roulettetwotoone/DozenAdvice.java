@@ -22,9 +22,9 @@ public class DozenAdvice extends RouletteTwoToOne {
 
     @Override
     public void setHits(CompoundRouletteOutcome roulette){
-       hitArray[0] = roulette.getDozen().equals(RouletteOutcome.FIRST);
-        hitArray[1] = roulette.getDozen().equals(RouletteOutcome.SECOND);
-        hitArray[2] = roulette.getDozen().equals(RouletteOutcome.THIRD);
+       hitArray[0] =  roulette.getOutcomeBooleanMap().get(RouletteOutcome.FIRST_DOZEN);
+        hitArray[1] = roulette.getOutcomeBooleanMap().get(RouletteOutcome.SECOND_DOZEN);
+        hitArray[2] = roulette.getOutcomeBooleanMap().get(RouletteOutcome.THIRD_DOZEN);
         this.setAdvice(hitArray);
     }
 

@@ -19,8 +19,8 @@ public class HalfAdvice extends RouletteOneToOne {
 
     @Override
     public void setHits(CompoundRouletteOutcome roulette) {
-        hitArray[0] = roulette.getHalf().equals(RouletteOutcome.FIRST);
-        hitArray[1] = roulette.getHalf().equals(RouletteOutcome.SECOND);
+        hitArray[0] = roulette.getOutcomeBooleanMap().get(RouletteOutcome.FIRST_HALF);
+        hitArray[1] = roulette.getOutcomeBooleanMap().get(RouletteOutcome.SECOND_HALF);
         this.setAdvice(hitArray);
 
     }

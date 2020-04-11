@@ -18,8 +18,8 @@ public class RedBlackAdvice extends RouletteOneToOne {
 
     @Override
     public void setHits(CompoundRouletteOutcome roulette) {
-        hitArray[0] = roulette.getRedBlack().equals(RouletteOutcome.RED);
-        hitArray[1] = roulette.getRedBlack().equals(RouletteOutcome.BLACK);
+        hitArray[0] = roulette.getOutcomeBooleanMap().get(RouletteOutcome.RED);
+        hitArray[1] = roulette.getOutcomeBooleanMap().get(RouletteOutcome.BLACK);
         this.setAdvice(hitArray);
     }
 

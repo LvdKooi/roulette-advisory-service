@@ -41,8 +41,6 @@ public class RouletteBettingSystemController {
     @Autowired
     OutcomeRepository outcomeRepository;
 
-    private static CompoundRouletteOutcome roulette = new CompoundRouletteOutcome(0);
-
     private ArrayList<Integer> outcomeList = new ArrayList<>();
 
     @RequestMapping(path = "/{userId}/startgame", method = PUT, produces = "application/json")
@@ -55,10 +53,10 @@ public class RouletteBettingSystemController {
 
     }
 
-    @RequestMapping(path = "/{userId}/{sessionsId}/outcome/V1", method = PUT, produces = "application/json")
+    @RequestMapping(path = "/{userId}/sessions/{sessionsId}/outcomes/", method = PUT, produces = "application/json")
     public FullAdviceV1 setOutcome(@PathVariable("userId") Integer userId, @PathVariable("sessionsId") Integer sessionId, @RequestParam("outcome") int outcome) {
 
-        roulette.setOutcome(outcome); // to validate outcome;
+        CompoundRouletteOutcome.validateOutcome(outcome);
 
         Optional<Session> session = sessionRepository.findByIdAndUserId(sessionId, userId);
         if (!session.isPresent()) {
@@ -79,7 +77,7 @@ public class RouletteBettingSystemController {
 
         outcomes = outcomeRepository.findById(id).get();
 
-        FullAdvice fullAdvice = new FullAdvice(chipValue, roulette, outcomeList);
+        FullAdvice fullAdvice = new FullAdvice(chipValue, outcomeList);
 
         outcomes.setTotalProfit(fullAdvice.getTotalProfit().toString());
 
@@ -89,12 +87,11 @@ public class RouletteBettingSystemController {
 
         outcomeList = outcomeRepository.findBySessionIdOrderByIdAsc(sessionId);
 
-        synchronized (roulette) {
-            return new FullAdvice(chipValue, roulette, outcomeList).toRepresentationV1();
-        }
+            return new FullAdvice(chipValue, outcomeList).toRepresentationV1();
+
     }
 
-    @RequestMapping(path = "/{userId}/{sessionsId}/metrics/V1", method = GET, produces = "application/json")
+    @RequestMapping(path = "/{userId}/sessions/{sessionsId}/metrics/", method = GET, produces = "application/json")
     public SessionMetricsV1 getMetrics(@PathVariable("userId") Integer userId, @PathVariable("sessionsId") Integer sessionId) {
         Optional<Session> session = sessionRepository.findByIdAndUserId(sessionId, userId);
         if (!session.isPresent()) {

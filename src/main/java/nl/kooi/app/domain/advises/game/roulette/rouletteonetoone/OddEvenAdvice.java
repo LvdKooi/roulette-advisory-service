@@ -20,8 +20,8 @@ public class OddEvenAdvice extends RouletteOneToOne {
 
     @Override
     public void setHits(CompoundRouletteOutcome roulette) {
-        hitArray[0] = roulette.getOddEven().equals(RouletteOutcome.ODD);
-        hitArray[1] = roulette.getOddEven().equals(RouletteOutcome.EVEN);
+        hitArray[0] = roulette.getOutcomeBooleanMap().get(RouletteOutcome.ODD);
+        hitArray[1] = roulette.getOutcomeBooleanMap().get(RouletteOutcome.EVEN);
         this.setAdvice(hitArray);
     }
 

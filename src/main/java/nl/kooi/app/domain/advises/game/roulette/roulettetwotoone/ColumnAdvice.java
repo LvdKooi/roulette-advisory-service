@@ -24,9 +24,9 @@ public class ColumnAdvice extends RouletteTwoToOne {
 
     @Override
     public void setHits(CompoundRouletteOutcome roulette) {
-        hitArray[0] = roulette.getColumn().equals(RouletteOutcome.FIRST);
-        hitArray[1] = roulette.getColumn().equals(RouletteOutcome.SECOND);
-        hitArray[2] = roulette.getColumn().equals(RouletteOutcome.THIRD);
+        hitArray[0] = roulette.getOutcomeBooleanMap().get(RouletteOutcome.FIRST_COLUMN);
+        hitArray[1] = roulette.getOutcomeBooleanMap().get(RouletteOutcome.SECOND_COLUMN);
+        hitArray[2] = roulette.getOutcomeBooleanMap().get(RouletteOutcome.THIRD_COLUMN);
         this.setAdvice(hitArray);
     }
 

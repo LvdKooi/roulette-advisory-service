@@ -19,34 +19,4 @@ public class RouletteOutcomeController {
     public CompoundRouletteOutcomeV1 sayOutcome(@PathVariable("outcome") int outcome) {
         return new CompoundRouletteOutcome(outcome).toRepresentationV1();
     }
-
-    @RequestMapping(path = "{outcome}/redblack", method = GET, produces = "application/json")
-    public RouletteOutcome sayRedBlack(@PathVariable("outcome") int outcome) {
-        CompoundRouletteOutcomeV1 representation = new CompoundRouletteOutcome(outcome).toRepresentationV1();
-        return representation.redBlack;
-    }
-
-    @RequestMapping(path = "{outcome}/oddeven", method = GET, produces = "application/json")
-    public RouletteOutcome sayOddEven(@PathVariable("outcome") int outcome) {
-        CompoundRouletteOutcomeV1 representation = new CompoundRouletteOutcome(outcome).toRepresentationV1();
-        return representation.oddEven;
-    }
-
-    @RequestMapping(path = "{outcome}/half", method = GET, produces = "application/json")
-    public RouletteOutcome sayHalf(@PathVariable("outcome") int outcome) {
-        CompoundRouletteOutcomeV1 representation = new CompoundRouletteOutcome(outcome).toRepresentationV1();
-        return representation.half;
-    }
-
-    @RequestMapping(path = "{outcome}/column", method = GET, produces = "application/json")
-    public RouletteOutcome sayColumn(@PathVariable("outcome") int outcome) {
-        CompoundRouletteOutcomeV1 representation = new CompoundRouletteOutcome(outcome).toRepresentationV1();
-        return representation.column;
-    }
-
-    @RequestMapping(path = "{outcome}/dozen", method = GET, produces = "application/json")
-    public RouletteOutcome sayDozen(@PathVariable("outcome") int outcome) {
-        CompoundRouletteOutcomeV1 representation = new CompoundRouletteOutcome(outcome).toRepresentationV1();
-        return representation.dozen;
-    }
 }

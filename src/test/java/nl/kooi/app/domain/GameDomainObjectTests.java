@@ -28,7 +28,7 @@ public class GameDomainObjectTests {
                     }
 
         for (int singleOutcome : outcomeList) {
-            roulette.setOutcome(singleOutcome);
+            roulette = new CompoundRouletteOutcome(singleOutcome);
             game.setHits(roulette);
         }
 
@@ -36,7 +36,7 @@ public class GameDomainObjectTests {
         assertThat("Advice even", representation.even, is(new BigDecimal(40.00).setScale(2)));
         assertThat("Advice odd", representation.odd, is(new BigDecimal(0.00).setScale(2)));
 
-        roulette.setOutcome(2);
+        roulette = new CompoundRouletteOutcome(2);
         game.setHits(roulette);
 
         representation = (OddEvenAdviceV1) game.toRepresentationV1();
