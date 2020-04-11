@@ -1,5 +1,7 @@
 package nl.kooi.representation;
 
+import nl.kooi.app.domain.RouletteOutcome;
+
 import javax.validation.constraints.NotNull;
 
 public class CompoundRouletteOutcomeV1 {

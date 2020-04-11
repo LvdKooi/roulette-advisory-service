@@ -1,7 +1,7 @@
 package nl.kooi.app.api.v1;
 
 import nl.kooi.app.domain.CompoundRouletteOutcome;
-import nl.kooi.representation.RouletteOutcome;
+import nl.kooi.app.domain.RouletteOutcome;
 import nl.kooi.representation.CompoundRouletteOutcomeV1;
 
 

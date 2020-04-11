@@ -3,7 +3,7 @@ package nl.kooi.app.domain.metrics;
 import lombok.extern.slf4j.Slf4j;
 import nl.kooi.app.domain.CompoundRouletteOutcome;
 import nl.kooi.app.domain.model.Outcome;
-import nl.kooi.representation.RouletteOutcome;
+import nl.kooi.app.domain.RouletteOutcome;
 import nl.kooi.representation.metrics.SessionMetricsV1;
 import org.springframework.util.Assert;
 

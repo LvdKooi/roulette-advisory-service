@@ -2,7 +2,7 @@ package nl.kooi.app.domain.advises.game.roulette.roulettetwotoone;
 
 
 import nl.kooi.app.domain.CompoundRouletteOutcome;
-import nl.kooi.representation.RouletteOutcome;
+import nl.kooi.app.domain.RouletteOutcome;
 import nl.kooi.representation.advises.roulettetwotoone.DozenAdviceV1;
 
 

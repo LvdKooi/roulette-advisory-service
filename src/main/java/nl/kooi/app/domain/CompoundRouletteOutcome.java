@@ -1,10 +1,11 @@
 package nl.kooi.app.domain;
 
 import nl.kooi.app.exceptions.NotValidOutcomeException;
-import nl.kooi.representation.RouletteOutcome;
 import nl.kooi.representation.CompoundRouletteOutcomeV1;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author Laurens van der Kooi
@@ -12,11 +13,11 @@ import java.util.Arrays;
 
 public class CompoundRouletteOutcome {
 
-    private static final int[] FIRST_COLUMN;
-    private static final int[] SECOND_COLUMN;
-    private static final int[] THIRD_COLUMN;
-    private static final int[] RED_NUMBERS;
-    private static final int[] BLACK_NUMBERS;
+    private static final List<Integer> FIRST_COLUMN;
+    private static final List<Integer> SECOND_COLUMN;
+    private static final List<Integer> THIRD_COLUMN;
+    private static final List<Integer> RED_NUMBERS;
+    private static final List<Integer> BLACK_NUMBERS;
     private int outcome;
     private RouletteOutcome redBlack;
     private RouletteOutcome oddEven;
@@ -26,7 +27,7 @@ public class CompoundRouletteOutcome {
     private boolean isZero;
 
     public CompoundRouletteOutcome(int outcome) {
-        validOutcomeCheck(outcome);
+        validateOutcome(outcome);
         this.outcome = outcome;
         this.redBlack = redBlack(outcome);
         this.oddEven = oddEven(outcome);
@@ -37,47 +38,47 @@ public class CompoundRouletteOutcome {
     }
 
     static {
-        FIRST_COLUMN = new int[12];
-        SECOND_COLUMN = new int[12];
-        THIRD_COLUMN = new int[12];
-        RED_NUMBERS = new int[18];
-        BLACK_NUMBERS = new int[18];
+        FIRST_COLUMN = new ArrayList<>();
+        SECOND_COLUMN =new ArrayList<>();
+        THIRD_COLUMN = new ArrayList<>();
+        RED_NUMBERS = new ArrayList<>();
+        BLACK_NUMBERS =new ArrayList<>();
 
         // populating columns
         for (int i = 1, j = 0; i < 37; i += 3, j++) {
-            FIRST_COLUMN[j] = i;
-            SECOND_COLUMN[j] = i + 1;
-            THIRD_COLUMN[j] = i + 2;
+            FIRST_COLUMN.add(i);
+            SECOND_COLUMN.add(i + 1);
+            THIRD_COLUMN.add( i + 2);
         }
 
         //populating red + black
         for (int i = 1, j = 0; i < 10; i += 2, j++) {
-            RED_NUMBERS[j] = i;
-            BLACK_NUMBERS[j] = i + 1;
+            RED_NUMBERS.add(i);
+            BLACK_NUMBERS.add(i + 1);
         }
         for (int i = 12, j = 5; i < 19; i += 2, j++) {
-            RED_NUMBERS[j] = i;
-            BLACK_NUMBERS[j] = i - 1;
+            RED_NUMBERS.add(i);
+            BLACK_NUMBERS.add(i - 1);
         }
         for (int i = 19, j = 9; i < 28; i += 2, j++) {
-            RED_NUMBERS[j] = i;
-            BLACK_NUMBERS[j] = i + 1;
+            RED_NUMBERS.add(i);
+            BLACK_NUMBERS.add(i + 1);
         }
 
         for (int i = 30, j = 14; i < 37; i += 2, j++) {
-            RED_NUMBERS[j] = i;
-            BLACK_NUMBERS[j] = i - 1;
+            RED_NUMBERS.add(i);
+            BLACK_NUMBERS.add(i - 1);
         }
     }
 
-    private static void validOutcomeCheck(int outcome) {
+    private static void validateOutcome(int outcome) {
         if (!(outcome > -1 && outcome < 37)) {
             throw new NotValidOutcomeException("Not a valid roulette outcome. RouletteOutcome can only be within the range of 0 - 36.");
         }
     }
 
     public void setOutcome(int outcome) {
-        validOutcomeCheck(outcome);
+        validateOutcome(outcome);
         this.outcome = outcome;
         this.redBlack = redBlack(outcome);
         this.oddEven = oddEven(outcome);
@@ -128,11 +129,11 @@ public class CompoundRouletteOutcome {
     }
 
     private static RouletteOutcome column(int currentInput) {
-        if (Arrays.binarySearch(FIRST_COLUMN, currentInput) > -1) {
+        if (FIRST_COLUMN.contains(currentInput)) {
             return RouletteOutcome.FIRST;
-        } else if (Arrays.binarySearch(SECOND_COLUMN, currentInput) > -1) {
+        } else if (SECOND_COLUMN.contains(currentInput)) {
             return RouletteOutcome.SECOND;
-        } else if (Arrays.binarySearch(THIRD_COLUMN, currentInput) > -1) {
+        } else if (THIRD_COLUMN.contains( currentInput)) {
             return RouletteOutcome.THIRD;
         } else {
             return RouletteOutcome.ZERO;
@@ -140,9 +141,9 @@ public class CompoundRouletteOutcome {
     }
 
     private static RouletteOutcome redBlack(int currentInput) {
-        if (Arrays.binarySearch(RED_NUMBERS, currentInput) > -1) {
+        if (RED_NUMBERS.contains(currentInput)) {
             return RouletteOutcome.RED;
-        } else if (Arrays.binarySearch(BLACK_NUMBERS, currentInput) > -1) {
+        } else if (BLACK_NUMBERS.contains( currentInput)) {
             return RouletteOutcome.BLACK;
         } else {
             return RouletteOutcome.ZERO;
