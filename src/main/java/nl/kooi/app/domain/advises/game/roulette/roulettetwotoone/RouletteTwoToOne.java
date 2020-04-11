@@ -14,9 +14,9 @@ public abstract class RouletteTwoToOne extends Game {
 
     protected TwoToOneBettingSystem bettingSystem;
 
-    public RouletteTwoToOne(String chipValue, char bettingSystem) {
+    public RouletteTwoToOne(String chipValue) {
         super(chipValue);
-        this.bettingSystem = new TwoToOneBettingSystem(3, 4, bettingSystem);
+        this.bettingSystem = new TwoToOneBettingSystem(3, 4);
     }
 
     @Override

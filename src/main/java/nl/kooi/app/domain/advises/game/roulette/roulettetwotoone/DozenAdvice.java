@@ -16,8 +16,8 @@ public class DozenAdvice extends RouletteTwoToOne {
 
     private boolean[] hitArray = {true, true, true};
 
-    public DozenAdvice(String chipValue, char bettingSystem) {
-        super(chipValue, bettingSystem);
+    public DozenAdvice(String chipValue) {
+        super(chipValue);
                }
 
     @Override

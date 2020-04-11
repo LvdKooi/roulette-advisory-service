@@ -18,8 +18,8 @@ import java.math.BigDecimal;
 public class ColumnAdvice extends RouletteTwoToOne {
     private boolean[] hitArray = {true, true, true};
 
-    public ColumnAdvice(String chipValue, char bettingSystem) {
-        super(chipValue, bettingSystem);
+    public ColumnAdvice(String chipValue) {
+        super(chipValue);
     }
 
     @Override

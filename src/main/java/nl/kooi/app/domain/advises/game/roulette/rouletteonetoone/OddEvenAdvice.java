@@ -13,8 +13,8 @@ import java.math.BigDecimal;
 public class OddEvenAdvice extends RouletteOneToOne {
     private boolean[] hitArray = {true, true};
 
-    public OddEvenAdvice(String chipValue, char bettingSystem, int delay) {
-        super(chipValue, bettingSystem, delay);
+    public OddEvenAdvice(String chipValue, int delay) {
+        super(chipValue, delay);
 
     }
 

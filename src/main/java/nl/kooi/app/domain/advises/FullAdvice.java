@@ -27,11 +27,11 @@ public class FullAdvice {
         this.outcomeList = outcomeList;
 
         gameArray = new ArrayList<>();
-        gameArray.add(new OddEvenAdvice(chipValue, 'D', 8));
-        gameArray.add(new RedBlackAdvice(chipValue, 'D', 8));
-        gameArray.add(new HalfAdvice(chipValue, 'D', 8));
-        gameArray.add(new DozenAdvice(chipValue, 'D'));
-        gameArray.add(new ColumnAdvice(chipValue, 'D'));
+        gameArray.add(new OddEvenAdvice(chipValue, 8));
+        gameArray.add(new RedBlackAdvice(chipValue, 8));
+        gameArray.add(new HalfAdvice(chipValue, 8));
+        gameArray.add(new DozenAdvice(chipValue));
+        gameArray.add(new ColumnAdvice(chipValue));
 
         for (Outcome singleOutcome : outcomeList) {
                 gameArray.forEach(g -> g.setHits(new CompoundRouletteOutcome(singleOutcome.getOutcome())));

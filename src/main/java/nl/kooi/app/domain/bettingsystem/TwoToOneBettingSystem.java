@@ -17,8 +17,8 @@ public class TwoToOneBettingSystem extends BettingSystem {
     private int profitCounter;
     private  int maxProfit;
 
-    public TwoToOneBettingSystem(int bettingFactor, int delay, char system) {
-        super(bettingFactor, delay, system);
+    public TwoToOneBettingSystem(int bettingFactor, int delay) {
+        super(bettingFactor, delay);
         outcomeArray = new boolean[3][delay];
         adviceArray = new int[3];
 
@@ -173,11 +173,6 @@ public class TwoToOneBettingSystem extends BettingSystem {
 
     public int[] getAdviceArray() {
         return adviceArray;
-    }
-
-    @Override
-    public int getProfitCounter() {
-        return profitCounter;
     }
 
     //    helper method to set profitCounter

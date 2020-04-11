@@ -18,7 +18,7 @@ public class GameDomainObjectTests {
 
     @Test
     public void oddEvenTests() {
-        Game game = new OddEvenAdvice("5", 'D', 4);
+        Game game = new OddEvenAdvice("5",  4);
         OddEvenAdviceV1 representation;
         Integer[] outcomeArray = {1,3,5,7,9,11,13};
         ArrayList<Integer> outcomeList = new ArrayList<>();

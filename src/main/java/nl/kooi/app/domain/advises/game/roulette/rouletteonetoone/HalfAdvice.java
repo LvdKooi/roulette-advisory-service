@@ -13,8 +13,8 @@ public class HalfAdvice extends RouletteOneToOne {
 
     private boolean[] hitArray = {true, true};
 
-    public HalfAdvice(String chipValue, char bettingSystem, int delay) {
-        super(chipValue, bettingSystem, delay);
+    public HalfAdvice(String chipValue, int delay) {
+        super(chipValue, delay);
     }
 
     @Override
