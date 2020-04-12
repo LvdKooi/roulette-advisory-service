@@ -175,6 +175,11 @@ public class TwoToOneBettingSystem extends BettingSystem {
         return adviceArray;
     }
 
+    @Override
+    public int getProfitCounter() {
+        return profitCounter;
+    }
+
     //    helper method to set profitCounter
     private void profitCounter(boolean[] hitArray) {
 

@@ -143,6 +143,11 @@ public class OneToOneBettingSystem extends BettingSystem {
         return adviceArray;
     }
 
+    @Override
+    public int getProfitCounter() {
+        return profitCounter;
+    }
+
     private void profitCounter(boolean[] hitArray) {
 
         for (int i = 0; i < 2; i++) {
