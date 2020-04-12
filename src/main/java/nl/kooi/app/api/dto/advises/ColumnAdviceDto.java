@@ -1,9 +1,12 @@
 package nl.kooi.app.api.dto.advises;
 
+import lombok.Setter;
+
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
-public class ColumnAdviceDto extends AdviceDto {
+@Setter
+public class ColumnAdviceDto {
     @NotNull
     public BigDecimal firstColumn;
 

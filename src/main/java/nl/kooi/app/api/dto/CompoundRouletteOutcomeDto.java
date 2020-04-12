@@ -9,6 +9,6 @@ public class CompoundRouletteOutcomeDto {
     @NotNull
     public Integer outcome;
 
-@NotNull
+    @NotNull
     public List<RouletteOutcome> outcomeList;
 }

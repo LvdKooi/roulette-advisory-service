@@ -1,42 +1,43 @@
 package nl.kooi.app.domain.advises;
 
 
-import nl.kooi.app.domain.rouletteoutcome.CompoundRouletteOutcome;
-import nl.kooi.app.domain.rouletteoutcome.RouletteOutcome;
+import lombok.Getter;
 import nl.kooi.app.domain.game.RouletteTwoToOne;
-import nl.kooi.app.api.dto.advises.DozenAdviceDto;
-
+import nl.kooi.app.domain.rouletteoutcome.CompoundRouletteOutcome;
 
 import java.math.BigDecimal;
+
+import static nl.kooi.app.domain.rouletteoutcome.RouletteOutcome.*;
 
 /**
  * @author Laurens van der Kooi
  */
-
+@Getter
 public class DozenAdvice extends RouletteTwoToOne {
 
     private boolean[] hitArray = {true, true, true};
+    public BigDecimal firstDozen;
+    public BigDecimal secondDozen;
+    public BigDecimal thirdDozen;
 
     public DozenAdvice(String chipValue) {
         super(chipValue);
-               }
+    }
 
     @Override
-    public void setHits(CompoundRouletteOutcome roulette){
-       hitArray[0] =  roulette.getOutcomeBooleanMap().get(RouletteOutcome.FIRST_DOZEN);
-        hitArray[1] = roulette.getOutcomeBooleanMap().get(RouletteOutcome.SECOND_DOZEN);
-        hitArray[2] = roulette.getOutcomeBooleanMap().get(RouletteOutcome.THIRD_DOZEN);
+    public void setHits(CompoundRouletteOutcome roulette) {
+        hitArray[0] = roulette.getOutcomeBooleanMap().get(FIRST_DOZEN);
+        hitArray[1] = roulette.getOutcomeBooleanMap().get(SECOND_DOZEN);
+        hitArray[2] = roulette.getOutcomeBooleanMap().get(THIRD_DOZEN);
         this.setAdvice(hitArray);
     }
 
     @Override
-    public DozenAdviceDto toRepresentationV1() {
-        int[] adviceArray = bettingSystem.getAdviceArray();
-        DozenAdviceDto representation = new DozenAdviceDto();
-        representation.firstDozen = getChipValue().multiply(new BigDecimal(adviceArray[0]));
-        representation.secondDozen = getChipValue().multiply(new BigDecimal(adviceArray[1]));
-        representation.thirdDozen = getChipValue().multiply(new BigDecimal(adviceArray[2]));
-        return representation;
+    protected void setAdvice(boolean[] hitArray) {
+        super.setAdvice(hitArray);
+        firstDozen = getChipValue().multiply(new BigDecimal(bettingSystem.getAdviceArray()[0]));
+        secondDozen = getChipValue().multiply(new BigDecimal(bettingSystem.getAdviceArray()[1]));
+        thirdDozen = getChipValue().multiply(new BigDecimal(bettingSystem.getAdviceArray()[2]));
     }
 
 }

@@ -13,7 +13,7 @@ public class TwoToOneBettingSystem extends BettingSystem {
 
     private boolean[][] outcomeArray;
     private int[] adviceArray;
-    private int winLossCountArray[][];
+    private int[][] winLossCountArray;
     private int profitCounter;
     private  int maxProfit;
 

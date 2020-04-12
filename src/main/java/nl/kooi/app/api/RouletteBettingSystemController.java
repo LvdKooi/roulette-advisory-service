@@ -2,16 +2,16 @@ package nl.kooi.app.api;
 
 
 import lombok.extern.slf4j.Slf4j;
-import nl.kooi.app.domain.rouletteoutcome.CompoundRouletteOutcome;
+import nl.kooi.app.api.dto.advises.FullAdviceDto;
+import nl.kooi.app.api.dto.metrics.SessionMetricsDto;
 import nl.kooi.app.domain.advises.FullAdvice;
 import nl.kooi.app.domain.metrics.SessionMetrics;
+import nl.kooi.app.domain.rouletteoutcome.CompoundRouletteOutcome;
 import nl.kooi.app.exceptions.SessionNotFoundException;
 import nl.kooi.infrastructure.entity.Outcome;
 import nl.kooi.infrastructure.entity.Session;
 import nl.kooi.infrastructure.repository.OutcomeRepository;
 import nl.kooi.infrastructure.repository.SessionRepository;
-import nl.kooi.app.api.dto.advises.FullAdviceDto;
-import nl.kooi.app.api.dto.metrics.SessionMetricsDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,7 +87,7 @@ public class RouletteBettingSystemController {
 
         outcomeList = outcomeRepository.findBySessionIdOrderByIdAsc(sessionId);
 
-            return new FullAdvice(chipValue, outcomeList).toRepresentationV1();
+        return new FullAdvice(chipValue, outcomeList).toDto();
 
     }
 

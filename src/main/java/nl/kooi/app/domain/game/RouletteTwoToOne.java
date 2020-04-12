@@ -1,7 +1,6 @@
 package nl.kooi.app.domain.game;
 
 
-import nl.kooi.app.domain.game.Game;
 import nl.kooi.app.domain.bettingsystem.TwoToOneBettingSystem;
 
 import java.math.BigDecimal;

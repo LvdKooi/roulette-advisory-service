@@ -1,18 +1,24 @@
 package nl.kooi.app.domain.advises;
 
 
-import nl.kooi.app.domain.rouletteoutcome.CompoundRouletteOutcome;
-import nl.kooi.app.domain.rouletteoutcome.RouletteOutcome;
+import lombok.Getter;
 import nl.kooi.app.domain.game.RouletteOneToOne;
-import nl.kooi.app.api.dto.advises.OddEvenAdviceDto;
+import nl.kooi.app.domain.rouletteoutcome.CompoundRouletteOutcome;
+
 import java.math.BigDecimal;
+
+import static nl.kooi.app.domain.rouletteoutcome.RouletteOutcome.EVEN;
+import static nl.kooi.app.domain.rouletteoutcome.RouletteOutcome.ODD;
 
 /**
  * @author Laurens van der Kooi
  */
 
+@Getter
 public class OddEvenAdvice extends RouletteOneToOne {
     private boolean[] hitArray = {true, true};
+    public BigDecimal odd;
+    public BigDecimal even;
 
     public OddEvenAdvice(String chipValue, int delay) {
         super(chipValue, delay);
@@ -21,17 +27,16 @@ public class OddEvenAdvice extends RouletteOneToOne {
 
     @Override
     public void setHits(CompoundRouletteOutcome roulette) {
-        hitArray[0] = roulette.getOutcomeBooleanMap().get(RouletteOutcome.ODD);
-        hitArray[1] = roulette.getOutcomeBooleanMap().get(RouletteOutcome.EVEN);
+        hitArray[0] = roulette.getOutcomeBooleanMap().get(ODD);
+        hitArray[1] = roulette.getOutcomeBooleanMap().get(EVEN);
         this.setAdvice(hitArray);
     }
 
     @Override
-    public OddEvenAdviceDto toRepresentationV1() {
-        int[] adviceArray = bettingSystem.getAdviceArray();
-        OddEvenAdviceDto representation = new OddEvenAdviceDto();
-        representation.odd = getChipValue().multiply(new BigDecimal(adviceArray[0]));
-        representation.even = getChipValue().multiply(new BigDecimal(adviceArray[1]));
-        return representation;
+    protected void setAdvice(boolean[] hitArray) {
+        super.setAdvice(hitArray);
+        odd = getChipValue().multiply(new BigDecimal(bettingSystem.getAdviceArray()[0]));
+        even = getChipValue().multiply(new BigDecimal(bettingSystem.getAdviceArray()[1]));
     }
+
 }

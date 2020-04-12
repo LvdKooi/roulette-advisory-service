@@ -1,7 +1,7 @@
 package nl.kooi.app.domain.game;
 
 import nl.kooi.app.domain.rouletteoutcome.CompoundRouletteOutcome;
-import nl.kooi.app.api.dto.advises.AdviceDto;
+
 import java.math.BigDecimal;
 
 /**
@@ -30,8 +30,6 @@ public abstract class Game {
     public abstract void setHits(CompoundRouletteOutcome roulette);
 
     protected abstract void setAdvice(boolean[] hitArray);
-
-    public abstract AdviceDto toRepresentationV1();
 
     public abstract BigDecimal getProfit();
 }

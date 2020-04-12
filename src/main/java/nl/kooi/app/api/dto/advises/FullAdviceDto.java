@@ -1,8 +1,11 @@
 package nl.kooi.app.api.dto.advises;
 
+import lombok.Setter;
+
 import javax.validation.constraints.NotNull;
 
-public class FullAdviceDto extends AdviceDto {
+@Setter
+public class FullAdviceDto {
     @NotNull
     public DozenAdviceDto dozenAdvice;
 

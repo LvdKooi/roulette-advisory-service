@@ -1,9 +1,10 @@
 package nl.kooi.app.domain.advises;
 
-import nl.kooi.app.domain.rouletteoutcome.CompoundRouletteOutcome;
-import nl.kooi.app.domain.game.Game;
-import nl.kooi.infrastructure.entity.Outcome;
+import nl.kooi.app.api.dto.Mapper;
 import nl.kooi.app.api.dto.advises.FullAdviceDto;
+import nl.kooi.app.domain.game.Game;
+import nl.kooi.app.domain.rouletteoutcome.CompoundRouletteOutcome;
+import nl.kooi.infrastructure.entity.Outcome;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -34,32 +35,32 @@ public class FullAdvice {
         }
 
 
-    public FullAdviceDto toRepresentationV1() {
+    private static FullAdviceDto toDtoHelper(Game game, FullAdviceDto representation) {
+        if (game instanceof DozenAdvice)
+            representation.dozenAdvice = Mapper.map((DozenAdvice) game);
+        if (game instanceof ColumnAdvice)
+            representation.columnAdvice = Mapper.map((ColumnAdvice) game);
+        if (game instanceof RedBlackAdvice)
+            representation.redBlackAdvice = Mapper.map((RedBlackAdvice) game);
+        if (game instanceof OddEvenAdvice)
+            representation.oddEvenAdvice = Mapper.map((OddEvenAdvice) game);
+        if (game instanceof HalfAdvice)
+            representation.halfAdvice = Mapper.map((HalfAdvice) game);
+        return representation;
+    }
+
+    public FullAdviceDto toDto() {
 
         FullAdviceDto representation = new FullAdviceDto();
         for (Game game : gameArray) {
-            representation = toRepresentationHelper(game, representation);
+            representation = toDtoHelper(game, representation);
         }
         return representation;
 
     }
 
-    private static FullAdviceDto toRepresentationHelper(Game game, FullAdviceDto representation) {
-        if (game instanceof DozenAdvice)
-            representation.dozenAdvice = ((DozenAdvice) game).toRepresentationV1();
-        if (game instanceof ColumnAdvice)
-            representation.columnAdvice = ((ColumnAdvice) game).toRepresentationV1();
-        if (game instanceof RedBlackAdvice)
-            representation.redBlackAdvice = ((RedBlackAdvice) game).toRepresentationV1();
-        if (game instanceof OddEvenAdvice)
-            representation.oddEvenAdvice = ((OddEvenAdvice) game).toRepresentationV1();
-        if (game instanceof HalfAdvice)
-            representation.halfAdvice = ((HalfAdvice) game).toRepresentationV1();
-        return representation;
-    }
-
-    public BigDecimal getTotalProfit(){
-        gameArray.stream().forEach(g -> totalProfit = totalProfit.add(g.getProfit()));
+    public BigDecimal getTotalProfit() {
+        gameArray.forEach(g -> totalProfit = totalProfit.add(g.getProfit()));
 
         return totalProfit;
     }

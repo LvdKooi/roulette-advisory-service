@@ -1,13 +1,15 @@
 package nl.kooi.app.api.dto.advises;
 
+import lombok.Setter;
+
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
-public class RedBlackAdviceDto extends AdviceDto {
+@Setter
+public class RedBlackAdviceDto {
     @NotNull
     public BigDecimal red;
 
     @NotNull
     public BigDecimal black;
-
 }
