@@ -77,7 +77,7 @@ public class OneToOneBettingSystem extends BettingSystem {
                 if (adviceArray[i] > 0 && !hitArray[i]) {
 
 
-                    adviceArray[i] *= super.getBettingFactor();
+                    adviceArray[i] *= getBettingFactor();
 
                     // situation 2: a bet was made, the bet was won but conditions still meet: time to bet again.
                 } else if (winLossCountArray[i][1] >= getDelay() - 1 && hitArray[i]) {
@@ -101,7 +101,7 @@ public class OneToOneBettingSystem extends BettingSystem {
                     // situation 3: the number of losses match the strategy, time to bet
                 } else if (winLossCountArray[i][1] >= getDelay() - 1 && !hitArray[i]) {
 
-                    adviceArray[i] = Math.max(1, adviceArray[i] *= super.getBettingFactor());
+                    adviceArray[i] = Math.max(1, adviceArray[i] *= getBettingFactor());
 
 
                     // situation 4: the number of losses doesn't match the conditions, no bets adviced.

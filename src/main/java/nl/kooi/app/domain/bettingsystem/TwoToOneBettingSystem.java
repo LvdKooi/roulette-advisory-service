@@ -27,7 +27,6 @@ public class TwoToOneBettingSystem extends BettingSystem {
                 outcomeArray[i][j] = true;
             }
         }
-
     }
 
     private void setRounds() {
@@ -78,7 +77,7 @@ public class TwoToOneBettingSystem extends BettingSystem {
                 // situation 1: a bet was made but it didn't hit
                 if (adviceArray[i] > 0 && !hitArray[i]) {
 
-                    adviceArray[i] *= super.getBettingFactor();
+                    adviceArray[i] *= getBettingFactor();
 
 
                     // situation 2: a bet was made, the bet was won but conditions still meet: time to bet again.
@@ -112,7 +111,7 @@ public class TwoToOneBettingSystem extends BettingSystem {
 
                         //check whether there are other fields eligible for a bet
                         if (winLossCountArray[j][1] >= getDelay() - 1) {
-                            adviceArray[i] = Math.max(1, adviceArray[i] *= super.getBettingFactor());
+                            adviceArray[i] = Math.max(1, adviceArray[i] *= getBettingFactor());
                             break;
 
                             //if not, not bets advices
