@@ -2,6 +2,7 @@ package nl.kooi.app.api;
 
 
 import lombok.extern.slf4j.Slf4j;
+import nl.kooi.app.api.dto.Mapper;
 import nl.kooi.app.api.dto.advises.FullAdviceDto;
 import nl.kooi.app.api.dto.metrics.SessionMetricsDto;
 import nl.kooi.app.domain.advises.FullAdvice;
@@ -87,7 +88,7 @@ public class RouletteBettingSystemController {
 
         outcomeList = outcomeRepository.findBySessionIdOrderByIdAsc(sessionId);
 
-        return new FullAdvice(chipValue, outcomeList).toDto();
+        return Mapper.map(new FullAdvice(chipValue, outcomeList));
 
     }
 
