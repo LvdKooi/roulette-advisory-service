@@ -1,8 +1,12 @@
 package nl.kooi.app.api.dto.metrics;
 
+import lombok.Setter;
+
 import java.math.BigDecimal;
 
+
 public class SessionMetricsDto {
+    @Setter
     public long totalNumberOfRounds;
     public HalfMetricsDto halfMetrics;
     public OddEvenMetricsDto oddEvenMetrics;

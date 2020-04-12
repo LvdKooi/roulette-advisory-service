@@ -98,7 +98,7 @@ public class RouletteBettingSystemController {
         if (!session.isPresent()) {
             throw new SessionNotFoundException("Session Id not found");
         }
-        return new SessionMetrics(outcomeRepository.findBySessionIdOrderByIdAsc(sessionId)).toRepresentationV1();
+        return Mapper.map(new SessionMetrics(outcomeRepository.findBySessionIdOrderByIdAsc(sessionId)));
 
     }
 
