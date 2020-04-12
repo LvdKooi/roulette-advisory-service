@@ -10,8 +10,8 @@ import nl.kooi.infrastructure.entity.Outcome;
 import nl.kooi.infrastructure.entity.Session;
 import nl.kooi.infrastructure.repository.OutcomeRepository;
 import nl.kooi.infrastructure.repository.SessionRepository;
-import nl.kooi.representation.advises.FullAdviceV1;
-import nl.kooi.representation.metrics.SessionMetricsV1;
+import nl.kooi.app.api.dto.advises.FullAdviceDto;
+import nl.kooi.app.api.dto.metrics.SessionMetricsDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,7 +54,7 @@ public class RouletteBettingSystemController {
     }
 
     @RequestMapping(path = "/{userId}/sessions/{sessionsId}/outcomes/", method = PUT, produces = "application/json")
-    public FullAdviceV1 setOutcome(@PathVariable("userId") Integer userId, @PathVariable("sessionsId") Integer sessionId, @RequestParam("outcome") int outcome) {
+    public FullAdviceDto setOutcome(@PathVariable("userId") Integer userId, @PathVariable("sessionsId") Integer sessionId, @RequestParam("outcome") int outcome) {
 
         CompoundRouletteOutcome.validateOutcome(outcome);
 
@@ -92,7 +92,7 @@ public class RouletteBettingSystemController {
     }
 
     @RequestMapping(path = "/{userId}/sessions/{sessionsId}/metrics/", method = GET, produces = "application/json")
-    public SessionMetricsV1 getMetrics(@PathVariable("userId") Integer userId, @PathVariable("sessionsId") Integer sessionId) {
+    public SessionMetricsDto getMetrics(@PathVariable("userId") Integer userId, @PathVariable("sessionsId") Integer sessionId) {
         Optional<Session> session = sessionRepository.findByIdAndUserId(sessionId, userId);
         if (!session.isPresent()) {
             throw new SessionNotFoundException("Session Id not found");
@@ -102,7 +102,7 @@ public class RouletteBettingSystemController {
     }
 
     @RequestMapping(path = "/testrun", method = POST, produces = "application/json")
-    public SessionMetricsV1 doTestRun(@RequestParam("numberOfRounds") int rounds) {
+    public SessionMetricsDto doTestRun(@RequestParam("numberOfRounds") int rounds) {
 
         Session session = new Session();
         session.setChipValue("1");

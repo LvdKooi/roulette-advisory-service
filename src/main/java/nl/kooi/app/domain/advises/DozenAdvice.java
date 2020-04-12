@@ -4,7 +4,7 @@ package nl.kooi.app.domain.advises;
 import nl.kooi.app.domain.rouletteoutcome.CompoundRouletteOutcome;
 import nl.kooi.app.domain.rouletteoutcome.RouletteOutcome;
 import nl.kooi.app.domain.game.RouletteTwoToOne;
-import nl.kooi.representation.advises.roulettetwotoone.DozenAdviceV1;
+import nl.kooi.app.api.dto.advises.DozenAdviceDto;
 
 
 import java.math.BigDecimal;
@@ -30,9 +30,9 @@ public class DozenAdvice extends RouletteTwoToOne {
     }
 
     @Override
-    public DozenAdviceV1 toRepresentationV1() {
+    public DozenAdviceDto toRepresentationV1() {
         int[] adviceArray = bettingSystem.getAdviceArray();
-        DozenAdviceV1 representation = new DozenAdviceV1();
+        DozenAdviceDto representation = new DozenAdviceDto();
         representation.firstDozen = getChipValue().multiply(new BigDecimal(adviceArray[0]));
         representation.secondDozen = getChipValue().multiply(new BigDecimal(adviceArray[1]));
         representation.thirdDozen = getChipValue().multiply(new BigDecimal(adviceArray[2]));

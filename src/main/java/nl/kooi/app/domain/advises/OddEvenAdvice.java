@@ -4,7 +4,7 @@ package nl.kooi.app.domain.advises;
 import nl.kooi.app.domain.rouletteoutcome.CompoundRouletteOutcome;
 import nl.kooi.app.domain.rouletteoutcome.RouletteOutcome;
 import nl.kooi.app.domain.game.RouletteOneToOne;
-import nl.kooi.representation.advises.rouletteonetoone.OddEvenAdviceV1;
+import nl.kooi.app.api.dto.advises.OddEvenAdviceDto;
 import java.math.BigDecimal;
 
 /**
@@ -27,9 +27,9 @@ public class OddEvenAdvice extends RouletteOneToOne {
     }
 
     @Override
-    public OddEvenAdviceV1 toRepresentationV1() {
+    public OddEvenAdviceDto toRepresentationV1() {
         int[] adviceArray = bettingSystem.getAdviceArray();
-        OddEvenAdviceV1 representation = new OddEvenAdviceV1();
+        OddEvenAdviceDto representation = new OddEvenAdviceDto();
         representation.odd = getChipValue().multiply(new BigDecimal(adviceArray[0]));
         representation.even = getChipValue().multiply(new BigDecimal(adviceArray[1]));
         return representation;

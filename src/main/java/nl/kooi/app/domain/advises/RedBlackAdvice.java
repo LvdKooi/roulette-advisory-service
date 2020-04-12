@@ -3,7 +3,7 @@ package nl.kooi.app.domain.advises;
 import nl.kooi.app.domain.rouletteoutcome.CompoundRouletteOutcome;
 import nl.kooi.app.domain.rouletteoutcome.RouletteOutcome;
 import nl.kooi.app.domain.game.RouletteOneToOne;
-import nl.kooi.representation.advises.rouletteonetoone.RedBlackAdviceV1;
+import nl.kooi.app.api.dto.advises.RedBlackAdviceDto;
 import java.math.BigDecimal;
 
 /**
@@ -25,9 +25,9 @@ public class RedBlackAdvice extends RouletteOneToOne {
     }
 
     @Override
-    public RedBlackAdviceV1 toRepresentationV1() {
+    public RedBlackAdviceDto toRepresentationV1() {
         int[] adviceArray = bettingSystem.getAdviceArray();
-        RedBlackAdviceV1 representation = new RedBlackAdviceV1();
+        RedBlackAdviceDto representation = new RedBlackAdviceDto();
         representation.red = getChipValue().multiply(new BigDecimal(adviceArray[0]));
         representation.black = getChipValue().multiply(new BigDecimal(adviceArray[1]));
         return representation;

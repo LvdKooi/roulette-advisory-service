@@ -1,4 +1,4 @@
-package nl.kooi.representation.metrics.roulettetwotoone;
+package nl.kooi.app.api.dto.metrics;
 
 
 import java.math.BigDecimal;
@@ -7,7 +7,7 @@ import java.math.BigDecimal;
  * @author Laurens van der Kooi
  */
 
-public class DozenMetricsV1 {
+public class DozenMetricsDto {
     public BigDecimal percentageFirstDozen;
     public BigDecimal percentageSecondDozen;
     public BigDecimal percentageThirdDozen;

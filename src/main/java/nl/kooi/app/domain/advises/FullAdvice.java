@@ -3,7 +3,7 @@ package nl.kooi.app.domain.advises;
 import nl.kooi.app.domain.rouletteoutcome.CompoundRouletteOutcome;
 import nl.kooi.app.domain.game.Game;
 import nl.kooi.infrastructure.entity.Outcome;
-import nl.kooi.representation.advises.FullAdviceV1;
+import nl.kooi.app.api.dto.advises.FullAdviceDto;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -34,9 +34,9 @@ public class FullAdvice {
         }
 
 
-    public FullAdviceV1 toRepresentationV1() {
+    public FullAdviceDto toRepresentationV1() {
 
-        FullAdviceV1 representation = new FullAdviceV1();
+        FullAdviceDto representation = new FullAdviceDto();
         for (Game game : gameArray) {
             representation = toRepresentationHelper(game, representation);
         }
@@ -44,7 +44,7 @@ public class FullAdvice {
 
     }
 
-    private static FullAdviceV1 toRepresentationHelper(Game game, FullAdviceV1 representation) {
+    private static FullAdviceDto toRepresentationHelper(Game game, FullAdviceDto representation) {
         if (game instanceof DozenAdvice)
             representation.dozenAdvice = ((DozenAdvice) game).toRepresentationV1();
         if (game instanceof ColumnAdvice)

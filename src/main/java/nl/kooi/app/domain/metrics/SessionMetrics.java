@@ -3,7 +3,7 @@ package nl.kooi.app.domain.metrics;
 import lombok.extern.slf4j.Slf4j;
 import nl.kooi.app.domain.rouletteoutcome.CompoundRouletteOutcome;
 import nl.kooi.infrastructure.entity.Outcome;
-import nl.kooi.representation.metrics.SessionMetricsV1;
+import nl.kooi.app.api.dto.metrics.SessionMetricsDto;
 import org.springframework.util.Assert;
 
 import java.math.BigDecimal;
@@ -71,8 +71,8 @@ public class SessionMetrics {
         }
     }
 
-    public SessionMetricsV1 toRepresentationV1() {
-        SessionMetricsV1 representation = new SessionMetricsV1();
+    public SessionMetricsDto toRepresentationV1() {
+        SessionMetricsDto representation = new SessionMetricsDto();
         representation.totalNumberOfRounds = totalRounds;
         Assert.isTrue(totalRounds > 0, "Total rounds in SessionMetrics is corrupt or no outcomes have been recorded yet");
         representation.redBlackMetrics.percentageBlack = roundsToPercentage(totalBlack, totalRounds);

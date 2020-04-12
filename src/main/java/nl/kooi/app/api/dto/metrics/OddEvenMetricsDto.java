@@ -1,4 +1,4 @@
-package nl.kooi.representation.metrics.rouletteonetoone;
+package nl.kooi.app.api.dto.metrics;
 
 
 import java.math.BigDecimal;
@@ -7,7 +7,7 @@ import java.math.BigDecimal;
  * @author Laurens van der Kooi
  */
 
-public class OddEvenMetricsV1 {
+public class OddEvenMetricsDto {
     public BigDecimal percentageOdd;
     public BigDecimal percentageEven;
 }

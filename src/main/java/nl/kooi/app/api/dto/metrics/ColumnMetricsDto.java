@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package nl.kooi.representation.metrics.roulettetwotoone;
+package nl.kooi.app.api.dto.metrics;
 
 
 import java.math.BigDecimal;
@@ -12,7 +12,7 @@ import java.math.BigDecimal;
  * @author Laurens van der Kooi
  */
 
-public class ColumnMetricsV1 {
+public class ColumnMetricsDto {
     public BigDecimal percentageFirstColumn;
     public BigDecimal percentageSecondColumn;
     public BigDecimal percentageThirdColumn;

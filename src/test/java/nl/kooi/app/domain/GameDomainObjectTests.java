@@ -3,7 +3,7 @@ package nl.kooi.app.domain;
 import nl.kooi.app.domain.game.Game;
 import nl.kooi.app.domain.advises.OddEvenAdvice;
 import nl.kooi.app.domain.rouletteoutcome.CompoundRouletteOutcome;
-import nl.kooi.representation.advises.rouletteonetoone.OddEvenAdviceV1;
+import nl.kooi.app.api.dto.advises.OddEvenAdviceDto;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -20,7 +20,7 @@ public class GameDomainObjectTests {
     @Test
     public void oddEvenTests() {
         Game game = new OddEvenAdvice("5",  4);
-        OddEvenAdviceV1 representation;
+        OddEvenAdviceDto representation;
         Integer[] outcomeArray = {1,3,5,7,9,11,13};
         ArrayList<Integer> outcomeList = new ArrayList<>();
 
@@ -33,14 +33,14 @@ public class GameDomainObjectTests {
             game.setHits(roulette);
         }
 
-        representation = (OddEvenAdviceV1) game.toRepresentationV1();
+        representation = (OddEvenAdviceDto) game.toRepresentationV1();
         assertThat("Advice even", representation.even, is(new BigDecimal(40.00).setScale(2)));
         assertThat("Advice odd", representation.odd, is(new BigDecimal(0.00).setScale(2)));
 
         roulette = new CompoundRouletteOutcome(2);
         game.setHits(roulette);
 
-        representation = (OddEvenAdviceV1) game.toRepresentationV1();
+        representation = (OddEvenAdviceDto) game.toRepresentationV1();
         assertThat("Advice even", representation.even, is(new BigDecimal(5.00).setScale(2)));
         assertThat("Advice odd", representation.odd, is(new BigDecimal(0.00).setScale(2)));
 

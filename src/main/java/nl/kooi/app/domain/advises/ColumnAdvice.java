@@ -9,7 +9,7 @@ package nl.kooi.app.domain.advises;
 import nl.kooi.app.domain.rouletteoutcome.CompoundRouletteOutcome;
 import nl.kooi.app.domain.rouletteoutcome.RouletteOutcome;
 import nl.kooi.app.domain.game.RouletteTwoToOne;
-import nl.kooi.representation.advises.roulettetwotoone.ColumnAdviceV1;
+import nl.kooi.app.api.dto.advises.ColumnAdviceDto;
 import java.math.BigDecimal;
 
 /**
@@ -32,9 +32,9 @@ public class ColumnAdvice extends RouletteTwoToOne {
     }
 
     @Override
-    public ColumnAdviceV1 toRepresentationV1() {
+    public ColumnAdviceDto toRepresentationV1() {
         int[] adviceArray = bettingSystem.getAdviceArray();
-        ColumnAdviceV1 representation = new ColumnAdviceV1();
+        ColumnAdviceDto representation = new ColumnAdviceDto();
         representation.firstColumn = getChipValue().multiply(new BigDecimal(adviceArray[0]));
         representation.secondColumn = getChipValue().multiply(new BigDecimal(adviceArray[1]));
         representation.thirdColumn = getChipValue().multiply(new BigDecimal(adviceArray[2]));

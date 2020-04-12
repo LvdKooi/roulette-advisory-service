@@ -1,11 +1,11 @@
-package nl.kooi.representation;
+package nl.kooi.app.api.dto;
 
 import nl.kooi.app.domain.rouletteoutcome.RouletteOutcome;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
-public class CompoundRouletteOutcomeV1 {
+public class CompoundRouletteOutcomeDto {
     @NotNull
     public Integer outcome;
 

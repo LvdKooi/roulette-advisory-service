@@ -1,7 +1,7 @@
 package nl.kooi.app.domain.rouletteoutcome;
 
 import nl.kooi.app.exceptions.NotValidOutcomeException;
-import nl.kooi.representation.CompoundRouletteOutcomeV1;
+import nl.kooi.app.api.dto.CompoundRouletteOutcomeDto;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -150,8 +150,8 @@ public class CompoundRouletteOutcome {
                 outcomeBooleanMap;
     }
 
-    public CompoundRouletteOutcomeV1 toRepresentationV1() {
-        CompoundRouletteOutcomeV1 representation = new CompoundRouletteOutcomeV1();
+    public CompoundRouletteOutcomeDto toRepresentationV1() {
+        CompoundRouletteOutcomeDto representation = new CompoundRouletteOutcomeDto();
         representation.outcome = this.outcome;
         representation.outcomeList = outcomeBooleanMap
                 .entrySet()
