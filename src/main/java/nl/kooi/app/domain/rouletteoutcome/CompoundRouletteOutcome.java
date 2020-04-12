@@ -1,9 +1,12 @@
 package nl.kooi.app.domain.rouletteoutcome;
 
-import nl.kooi.app.exceptions.NotValidOutcomeException;
 import nl.kooi.app.api.dto.CompoundRouletteOutcomeDto;
+import nl.kooi.app.exceptions.NotValidOutcomeException;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import static nl.kooi.app.domain.rouletteoutcome.RouletteOutcome.*;
@@ -37,7 +40,7 @@ public class CompoundRouletteOutcome {
         outcomeBooleanMap.put(FIRST_DOZEN, FIRST_DOZEN.equals(dozen(outcome)));
         outcomeBooleanMap.put(SECOND_DOZEN, SECOND_DOZEN.equals(dozen(outcome)));
         outcomeBooleanMap.put(THIRD_DOZEN, THIRD_DOZEN.equals(dozen(outcome)));
-        outcomeBooleanMap.put(ZERO, ZERO.equals(isZero(outcome)));
+        outcomeBooleanMap.put(ZERO, isZero(outcome));
         this.outcome = outcome;
     }
 
