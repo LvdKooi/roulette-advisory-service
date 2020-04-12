@@ -1,7 +1,6 @@
-package nl.kooi.app.api.v1;
+package nl.kooi.app.api;
 
-import nl.kooi.app.domain.CompoundRouletteOutcome;
-import nl.kooi.app.domain.RouletteOutcome;
+import nl.kooi.app.domain.rouletteoutcome.CompoundRouletteOutcome;
 import nl.kooi.representation.CompoundRouletteOutcomeV1;
 
 

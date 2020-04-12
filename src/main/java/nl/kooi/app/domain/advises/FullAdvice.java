@@ -1,13 +1,8 @@
 package nl.kooi.app.domain.advises;
 
-import nl.kooi.app.domain.CompoundRouletteOutcome;
-import nl.kooi.app.domain.advises.game.Game;
-import nl.kooi.app.domain.advises.game.roulette.rouletteonetoone.HalfAdvice;
-import nl.kooi.app.domain.advises.game.roulette.rouletteonetoone.OddEvenAdvice;
-import nl.kooi.app.domain.advises.game.roulette.rouletteonetoone.RedBlackAdvice;
-import nl.kooi.app.domain.advises.game.roulette.roulettetwotoone.DozenAdvice;
-import nl.kooi.app.domain.advises.game.roulette.roulettetwotoone.ColumnAdvice;
-import nl.kooi.app.domain.model.Outcome;
+import nl.kooi.app.domain.rouletteoutcome.CompoundRouletteOutcome;
+import nl.kooi.app.domain.game.Game;
+import nl.kooi.infrastructure.entity.Outcome;
 import nl.kooi.representation.advises.FullAdviceV1;
 
 import java.math.BigDecimal;

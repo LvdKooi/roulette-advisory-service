@@ -3,11 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package nl.kooi.app.domain.advises.game.roulette.roulettetwotoone;
+package nl.kooi.app.domain.advises;
 
 
-import nl.kooi.app.domain.CompoundRouletteOutcome;
-import nl.kooi.app.domain.RouletteOutcome;
+import nl.kooi.app.domain.rouletteoutcome.CompoundRouletteOutcome;
+import nl.kooi.app.domain.rouletteoutcome.RouletteOutcome;
+import nl.kooi.app.domain.game.RouletteTwoToOne;
 import nl.kooi.representation.advises.roulettetwotoone.ColumnAdviceV1;
 import java.math.BigDecimal;
 

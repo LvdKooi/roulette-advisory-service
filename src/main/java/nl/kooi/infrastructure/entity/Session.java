@@ -1,4 +1,4 @@
-package nl.kooi.app.domain.model;
+package nl.kooi.infrastructure.entity;
 
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
@@ -7,20 +7,20 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+
 @Data
 @Entity
-@Table(name = "outcomes")
+@Table(name = "sessions")
 @EntityListeners(AuditingEntityListener.class)
-public class Outcome implements Serializable {
+public class Session {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @ManyToOne
-    private Session session;
-    private int outcome;
-    private String totalProfit;
+    private int userId;
+    private String chipValue;
 
     @CreationTimestamp
     private LocalDateTime dateTime;
+
 
 }

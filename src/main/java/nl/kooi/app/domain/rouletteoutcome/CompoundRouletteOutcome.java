@@ -1,4 +1,4 @@
-package nl.kooi.app.domain;
+package nl.kooi.app.domain.rouletteoutcome;
 
 import nl.kooi.app.exceptions.NotValidOutcomeException;
 import nl.kooi.representation.CompoundRouletteOutcomeV1;
@@ -6,7 +6,7 @@ import nl.kooi.representation.CompoundRouletteOutcomeV1;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static nl.kooi.app.domain.RouletteOutcome.*;
+import static nl.kooi.app.domain.rouletteoutcome.RouletteOutcome.*;
 
 /**
  * @author Laurens van der Kooi

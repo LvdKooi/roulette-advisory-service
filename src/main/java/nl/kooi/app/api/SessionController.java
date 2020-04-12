@@ -1,7 +1,7 @@
 package nl.kooi.app.api;
 
 import lombok.extern.slf4j.Slf4j;
-import nl.kooi.app.domain.model.Session;
+import nl.kooi.infrastructure.entity.Session;
 import nl.kooi.infrastructure.repository.SessionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

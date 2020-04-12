@@ -1,7 +1,8 @@
 package nl.kooi.app.api;
 
 import lombok.extern.slf4j.Slf4j;
-import nl.kooi.app.domain.model.Outcome;
+
+import nl.kooi.infrastructure.entity.Outcome;
 import nl.kooi.infrastructure.repository.OutcomeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

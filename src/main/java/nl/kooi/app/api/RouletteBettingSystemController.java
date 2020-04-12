@@ -1,13 +1,13 @@
-package nl.kooi.app.api.v1;
+package nl.kooi.app.api;
 
 
 import lombok.extern.slf4j.Slf4j;
-import nl.kooi.app.domain.CompoundRouletteOutcome;
+import nl.kooi.app.domain.rouletteoutcome.CompoundRouletteOutcome;
 import nl.kooi.app.domain.advises.FullAdvice;
 import nl.kooi.app.domain.metrics.SessionMetrics;
-import nl.kooi.app.domain.model.Outcome;
-import nl.kooi.app.domain.model.Session;
 import nl.kooi.app.exceptions.SessionNotFoundException;
+import nl.kooi.infrastructure.entity.Outcome;
+import nl.kooi.infrastructure.entity.Session;
 import nl.kooi.infrastructure.repository.OutcomeRepository;
 import nl.kooi.infrastructure.repository.SessionRepository;
 import nl.kooi.representation.advises.FullAdviceV1;

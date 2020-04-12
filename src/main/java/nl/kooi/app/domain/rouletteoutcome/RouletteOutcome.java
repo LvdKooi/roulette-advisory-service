@@ -1,4 +1,4 @@
-package nl.kooi.app.domain;
+package nl.kooi.app.domain.rouletteoutcome;
 
 public enum RouletteOutcome {
     ZERO,

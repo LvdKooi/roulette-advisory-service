@@ -1,6 +1,6 @@
 package nl.kooi.representation;
 
-import nl.kooi.app.domain.RouletteOutcome;
+import nl.kooi.app.domain.rouletteoutcome.RouletteOutcome;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;

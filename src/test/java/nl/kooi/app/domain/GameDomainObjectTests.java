@@ -1,7 +1,8 @@
 package nl.kooi.app.domain;
 
-import nl.kooi.app.domain.advises.game.Game;
-import nl.kooi.app.domain.advises.game.roulette.rouletteonetoone.OddEvenAdvice;
+import nl.kooi.app.domain.game.Game;
+import nl.kooi.app.domain.advises.OddEvenAdvice;
+import nl.kooi.app.domain.rouletteoutcome.CompoundRouletteOutcome;
 import nl.kooi.representation.advises.rouletteonetoone.OddEvenAdviceV1;
 import org.junit.jupiter.api.Test;
 

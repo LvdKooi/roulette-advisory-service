@@ -1,7 +1,6 @@
 package nl.kooi.infrastructure.repository;
 
-
-import nl.kooi.app.domain.model.Outcome;
+import nl.kooi.infrastructure.entity.Outcome;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

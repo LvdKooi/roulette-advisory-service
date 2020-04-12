@@ -1,6 +1,6 @@
-package nl.kooi.app.domain.advises.game.roulette.rouletteonetoone;
+package nl.kooi.app.domain.game;
 
-import nl.kooi.app.domain.advises.game.Game;
+import nl.kooi.app.domain.game.Game;
 import nl.kooi.app.domain.bettingsystem.OneToOneBettingSystem;
 
 import java.math.BigDecimal;

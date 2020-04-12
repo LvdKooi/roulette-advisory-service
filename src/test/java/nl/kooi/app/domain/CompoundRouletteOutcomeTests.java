@@ -1,5 +1,6 @@
 package nl.kooi.app.domain;
 
+import nl.kooi.app.domain.rouletteoutcome.CompoundRouletteOutcome;
 import nl.kooi.app.exceptions.NotValidOutcomeException;
 import org.junit.jupiter.api.Test;
 

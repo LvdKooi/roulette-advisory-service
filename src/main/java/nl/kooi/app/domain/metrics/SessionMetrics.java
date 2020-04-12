@@ -1,9 +1,8 @@
 package nl.kooi.app.domain.metrics;
 
 import lombok.extern.slf4j.Slf4j;
-import nl.kooi.app.domain.CompoundRouletteOutcome;
-import nl.kooi.app.domain.model.Outcome;
-import nl.kooi.app.domain.RouletteOutcome;
+import nl.kooi.app.domain.rouletteoutcome.CompoundRouletteOutcome;
+import nl.kooi.infrastructure.entity.Outcome;
 import nl.kooi.representation.metrics.SessionMetricsV1;
 import org.springframework.util.Assert;
 
@@ -15,7 +14,7 @@ import java.util.Comparator;
 import java.util.stream.Collectors;
 
 import static java.math.RoundingMode.HALF_UP;
-import static nl.kooi.app.domain.RouletteOutcome.*;
+import static nl.kooi.app.domain.rouletteoutcome.RouletteOutcome.*;
 
 @Slf4j
 public class SessionMetrics {

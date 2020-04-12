@@ -1,8 +1,9 @@
-package nl.kooi.app.domain.advises.game.roulette.rouletteonetoone;
+package nl.kooi.app.domain.advises;
 
 
-import nl.kooi.app.domain.CompoundRouletteOutcome;
-import nl.kooi.app.domain.RouletteOutcome;
+import nl.kooi.app.domain.rouletteoutcome.CompoundRouletteOutcome;
+import nl.kooi.app.domain.rouletteoutcome.RouletteOutcome;
+import nl.kooi.app.domain.game.RouletteOneToOne;
 import nl.kooi.representation.advises.rouletteonetoone.OddEvenAdviceV1;
 import java.math.BigDecimal;
 

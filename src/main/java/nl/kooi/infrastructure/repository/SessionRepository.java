@@ -1,7 +1,7 @@
 package nl.kooi.infrastructure.repository;
 
 
-import nl.kooi.app.domain.model.Session;
+import nl.kooi.infrastructure.entity.Session;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

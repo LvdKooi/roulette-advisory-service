@@ -1,6 +1,6 @@
-package nl.kooi.app.domain.advises.game;
+package nl.kooi.app.domain.game;
 
-import nl.kooi.app.domain.CompoundRouletteOutcome;
+import nl.kooi.app.domain.rouletteoutcome.CompoundRouletteOutcome;
 import nl.kooi.representation.advises.AdviceRepresentation;
 import java.math.BigDecimal;
 
