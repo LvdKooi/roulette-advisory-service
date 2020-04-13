@@ -2,18 +2,17 @@ package nl.kooi.app.domain.metrics;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import nl.kooi.app.domain.rouletteoutcome.CompoundRouletteOutcome;
+import nl.kooi.app.domain.Mapper;
+import nl.kooi.app.domain.outcome.Outcome;
 import nl.kooi.infrastructure.entity.OutcomeEntity;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-import static nl.kooi.app.domain.rouletteoutcome.RouletteOutcome.*;
-
 @Slf4j
 @Getter
 public class SessionMetrics {
-    private CompoundRouletteOutcome roulette;
+    private Outcome roulette;
     private int sessionId;
     private int outcomeId;
     private Collection<OutcomeEntity> outcomeEntities;
@@ -46,22 +45,22 @@ public class SessionMetrics {
     public class CounterHelper {
 
         public CounterHelper(OutcomeEntity outcomeEntity) {
-            roulette = new CompoundRouletteOutcome(outcomeEntity.getOutcome());
-            if (roulette.getOutcomeBooleanMap().get(ZERO)) {
+            roulette = Mapper.map(outcomeEntity);
+            if (roulette.getZero()) {
                 totalZero++;
             } else {
-                totalBlack = roulette.getOutcomeBooleanMap().get(BLACK) ? ++totalBlack : totalBlack;
-                totalRed = roulette.getOutcomeBooleanMap().get(RED) ? ++totalRed : totalRed;
-                totalOdd = roulette.getOutcomeBooleanMap().get(ODD) ? ++totalOdd : totalOdd;
-                totalEven = roulette.getOutcomeBooleanMap().get(EVEN) ? ++totalEven : totalEven;
-                totalFirstHalf = roulette.getOutcomeBooleanMap().get(FIRST_HALF) ? ++totalFirstHalf : totalFirstHalf;
-                totalSecondHalf = roulette.getOutcomeBooleanMap().get(SECOND_HALF) ? ++totalSecondHalf : totalSecondHalf;
-                totalFirstDozen = roulette.getOutcomeBooleanMap().get(FIRST_DOZEN) ? ++totalFirstDozen : totalFirstDozen;
-                totalSecondDozen = roulette.getOutcomeBooleanMap().get(SECOND_DOZEN) ? ++totalSecondDozen : totalSecondDozen;
-                totalThirdDozen = roulette.getOutcomeBooleanMap().get(THIRD_DOZEN) ? ++totalThirdDozen : totalThirdDozen;
-                totalFirstColumn = roulette.getOutcomeBooleanMap().get(FIRST_COLUMN) ? ++totalFirstColumn : totalFirstColumn;
-                totalSecondColumn = roulette.getOutcomeBooleanMap().get(SECOND_COLUMN) ? ++totalSecondColumn : totalSecondColumn;
-                totalThirdColumn = roulette.getOutcomeBooleanMap().get(THIRD_COLUMN) ? ++totalThirdColumn : totalThirdColumn;
+                totalBlack = roulette.getBlack() ? ++totalBlack : totalBlack;
+                totalRed = roulette.getRed() ? ++totalRed : totalRed;
+                totalOdd = roulette.getOdd() ? ++totalOdd : totalOdd;
+                totalEven = roulette.getEven() ? ++totalEven : totalEven;
+                totalFirstHalf = roulette.getFirstHalf() ? ++totalFirstHalf : totalFirstHalf;
+                totalSecondHalf = roulette.getSecondHalf() ? ++totalSecondHalf : totalSecondHalf;
+                totalFirstDozen = roulette.getFirstDozen() ? ++totalFirstDozen : totalFirstDozen;
+                totalSecondDozen = roulette.getSecondDozen() ? ++totalSecondDozen : totalSecondDozen;
+                totalThirdDozen = roulette.getThirdDozen() ? ++totalThirdDozen : totalThirdDozen;
+                totalFirstColumn = roulette.getFirstColumn() ? ++totalFirstColumn : totalFirstColumn;
+                totalSecondColumn = roulette.getSecondColumn() ? ++totalSecondColumn : totalSecondColumn;
+                totalThirdColumn = roulette.getThirdColumn() ? ++totalThirdColumn : totalThirdColumn;
             }
         }
     }

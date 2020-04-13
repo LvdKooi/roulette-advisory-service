@@ -2,12 +2,9 @@ package nl.kooi.app.domain.advises;
 
 import lombok.Getter;
 import nl.kooi.app.domain.game.RouletteOneToOne;
-import nl.kooi.app.domain.rouletteoutcome.CompoundRouletteOutcome;
+import nl.kooi.app.domain.outcome.Outcome;
 
 import java.math.BigDecimal;
-
-import static nl.kooi.app.domain.rouletteoutcome.RouletteOutcome.FIRST_HALF;
-import static nl.kooi.app.domain.rouletteoutcome.RouletteOutcome.SECOND_HALF;
 
 /**
  * @author Laurens van der Kooi
@@ -25,9 +22,9 @@ public class HalfAdvice extends RouletteOneToOne {
     }
 
     @Override
-    public void setHits(CompoundRouletteOutcome roulette) {
-        hitArray[0] = roulette.getOutcomeBooleanMap().get(FIRST_HALF);
-        hitArray[1] = roulette.getOutcomeBooleanMap().get(SECOND_HALF);
+    public void setHits(Outcome roulette) {
+        hitArray[0] = roulette.getFirstHalf();
+        hitArray[1] = roulette.getSecondHalf();
         this.setAdvice(hitArray);
 
     }

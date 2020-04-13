@@ -28,4 +28,5 @@ public class AdviseEntity {
     private Integer thirdColumnAdvice;
     private Integer firstDozenAdvice;
     private Integer secondDozenAdvice;
+    private Integer thirdDozenAdvice;
 }

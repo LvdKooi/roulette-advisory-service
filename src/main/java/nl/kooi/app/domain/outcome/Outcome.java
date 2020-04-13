@@ -1,0 +1,76 @@
+package nl.kooi.app.domain.outcome;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import nl.kooi.app.domain.rouletteoutcome.RouletteOutcome;
+import nl.kooi.app.exceptions.NotValidOutcomeException;
+
+import java.util.Map;
+
+import static nl.kooi.app.domain.rouletteoutcome.RouletteOutcome.*;
+
+
+@Getter
+@Setter
+@NoArgsConstructor
+public class Outcome {
+    private int id;
+    private int sessionId;
+    private int adviseId;
+    private int outcome;
+    private Boolean red;
+    private Boolean black;
+    private Boolean odd;
+    private Boolean even;
+    private Boolean firstHalf;
+    private Boolean secondHalf;
+    private Boolean firstColumn;
+    private Boolean secondColumn;
+    private Boolean thirdColumn;
+    private Boolean firstDozen;
+    private Boolean secondDozen;
+    private Boolean thirdDozen;
+    private Boolean zero;
+    private String totalProfit;
+
+    public Outcome(int sessionId,
+                   int adviseId,
+                   int outcome,
+                   String totalProfit,
+                   Map<RouletteOutcome, Boolean> rouletteOutcomeBooleanMap
+    ) {
+        validateOutcome(outcome);
+        this.sessionId = sessionId;
+        this.adviseId = adviseId;
+        this.totalProfit = totalProfit;
+        this.outcome = outcome;
+        setRouletteFields(rouletteOutcomeBooleanMap);
+
+    }
+
+    public static void validateOutcome(int outcome) {
+        if (!(outcome > -1 && outcome < 37)) {
+            throw new NotValidOutcomeException("Not a valid roulette outcome. RouletteOutcome can only be within the range of 0 - 36.");
+        }
+    }
+
+    private void setRouletteFields(Map<RouletteOutcome, Boolean> rouletteOutcomeBooleanMap) {
+
+        this.red = rouletteOutcomeBooleanMap.get(RED);
+        this.black = rouletteOutcomeBooleanMap.get(BLACK);
+        this.odd = rouletteOutcomeBooleanMap.get(ODD);
+        this.even = rouletteOutcomeBooleanMap.get(EVEN);
+        this.firstHalf = rouletteOutcomeBooleanMap.get(FIRST_HALF);
+        this.secondHalf = rouletteOutcomeBooleanMap.get(SECOND_HALF);
+        this.firstColumn = rouletteOutcomeBooleanMap.get(FIRST_COLUMN);
+        this.secondColumn = rouletteOutcomeBooleanMap.get(SECOND_COLUMN);
+        this.thirdColumn = rouletteOutcomeBooleanMap.get(THIRD_COLUMN);
+        this.firstDozen = rouletteOutcomeBooleanMap.get(FIRST_DOZEN);
+        this.secondDozen = rouletteOutcomeBooleanMap.get(SECOND_DOZEN);
+        this.thirdDozen = rouletteOutcomeBooleanMap.get(THIRD_DOZEN);
+        this.zero = rouletteOutcomeBooleanMap.get(ZERO);
+    }
+
+
+}

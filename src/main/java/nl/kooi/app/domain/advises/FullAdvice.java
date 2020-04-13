@@ -2,8 +2,7 @@ package nl.kooi.app.domain.advises;
 
 import lombok.Getter;
 import nl.kooi.app.domain.game.Game;
-import nl.kooi.app.domain.rouletteoutcome.CompoundRouletteOutcome;
-import nl.kooi.infrastructure.entity.OutcomeEntity;
+import nl.kooi.app.domain.outcome.Outcome;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -13,14 +12,14 @@ import java.util.List;
 public class FullAdvice {
 
     private String chipValue;
-    private Collection<OutcomeEntity> outcomeEntityList;
+    private Collection<Outcome> outcomeList;
     @Getter
     private List<Game> gameArray;
     private BigDecimal totalProfit = new BigDecimal(0).setScale(2);
 
-    public FullAdvice(String chipValue, Collection<OutcomeEntity> outcomeEntityList) {
+    public FullAdvice(String chipValue, Collection<Outcome> outcomeList) {
         this.chipValue = chipValue;
-        this.outcomeEntityList = outcomeEntityList;
+        this.outcomeList = outcomeList;
 
         gameArray = new ArrayList<>();
         gameArray.add(new OddEvenAdvice(chipValue, 8));
@@ -29,8 +28,8 @@ public class FullAdvice {
         gameArray.add(new DozenAdvice(chipValue));
         gameArray.add(new ColumnAdvice(chipValue));
 
-        for (OutcomeEntity singleOutcomeEntity : outcomeEntityList) {
-            gameArray.forEach(g -> g.setHits(new CompoundRouletteOutcome(singleOutcomeEntity.getOutcome())));
+        for (Outcome singleOutcome : outcomeList) {
+            gameArray.forEach(g -> g.setHits(singleOutcome));
         }
     }
 

@@ -7,7 +7,8 @@ import nl.kooi.app.api.dto.advises.FullAdviceDto;
 import nl.kooi.app.api.dto.metrics.SessionMetricsDto;
 import nl.kooi.app.domain.advises.FullAdvice;
 import nl.kooi.app.domain.metrics.SessionMetrics;
-import nl.kooi.app.domain.rouletteoutcome.CompoundRouletteOutcome;
+import nl.kooi.app.domain.outcome.Outcome;
+import nl.kooi.app.domain.services.OutcomeService;
 import nl.kooi.app.exceptions.SessionNotFoundException;
 import nl.kooi.infrastructure.entity.OutcomeEntity;
 import nl.kooi.infrastructure.entity.SessionEntity;
@@ -42,6 +43,9 @@ public class RouletteBettingSystemController {
     @Autowired
     OutcomeRepository outcomeRepository;
 
+    @Autowired
+    OutcomeService outcomeService;
+
     private ArrayList<Integer> outcomeList = new ArrayList<>();
 
     @RequestMapping(path = "/{userId}/startgame", method = PUT, produces = "application/json")
@@ -57,7 +61,7 @@ public class RouletteBettingSystemController {
     @RequestMapping(path = "/{userId}/sessions/{sessionsId}/outcomes/", method = PUT, produces = "application/json")
     public FullAdviceDto setOutcome(@PathVariable("userId") Integer userId, @PathVariable("sessionsId") Integer sessionId, @RequestParam("outcome") int outcome) {
 
-        CompoundRouletteOutcome.validateOutcome(outcome);
+        Outcome.validateOutcome(outcome);
 
         Optional<SessionEntity> session = sessionRepository.findByIdAndUserId(sessionId, userId);
         if (!session.isPresent()) {
@@ -70,15 +74,15 @@ public class RouletteBettingSystemController {
         outcomes.setOutcome(outcome);
         outcomes.setTotalProfit("0");
 
-        int id = outcomeRepository.save(outcomes).getId();
+        int id = outcomeService.saveOutcome(sessionId, "0", outcome);
 
         LOGGER.info("Id of outcome is: {}", id);
 
-        Collection<OutcomeEntity> outcomeEntityList = outcomeRepository.findBySessionIdOrderByIdAsc(sessionId);
+        Collection<Outcome> outcomeList = outcomeService.findBySessionIdOrderByIdAsc(sessionId);
 
         outcomes = outcomeRepository.findById(id).get();
 
-        FullAdvice fullAdvice = new FullAdvice(chipValue, outcomeEntityList);
+        FullAdvice fullAdvice = new FullAdvice(chipValue, outcomeList);
 
         outcomes.setTotalProfit(fullAdvice.getTotalProfit().toString());
 
@@ -86,9 +90,9 @@ public class RouletteBettingSystemController {
 
         outcomeRepository.save(outcomes);
 
-        outcomeEntityList = outcomeRepository.findBySessionIdOrderByIdAsc(sessionId);
+        outcomeList = outcomeService.findBySessionIdOrderByIdAsc(sessionId);
 
-        return Mapper.map(new FullAdvice(chipValue, outcomeEntityList));
+        return Mapper.map(new FullAdvice(chipValue, outcomeList));
 
     }
 

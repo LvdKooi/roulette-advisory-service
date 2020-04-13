@@ -2,12 +2,9 @@ package nl.kooi.app.domain.advises;
 
 import lombok.Getter;
 import nl.kooi.app.domain.game.RouletteOneToOne;
-import nl.kooi.app.domain.rouletteoutcome.CompoundRouletteOutcome;
+import nl.kooi.app.domain.outcome.Outcome;
 
 import java.math.BigDecimal;
-
-import static nl.kooi.app.domain.rouletteoutcome.RouletteOutcome.BLACK;
-import static nl.kooi.app.domain.rouletteoutcome.RouletteOutcome.RED;
 
 /**
  * @author Laurens van der Kooi
@@ -25,9 +22,9 @@ public class RedBlackAdvice extends RouletteOneToOne {
     }
 
     @Override
-    public void setHits(CompoundRouletteOutcome roulette) {
-        hitArray[0] = roulette.getOutcomeBooleanMap().get(RED);
-        hitArray[1] = roulette.getOutcomeBooleanMap().get(BLACK);
+    public void setHits(Outcome roulette) {
+        hitArray[0] = roulette.getRed();
+        hitArray[1] = roulette.getBlack();
         this.setAdvice(hitArray);
     }
 
