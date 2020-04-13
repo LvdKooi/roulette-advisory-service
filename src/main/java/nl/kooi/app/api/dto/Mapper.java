@@ -61,7 +61,7 @@ public class Mapper {
             destination.columnMetrics.percentageSecondColumn = roundsToPercentage(source.getTotalSecondColumn(), totalRounds);
             destination.columnMetrics.percentageThirdColumn = roundsToPercentage(source.getTotalThirdColumn(), totalRounds);
             destination.percentageZero = roundsToPercentage(source.getTotalZero(), totalRounds);
-            destination.currentProfit = new BigDecimal(source.getOutcomes().stream().filter(o -> o.getId() == source.getOutcomeId()).findFirst().get().getTotalProfit());
+            destination.currentProfit = new BigDecimal(source.getOutcomeEntities().stream().filter(o -> o.getId() == source.getOutcomeId()).findFirst().get().getTotalProfit());
             destination.leastProfit = BigDecimal.valueOf(source.getProfits().stream().min(Comparator.naturalOrder()).orElse((double) 0));
             destination.topProfit = BigDecimal.valueOf(source.getProfits().stream().max(Comparator.naturalOrder()).orElse((double) 0));
             return destination;

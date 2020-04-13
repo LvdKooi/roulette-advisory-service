@@ -1,8 +1,7 @@
 package nl.kooi.app.api;
 
 import lombok.extern.slf4j.Slf4j;
-
-import nl.kooi.infrastructure.entity.Outcome;
+import nl.kooi.infrastructure.entity.OutcomeEntity;
 import nl.kooi.infrastructure.repository.OutcomeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,18 +21,18 @@ public class OutcomeController {
     OutcomeRepository outcomeRepository;
 
     @GetMapping
-    public ResponseEntity<List<Outcome>> findAll() {
+    public ResponseEntity<List<OutcomeEntity>> findAll() {
         return ResponseEntity.ok(outcomeRepository.findAll());
     }
 
     @PostMapping
-    public ResponseEntity create(@Valid @RequestBody Outcome outcome) {
-        return ResponseEntity.ok(outcomeRepository.save(outcome));
+    public ResponseEntity create(@Valid @RequestBody OutcomeEntity outcomeEntity) {
+        return ResponseEntity.ok(outcomeRepository.save(outcomeEntity));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Outcome> findById(@PathVariable int id) {
-        Optional<Outcome> stock = outcomeRepository.findById(id);
+    public ResponseEntity<OutcomeEntity> findById(@PathVariable int id) {
+        Optional<OutcomeEntity> stock = outcomeRepository.findById(id);
         if (!stock.isPresent()) {
             log.error("Id " + id + " is not existed");
             return ResponseEntity.notFound().build();
@@ -43,13 +42,13 @@ public class OutcomeController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Outcome> update(@PathVariable int id, @Valid @RequestBody Outcome outcome) {
+    public ResponseEntity<OutcomeEntity> update(@PathVariable int id, @Valid @RequestBody OutcomeEntity outcomeEntity) {
         if (!outcomeRepository.findById(id).isPresent()) {
             log.error("Id " + id + " is not existed");
             return ResponseEntity.notFound().build();
         }
 
-        return ResponseEntity.ok(outcomeRepository.save(outcome));
+        return ResponseEntity.ok(outcomeRepository.save(outcomeEntity));
     }
 
     @DeleteMapping("/{id}")

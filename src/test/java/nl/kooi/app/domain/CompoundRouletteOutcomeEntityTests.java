@@ -7,11 +7,11 @@ import org.junit.jupiter.api.Test;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
-public class CompoundRouletteOutcomeTests {
+public class CompoundRouletteOutcomeEntityTests {
 
     @Test
     public void invalidOutcomes() {
-        int[] outcomeArray = {-1,-2,37,38};
+        int[] outcomeArray = {-1, -2, 37, 38};
         for (int outcome : outcomeArray) {
             try {
                 CompoundRouletteOutcome domainObject = new CompoundRouletteOutcome(outcome);

@@ -3,7 +3,7 @@ package nl.kooi.app.domain.metrics;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import nl.kooi.app.domain.rouletteoutcome.CompoundRouletteOutcome;
-import nl.kooi.infrastructure.entity.Outcome;
+import nl.kooi.infrastructure.entity.OutcomeEntity;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
@@ -16,7 +16,7 @@ public class SessionMetrics {
     private CompoundRouletteOutcome roulette;
     private int sessionId;
     private int outcomeId;
-    private Collection<Outcome> outcomes;
+    private Collection<OutcomeEntity> outcomeEntities;
     private Collection<Double> profits;
     private long totalNumberOfRounds;
     private long totalFirstHalf;
@@ -33,20 +33,20 @@ public class SessionMetrics {
     private long totalSecondDozen;
     private long totalThirdDozen;
 
-    public SessionMetrics(Collection<Outcome> outcomes) {
-        this.outcomes = outcomes;
-        totalNumberOfRounds = outcomes.size();
-        outcomes.forEach(CounterHelper::new);
-        sessionId = outcomes.stream().findAny().get().getSession().getId();
-        outcomeId = outcomes.stream().min((a, b) -> b.getId() - a.getId()).get().getId();
-        profits = outcomes.stream().map(o -> Double.valueOf(o.getTotalProfit())).collect(Collectors.toList());
+    public SessionMetrics(Collection<OutcomeEntity> outcomeEntities) {
+        this.outcomeEntities = outcomeEntities;
+        totalNumberOfRounds = outcomeEntities.size();
+        outcomeEntities.forEach(CounterHelper::new);
+        sessionId = outcomeEntities.stream().findAny().get().getSession().getId();
+        outcomeId = outcomeEntities.stream().min((a, b) -> b.getId() - a.getId()).get().getId();
+        profits = outcomeEntities.stream().map(o -> Double.valueOf(o.getTotalProfit())).collect(Collectors.toList());
     }
 
 
     public class CounterHelper {
 
-        public CounterHelper(Outcome outcome) {
-            roulette = new CompoundRouletteOutcome(outcome.getOutcome());
+        public CounterHelper(OutcomeEntity outcomeEntity) {
+            roulette = new CompoundRouletteOutcome(outcomeEntity.getOutcome());
             if (roulette.getOutcomeBooleanMap().get(ZERO)) {
                 totalZero++;
             } else {

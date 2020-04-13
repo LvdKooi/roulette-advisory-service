@@ -1,10 +1,9 @@
 package nl.kooi.app.api;
 
 import lombok.extern.slf4j.Slf4j;
-import nl.kooi.infrastructure.entity.Session;
+import nl.kooi.infrastructure.entity.SessionEntity;
 import nl.kooi.infrastructure.repository.SessionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,18 +21,18 @@ public class SessionController {
     SessionRepository sessionRepository;
 
     @GetMapping
-    public ResponseEntity<List<Session>> findAll() {
+    public ResponseEntity<List<SessionEntity>> findAll() {
         return ResponseEntity.ok(sessionRepository.findAll());
     }
 
     @PostMapping
-    public ResponseEntity create(@Valid @RequestBody Session session) {
-        return ResponseEntity.ok(sessionRepository.save(session));
+    public ResponseEntity create(@Valid @RequestBody SessionEntity sessionEntity) {
+        return ResponseEntity.ok(sessionRepository.save(sessionEntity));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Session> findById(@PathVariable int id) {
-        Optional<Session> stock = sessionRepository.findById(id);
+    public ResponseEntity<SessionEntity> findById(@PathVariable int id) {
+        Optional<SessionEntity> stock = sessionRepository.findById(id);
         if (!stock.isPresent()) {
             log.error("Id " + id + " is not existed");
             return ResponseEntity.notFound().build();
@@ -43,13 +42,13 @@ public class SessionController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Session> update(@PathVariable int id, @Valid @RequestBody Session session) {
+    public ResponseEntity<SessionEntity> update(@PathVariable int id, @Valid @RequestBody SessionEntity sessionEntity) {
         if (!sessionRepository.findById(id).isPresent()) {
             log.error("Id " + id + " is not existed");
             return ResponseEntity.notFound().build();
         }
 
-        return ResponseEntity.ok(sessionRepository.save(session));
+        return ResponseEntity.ok(sessionRepository.save(sessionEntity));
     }
 
     @DeleteMapping("/{id}")

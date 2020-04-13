@@ -9,14 +9,14 @@ import javax.persistence.*;
 @Entity
 @Table(name = "advises")
 @EntityListeners(AuditingEntityListener.class)
-public class Advise {
+public class AdviseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @ManyToOne
-    private Session session;
+    private SessionEntity session;
     @OneToOne
-    private Outcome causing_outcome;
+    private OutcomeEntity causingOutcome;
     private Integer redAdvice;
     private Integer blackAdvice;
     private Integer oddAdvice;

@@ -11,12 +11,14 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "outcomes")
 @EntityListeners(AuditingEntityListener.class)
-public class Outcome {
+public class OutcomeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @ManyToOne
-    private Session session;
+    private SessionEntity session;
+    @OneToOne
+    private AdviseEntity advise;
     private int outcome;
     private Boolean red;
     private Boolean black;

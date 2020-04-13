@@ -9,8 +9,8 @@ import nl.kooi.app.domain.advises.FullAdvice;
 import nl.kooi.app.domain.metrics.SessionMetrics;
 import nl.kooi.app.domain.rouletteoutcome.CompoundRouletteOutcome;
 import nl.kooi.app.exceptions.SessionNotFoundException;
-import nl.kooi.infrastructure.entity.Outcome;
-import nl.kooi.infrastructure.entity.Session;
+import nl.kooi.infrastructure.entity.OutcomeEntity;
+import nl.kooi.infrastructure.entity.SessionEntity;
 import nl.kooi.infrastructure.repository.OutcomeRepository;
 import nl.kooi.infrastructure.repository.SessionRepository;
 import org.slf4j.Logger;
@@ -47,10 +47,10 @@ public class RouletteBettingSystemController {
     @RequestMapping(path = "/{userId}/startgame", method = PUT, produces = "application/json")
     public ResponseEntity startGame(@PathVariable("userId") int userId, @RequestParam("chipvalue") String chipValue) {
 
-        Session session = new Session();
-        session.setChipValue(chipValue);
-        session.setUserId(userId);
-        return ResponseEntity.ok(sessionRepository.save(session));
+        SessionEntity sessionEntity = new SessionEntity();
+        sessionEntity.setChipValue(chipValue);
+        sessionEntity.setUserId(userId);
+        return ResponseEntity.ok(sessionRepository.save(sessionEntity));
 
     }
 
@@ -59,13 +59,13 @@ public class RouletteBettingSystemController {
 
         CompoundRouletteOutcome.validateOutcome(outcome);
 
-        Optional<Session> session = sessionRepository.findByIdAndUserId(sessionId, userId);
+        Optional<SessionEntity> session = sessionRepository.findByIdAndUserId(sessionId, userId);
         if (!session.isPresent()) {
             throw new SessionNotFoundException("Session Id not found");
         }
 
         String chipValue = session.get().getChipValue();
-        Outcome outcomes = new Outcome();
+        OutcomeEntity outcomes = new OutcomeEntity();
         outcomes.setSession(session.get());
         outcomes.setOutcome(outcome);
         outcomes.setTotalProfit("0");
@@ -74,11 +74,11 @@ public class RouletteBettingSystemController {
 
         LOGGER.info("Id of outcome is: {}", id);
 
-        Collection<Outcome> outcomeList = outcomeRepository.findBySessionIdOrderByIdAsc(sessionId);
+        Collection<OutcomeEntity> outcomeEntityList = outcomeRepository.findBySessionIdOrderByIdAsc(sessionId);
 
         outcomes = outcomeRepository.findById(id).get();
 
-        FullAdvice fullAdvice = new FullAdvice(chipValue, outcomeList);
+        FullAdvice fullAdvice = new FullAdvice(chipValue, outcomeEntityList);
 
         outcomes.setTotalProfit(fullAdvice.getTotalProfit().toString());
 
@@ -86,15 +86,15 @@ public class RouletteBettingSystemController {
 
         outcomeRepository.save(outcomes);
 
-        outcomeList = outcomeRepository.findBySessionIdOrderByIdAsc(sessionId);
+        outcomeEntityList = outcomeRepository.findBySessionIdOrderByIdAsc(sessionId);
 
-        return Mapper.map(new FullAdvice(chipValue, outcomeList));
+        return Mapper.map(new FullAdvice(chipValue, outcomeEntityList));
 
     }
 
     @RequestMapping(path = "/{userId}/sessions/{sessionsId}/metrics/", method = GET, produces = "application/json")
     public SessionMetricsDto getMetrics(@PathVariable("userId") Integer userId, @PathVariable("sessionsId") Integer sessionId) {
-        Optional<Session> session = sessionRepository.findByIdAndUserId(sessionId, userId);
+        Optional<SessionEntity> session = sessionRepository.findByIdAndUserId(sessionId, userId);
         if (!session.isPresent()) {
             throw new SessionNotFoundException("Session Id not found");
         }
@@ -105,11 +105,11 @@ public class RouletteBettingSystemController {
     @RequestMapping(path = "/testrun", method = POST, produces = "application/json")
     public SessionMetricsDto doTestRun(@RequestParam("numberOfRounds") int rounds) {
 
-        Session session = new Session();
-        session.setChipValue("1");
-        session.setUserId(1234);
+        SessionEntity sessionEntity = new SessionEntity();
+        sessionEntity.setChipValue("1");
+        sessionEntity.setUserId(1234);
 
-        int id = sessionRepository.save(session).getId();
+        int id = sessionRepository.save(sessionEntity).getId();
 
         LOGGER.info("Id of testsession is: {}", id);
         LOGGER.info("UserId of testsession is: {}", "1234");
