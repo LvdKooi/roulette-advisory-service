@@ -1,7 +1,6 @@
 package nl.kooi.app.domain.game;
 
-import nl.kooi.app.domain.game.Game;
-import nl.kooi.app.domain.bettingsystem.OneToOneBettingSystem;
+import nl.kooi.app.domain.bettingsystem.BettingAdvice;
 
 import java.math.BigDecimal;
 
@@ -10,18 +9,9 @@ import java.math.BigDecimal;
  */
 
 public abstract class RouletteOneToOne extends Game {
-    protected OneToOneBettingSystem bettingSystem;
 
-    public RouletteOneToOne(String chipValue, int delay) {
+    public RouletteOneToOne(String chipValue) {
         super(chipValue);
-        this.bettingSystem = new OneToOneBettingSystem(2, delay);
-
-    }
-
-    @Override
-    protected void setAdvice(boolean[] hitArray) {
-        bettingSystem.compoundDefferedMartingGale(hitArray);
-
     }
 
     @Override
@@ -31,6 +21,6 @@ public abstract class RouletteOneToOne extends Game {
 
     @Override
     public BigDecimal getProfit() {
-        return getChipValue().multiply(new BigDecimal(bettingSystem.getProfitCounter()).setScale(2));
+        return getChipValue().multiply(new BigDecimal(BettingAdvice.oneToOneBettingSystem.getProfitCounter()).setScale(2));
     }
 }

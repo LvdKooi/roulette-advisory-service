@@ -1,7 +1,7 @@
 package nl.kooi.app.domain.advises;
 
 import lombok.Getter;
-import nl.kooi.app.domain.game.Game;
+import nl.kooi.app.domain.game.*;
 import nl.kooi.app.domain.outcome.Outcome;
 
 import java.math.BigDecimal;
@@ -22,11 +22,11 @@ public class FullAdvice {
         this.outcomeList = outcomeList;
 
         gameArray = new ArrayList<>();
-        gameArray.add(new OddEvenAdvice(chipValue, 8));
-        gameArray.add(new RedBlackAdvice(chipValue, 8));
-        gameArray.add(new HalfAdvice(chipValue, 8));
-        gameArray.add(new DozenAdvice(chipValue));
-        gameArray.add(new ColumnAdvice(chipValue));
+        gameArray.add(new OddEvenGame(chipValue));
+        gameArray.add(new RedBlackGame(chipValue));
+        gameArray.add(new HalfGame(chipValue));
+        gameArray.add(new DozenGame(chipValue));
+        gameArray.add(new ColumnGame(chipValue));
 
         for (Outcome singleOutcome : outcomeList) {
             gameArray.forEach(g -> g.setHits(singleOutcome));

@@ -2,8 +2,8 @@ package nl.kooi.app.api.dto;
 
 import nl.kooi.app.api.dto.advises.*;
 import nl.kooi.app.api.dto.metrics.SessionMetricsDto;
-import nl.kooi.app.domain.advises.*;
-import nl.kooi.app.domain.game.Game;
+import nl.kooi.app.domain.advises.FullAdvice;
+import nl.kooi.app.domain.game.*;
 import nl.kooi.app.domain.metrics.SessionMetrics;
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
@@ -24,16 +24,16 @@ public class Mapper {
             FullAdviceDto dto = new FullAdviceDto();
 
             for (Game game : mappingContext.getSource().getGameArray()) {
-                if (game instanceof DozenAdvice)
-                    dto.dozenAdvice = Mapper.map((DozenAdvice) game);
-                if (game instanceof ColumnAdvice)
-                    dto.columnAdvice = Mapper.map((ColumnAdvice) game);
-                if (game instanceof RedBlackAdvice)
-                    dto.redBlackAdvice = Mapper.map((RedBlackAdvice) game);
-                if (game instanceof OddEvenAdvice)
-                    dto.oddEvenAdvice = Mapper.map((OddEvenAdvice) game);
-                if (game instanceof HalfAdvice)
-                    dto.halfAdvice = Mapper.map((HalfAdvice) game);
+                if (game instanceof DozenGame)
+                    dto.dozenAdvice = Mapper.map((DozenGame) game);
+                if (game instanceof ColumnGame)
+                    dto.columnAdvice = Mapper.map((ColumnGame) game);
+                if (game instanceof RedBlackGame)
+                    dto.redBlackAdvice = Mapper.map((RedBlackGame) game);
+                if (game instanceof OddEvenGame)
+                    dto.oddEvenAdvice = Mapper.map((OddEvenGame) game);
+                if (game instanceof HalfGame)
+                    dto.halfAdvice = Mapper.map((HalfGame) game);
             }
             return dto;
         }
@@ -75,23 +75,23 @@ public class Mapper {
 
     private static ModelMapper modelMapper = new ModelMapper();
 
-    public static ColumnAdviceDto map(ColumnAdvice advice) {
+    public static ColumnAdviceDto map(ColumnGame advice) {
         return modelMapper.map(advice, ColumnAdviceDto.class);
     }
 
-    public static DozenAdviceDto map(DozenAdvice advice) {
+    public static DozenAdviceDto map(DozenGame advice) {
         return modelMapper.map(advice, DozenAdviceDto.class);
     }
 
-    public static HalfAdviceDto map(HalfAdvice advice) {
+    public static HalfAdviceDto map(HalfGame advice) {
         return modelMapper.map(advice, HalfAdviceDto.class);
     }
 
-    public static OddEvenAdviceDto map(OddEvenAdvice advice) {
+    public static OddEvenAdviceDto map(OddEvenGame advice) {
         return modelMapper.map(advice, OddEvenAdviceDto.class);
     }
 
-    public static RedBlackAdviceDto map(RedBlackAdvice advice) {
+    public static RedBlackAdviceDto map(RedBlackGame advice) {
         return modelMapper.map(advice, RedBlackAdviceDto.class);
     }
 
