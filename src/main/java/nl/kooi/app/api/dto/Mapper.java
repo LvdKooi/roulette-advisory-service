@@ -1,9 +1,8 @@
 package nl.kooi.app.api.dto;
 
-import nl.kooi.app.api.dto.advises.*;
+import nl.kooi.app.api.dto.advises.FullAdviceDto;
 import nl.kooi.app.api.dto.metrics.SessionMetricsDto;
 import nl.kooi.app.domain.advises.FullAdvice;
-import nl.kooi.app.domain.game.*;
 import nl.kooi.app.domain.metrics.SessionMetrics;
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
@@ -17,27 +16,6 @@ import java.util.Comparator;
 import static java.math.RoundingMode.HALF_UP;
 
 public class Mapper {
-    private static Converter<FullAdvice, FullAdviceDto> fullAdviceConverter = new Converter<FullAdvice, FullAdviceDto>() {
-        @Override
-        public FullAdviceDto convert(MappingContext<FullAdvice, FullAdviceDto> mappingContext) {
-
-            FullAdviceDto dto = new FullAdviceDto();
-
-            for (Game game : mappingContext.getSource().getGameArray()) {
-                if (game instanceof DozenGame)
-                    dto.dozenAdvice = Mapper.map((DozenGame) game);
-                if (game instanceof ColumnGame)
-                    dto.columnAdvice = Mapper.map((ColumnGame) game);
-                if (game instanceof RedBlackGame)
-                    dto.redBlackAdvice = Mapper.map((RedBlackGame) game);
-                if (game instanceof OddEvenGame)
-                    dto.oddEvenAdvice = Mapper.map((OddEvenGame) game);
-                if (game instanceof HalfGame)
-                    dto.halfAdvice = Mapper.map((HalfGame) game);
-            }
-            return dto;
-        }
-    };
 
     private static Converter<SessionMetrics, SessionMetricsDto> sessionMetricsConverter = new Converter<SessionMetrics, SessionMetricsDto>() {
         @Override
@@ -75,28 +53,7 @@ public class Mapper {
 
     private static ModelMapper modelMapper = new ModelMapper();
 
-    public static ColumnAdviceDto map(ColumnGame advice) {
-        return modelMapper.map(advice, ColumnAdviceDto.class);
-    }
-
-    public static DozenAdviceDto map(DozenGame advice) {
-        return modelMapper.map(advice, DozenAdviceDto.class);
-    }
-
-    public static HalfAdviceDto map(HalfGame advice) {
-        return modelMapper.map(advice, HalfAdviceDto.class);
-    }
-
-    public static OddEvenAdviceDto map(OddEvenGame advice) {
-        return modelMapper.map(advice, OddEvenAdviceDto.class);
-    }
-
-    public static RedBlackAdviceDto map(RedBlackGame advice) {
-        return modelMapper.map(advice, RedBlackAdviceDto.class);
-    }
-
     public static FullAdviceDto map(FullAdvice advice) {
-        modelMapper.addConverter(fullAdviceConverter);
         return modelMapper.map(advice, FullAdviceDto.class);
     }
 

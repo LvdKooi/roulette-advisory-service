@@ -7,7 +7,6 @@ package nl.kooi.app.domain.game;
 
 
 import lombok.Getter;
-import nl.kooi.app.domain.bettingsystem.BettingAdvice;
 import nl.kooi.app.domain.outcome.Outcome;
 import nl.kooi.app.domain.rouletteoutcome.RouletteOutcome;
 
@@ -33,11 +32,11 @@ public class ColumnGame extends RouletteTwoToOne {
         hitArray[0] = roulette.getFirstColumn();
         hitArray[1] = roulette.getSecondColumn();
         hitArray[2] = roulette.getThirdColumn();
+        getTwoToOneBettingSystem().compoundDefferedMartingGale(hitArray);
     }
 
     @Override
-    public Map<RouletteOutcome, BigDecimal> getAdvice(boolean[] hitArray) {
-        BettingAdvice.twoToOneBettingSystem.compoundDefferedMartingGale(hitArray);
-        return BettingAdvice.getTwoToOneAdviceMap(FIRST_COLUMN, SECOND_COLUMN, THIRD_COLUMN, getChipValue());
+    public Map<RouletteOutcome, BigDecimal> getAdvice() {
+        return getTwoToOneBettingSystem().getTwoToOneAdviceMap(FIRST_COLUMN, SECOND_COLUMN, THIRD_COLUMN, getChipValue());
     }
 }

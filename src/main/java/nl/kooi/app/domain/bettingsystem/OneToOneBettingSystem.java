@@ -5,6 +5,13 @@
  */
 package nl.kooi.app.domain.bettingsystem;
 
+import lombok.var;
+import nl.kooi.app.domain.rouletteoutcome.RouletteOutcome;
+
+import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author Laurens van der Kooi
  */
@@ -13,7 +20,7 @@ public class OneToOneBettingSystem extends BettingSystem {
 
     private boolean[][] outcomeArray;
     private int[] adviceArray;
-    private int winLossCountArray[][];
+    private int[][] winLossCountArray;
     private int profitCounter;
     private int maxProfit;
 
@@ -37,7 +44,6 @@ public class OneToOneBettingSystem extends BettingSystem {
         } else {
             setRounds(1);
         }
-
     }
 
     private void updateOutcomeArray(boolean[] hitArray) {
@@ -76,7 +82,6 @@ public class OneToOneBettingSystem extends BettingSystem {
                 // situation 1: a bet was made but it didn't hit
                 if (adviceArray[i] > 0 && !hitArray[i]) {
 
-
                     adviceArray[i] *= getBettingFactor();
 
                     // situation 2: a bet was made, the bet was won but conditions still meet: time to bet again.
@@ -106,6 +111,7 @@ public class OneToOneBettingSystem extends BettingSystem {
 
                     // situation 4: the number of losses doesn't match the conditions, no bets adviced.
                 } else {
+
                     if (adviceArray[i] > 0) {
                         for (int j = 0; j < 2; j++) {
                             if (i == j) {
@@ -165,5 +171,13 @@ public class OneToOneBettingSystem extends BettingSystem {
             }
         }
     }
+
+    public Map<RouletteOutcome, BigDecimal> getOneToOneAdviceMap(RouletteOutcome firstOutcome, RouletteOutcome secondOutcome, BigDecimal chipValue) {
+        var map = new HashMap<RouletteOutcome, BigDecimal>();
+        map.put(firstOutcome, chipValue.multiply(new BigDecimal(getAdviceArray()[0])));
+        map.put(secondOutcome, chipValue.multiply(new BigDecimal(getAdviceArray()[1])));
+        return map;
+    }
+
 
 }

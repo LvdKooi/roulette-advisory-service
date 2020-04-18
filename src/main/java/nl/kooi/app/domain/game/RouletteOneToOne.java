@@ -1,6 +1,7 @@
 package nl.kooi.app.domain.game;
 
-import nl.kooi.app.domain.bettingsystem.BettingAdvice;
+import lombok.Getter;
+import nl.kooi.app.domain.bettingsystem.OneToOneBettingSystem;
 
 import java.math.BigDecimal;
 
@@ -8,7 +9,9 @@ import java.math.BigDecimal;
  * @author Laurens van der Kooi
  */
 
+@Getter
 public abstract class RouletteOneToOne extends Game {
+    private OneToOneBettingSystem oneToOneBettingSystem = new OneToOneBettingSystem(2, 8);
 
     public RouletteOneToOne(String chipValue) {
         super(chipValue);
@@ -21,6 +24,6 @@ public abstract class RouletteOneToOne extends Game {
 
     @Override
     public BigDecimal getProfit() {
-        return getChipValue().multiply(new BigDecimal(BettingAdvice.oneToOneBettingSystem.getProfitCounter()).setScale(2));
+        return getChipValue().multiply(new BigDecimal(oneToOneBettingSystem.getProfitCounter()).setScale(2));
     }
 }

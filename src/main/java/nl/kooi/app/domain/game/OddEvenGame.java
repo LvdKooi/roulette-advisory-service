@@ -2,7 +2,6 @@ package nl.kooi.app.domain.game;
 
 
 import lombok.Getter;
-import nl.kooi.app.domain.bettingsystem.BettingAdvice;
 import nl.kooi.app.domain.outcome.Outcome;
 import nl.kooi.app.domain.rouletteoutcome.RouletteOutcome;
 
@@ -28,12 +27,12 @@ public class OddEvenGame extends RouletteOneToOne {
     public void setHits(Outcome outcome) {
         hitArray[0] = outcome.getOdd();
         hitArray[1] = outcome.getEven();
+        getOneToOneBettingSystem().compoundDefferedMartingGale(hitArray);
     }
 
     @Override
-    public Map<RouletteOutcome, BigDecimal> getAdvice(boolean[] hitArray) {
-        BettingAdvice.twoToOneBettingSystem.compoundDefferedMartingGale(hitArray);
-        return BettingAdvice.getOneToOneAdviceMap(ODD, EVEN, getChipValue());
+    public Map<RouletteOutcome, BigDecimal> getAdvice() {
+        return getOneToOneBettingSystem().getOneToOneAdviceMap(ODD, EVEN, getChipValue());
     }
 
 }

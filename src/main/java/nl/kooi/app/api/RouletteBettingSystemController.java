@@ -79,7 +79,7 @@ public class RouletteBettingSystemController {
         LOGGER.info("Id of outcome is: {}", id);
 
         Collection<Outcome> outcomeList = outcomeService.findBySessionIdOrderByIdAsc(sessionId);
-
+        System.out.println(outcomeList);
         outcomes = outcomeRepository.findById(id).get();
 
         FullAdvice fullAdvice = new FullAdvice(chipValue, outcomeList);
@@ -91,7 +91,7 @@ public class RouletteBettingSystemController {
         outcomeRepository.save(outcomes);
 
         outcomeList = outcomeService.findBySessionIdOrderByIdAsc(sessionId);
-
+        System.out.println(Mapper.map(fullAdvice));
         return Mapper.map(new FullAdvice(chipValue, outcomeList));
 
     }

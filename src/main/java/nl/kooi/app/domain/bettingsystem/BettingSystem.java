@@ -24,9 +24,6 @@ public abstract class BettingSystem {
         totalRounds = 1;
     }
 
-    public BettingSystem(int bettingFactor) {
-        this(bettingFactor, 0);
-    }
-
     public abstract int getProfitCounter();
+
 }

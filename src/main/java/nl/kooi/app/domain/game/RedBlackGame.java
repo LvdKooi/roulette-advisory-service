@@ -1,7 +1,6 @@
 package nl.kooi.app.domain.game;
 
 import lombok.Getter;
-import nl.kooi.app.domain.bettingsystem.BettingAdvice;
 import nl.kooi.app.domain.outcome.Outcome;
 import nl.kooi.app.domain.rouletteoutcome.RouletteOutcome;
 
@@ -27,11 +26,11 @@ public class RedBlackGame extends RouletteOneToOne {
     public void setHits(Outcome roulette) {
         hitArray[0] = roulette.getRed();
         hitArray[1] = roulette.getBlack();
+        getOneToOneBettingSystem().compoundDefferedMartingGale(hitArray);
     }
 
     @Override
-    public Map<RouletteOutcome, BigDecimal> getAdvice(boolean[] hitArray) {
-        BettingAdvice.twoToOneBettingSystem.compoundDefferedMartingGale(hitArray);
-        return BettingAdvice.getOneToOneAdviceMap(RED, BLACK, getChipValue());
+    public Map<RouletteOutcome, BigDecimal> getAdvice() {
+        return getOneToOneBettingSystem().getOneToOneAdviceMap(RED, BLACK, getChipValue());
     }
 }

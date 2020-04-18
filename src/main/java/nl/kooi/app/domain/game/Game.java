@@ -1,16 +1,17 @@
 package nl.kooi.app.domain.game;
 
-import nl.kooi.app.domain.bettingsystem.BettingAdvice;
 import nl.kooi.app.domain.outcome.Outcome;
+import nl.kooi.app.domain.rouletteoutcome.RouletteOutcome;
 
 import java.math.BigDecimal;
+import java.util.Map;
 
 /**
  * @author Laurens van der Kooi
  */
 
 
-public abstract class Game implements BettingAdvice {
+public abstract class Game {
 
     private BigDecimal chipValue;
 
@@ -29,5 +30,9 @@ public abstract class Game implements BettingAdvice {
     public abstract String toString();
 
     public abstract void setHits(Outcome roulette);
+
+    public abstract BigDecimal getProfit();
+
+    public abstract Map<RouletteOutcome, BigDecimal> getAdvice();
 }
 

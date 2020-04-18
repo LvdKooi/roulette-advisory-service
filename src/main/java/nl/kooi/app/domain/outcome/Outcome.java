@@ -3,6 +3,7 @@ package nl.kooi.app.domain.outcome;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import nl.kooi.app.domain.rouletteoutcome.RouletteOutcome;
 import nl.kooi.app.exceptions.NotValidOutcomeException;
 
@@ -13,6 +14,7 @@ import static nl.kooi.app.domain.rouletteoutcome.RouletteOutcome.*;
 
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
 public class Outcome {
     private int id;
