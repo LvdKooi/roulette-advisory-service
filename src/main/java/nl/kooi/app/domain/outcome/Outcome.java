@@ -8,6 +8,7 @@ import nl.kooi.app.domain.rouletteoutcome.RouletteOutcome;
 import nl.kooi.app.exceptions.NotValidOutcomeException;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Map;
 
 import static nl.kooi.app.domain.rouletteoutcome.RouletteOutcome.*;
@@ -43,10 +44,16 @@ public class Outcome {
     ) {
         validateOutcome(outcome);
         this.sessionId = sessionId;
-        this.totalProfit = totalProfit.setScale(2);
+        this.totalProfit = totalProfit.setScale(2, RoundingMode.HALF_UP);
         this.outcome = outcome;
         setRouletteFields(rouletteOutcomeBooleanMap);
 
+    }
+
+    public Outcome(int sessionId,
+                   int outcome,
+                   Map<RouletteOutcome, Boolean> rouletteOutcomeBooleanMap) {
+        this(sessionId, outcome, BigDecimal.ZERO, rouletteOutcomeBooleanMap);
     }
 
     public static void validateOutcome(int outcome) {

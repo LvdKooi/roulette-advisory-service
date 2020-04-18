@@ -38,7 +38,13 @@ public class OutcomeService {
 
         var rouletteGame = new RouletteGame(sessionEntity.getChipValue());
 
-        rouletteGame.setHits(findOutcomesBySessionIdOrderByIdAsc(sessionId));
+        var outcomes = findOutcomesBySessionIdOrderByIdAsc(sessionId);
+
+        outcomes.add(outcomes.size(), new Outcome(sessionId,
+                number,
+                rouletteOutcomeRepository.getCompoundRouletteOutcome(number)));
+
+        rouletteGame.setHits(outcomes);
 
         var outcome = new Outcome(sessionId,
                 number,

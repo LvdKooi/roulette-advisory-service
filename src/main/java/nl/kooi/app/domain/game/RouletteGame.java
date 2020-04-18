@@ -6,11 +6,12 @@ import nl.kooi.app.domain.outcome.Outcome;
 import nl.kooi.app.domain.rouletteoutcome.RouletteOutcome;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.*;
 
 public class RouletteGame {
     private List<Game> gameArray;
-    private BigDecimal totalProfit = new BigDecimal(0).setScale(2);
+    private BigDecimal totalProfit = new BigDecimal(0).setScale(2, RoundingMode.HALF_UP);
     @Getter
     private Map<RouletteOutcome, BigDecimal> adviceMap;
 
@@ -25,7 +26,6 @@ public class RouletteGame {
 
     public void setHits(List<Outcome> outcomeList) {
         for (Outcome singleOutcome : outcomeList) {
-            System.out.println(singleOutcome);
             gameArray.forEach(g -> g.setHits(singleOutcome));
         }
     }
