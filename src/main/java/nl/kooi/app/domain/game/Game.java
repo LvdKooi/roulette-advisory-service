@@ -15,8 +15,8 @@ public abstract class Game {
 
     private BigDecimal chipValue;
 
-    public Game(String chipValue) {
-        this.chipValue = new BigDecimal(chipValue).setScale(2);
+    public Game(BigDecimal chipValue) {
+        this.chipValue = chipValue.setScale(2);
     }
 
     public void setChipValue(String chipValue) {

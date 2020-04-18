@@ -18,7 +18,7 @@ import static nl.kooi.app.domain.rouletteoutcome.RouletteOutcome.RED;
 public class RedBlackGame extends RouletteOneToOne {
     private boolean[] hitArray = {true, true};
 
-    public RedBlackGame(String chipValue) {
+    public RedBlackGame(BigDecimal chipValue) {
         super(chipValue);
     }
 

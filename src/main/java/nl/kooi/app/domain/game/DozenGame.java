@@ -18,7 +18,7 @@ public class DozenGame extends RouletteTwoToOne {
 
     private boolean[] hitArray = {true, true, true};
 
-    public DozenGame(String chipValue) {
+    public DozenGame(BigDecimal chipValue) {
         super(chipValue);
     }
 

@@ -4,6 +4,7 @@ import lombok.Data;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Data
 @Entity
@@ -17,16 +18,16 @@ public class AdviseEntity {
     private SessionEntity session;
     @OneToOne
     private OutcomeEntity causingOutcome;
-    private Integer redAdvice;
-    private Integer blackAdvice;
-    private Integer oddAdvice;
-    private Integer evenAdvice;
-    private Integer firstHalfAdvice;
-    private Integer secondHalfAdvice;
-    private Integer firstColumnAdvice;
-    private Integer secondColumnAdvice;
-    private Integer thirdColumnAdvice;
-    private Integer firstDozenAdvice;
-    private Integer secondDozenAdvice;
-    private Integer thirdDozenAdvice;
+    private BigDecimal redAdvice;
+    private BigDecimal blackAdvice;
+    private BigDecimal oddAdvice;
+    private BigDecimal evenAdvice;
+    private BigDecimal firstHalfAdvice;
+    private BigDecimal secondHalfAdvice;
+    private BigDecimal firstColumnAdvice;
+    private BigDecimal secondColumnAdvice;
+    private BigDecimal thirdColumnAdvice;
+    private BigDecimal firstDozenAdvice;
+    private BigDecimal secondDozenAdvice;
+    private BigDecimal thirdDozenAdvice;
 }

@@ -7,6 +7,7 @@ import lombok.ToString;
 import nl.kooi.app.domain.rouletteoutcome.RouletteOutcome;
 import nl.kooi.app.exceptions.NotValidOutcomeException;
 
+import java.math.BigDecimal;
 import java.util.Map;
 
 import static nl.kooi.app.domain.rouletteoutcome.RouletteOutcome.*;
@@ -19,7 +20,6 @@ import static nl.kooi.app.domain.rouletteoutcome.RouletteOutcome.*;
 public class Outcome {
     private int id;
     private int sessionId;
-    private int adviseId;
     private int outcome;
     private Boolean red;
     private Boolean black;
@@ -34,18 +34,16 @@ public class Outcome {
     private Boolean secondDozen;
     private Boolean thirdDozen;
     private Boolean zero;
-    private String totalProfit;
+    private BigDecimal totalProfit;
 
     public Outcome(int sessionId,
-                   int adviseId,
                    int outcome,
-                   String totalProfit,
+                   BigDecimal totalProfit,
                    Map<RouletteOutcome, Boolean> rouletteOutcomeBooleanMap
     ) {
         validateOutcome(outcome);
         this.sessionId = sessionId;
-        this.adviseId = adviseId;
-        this.totalProfit = totalProfit;
+        this.totalProfit = totalProfit.setScale(2);
         this.outcome = outcome;
         setRouletteFields(rouletteOutcomeBooleanMap);
 

@@ -6,6 +6,7 @@ import nl.kooi.app.domain.Mapper;
 import nl.kooi.app.domain.outcome.Outcome;
 import nl.kooi.infrastructure.entity.OutcomeEntity;
 
+import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
@@ -16,7 +17,7 @@ public class SessionMetrics {
     private int sessionId;
     private int outcomeId;
     private Collection<OutcomeEntity> outcomeEntities;
-    private Collection<Double> profits;
+    private Collection<BigDecimal> profits;
     private long totalNumberOfRounds;
     private long totalFirstHalf;
     private long totalSecondHalf;
@@ -38,7 +39,7 @@ public class SessionMetrics {
         outcomeEntities.forEach(CounterHelper::new);
         sessionId = outcomeEntities.stream().findAny().get().getSession().getId();
         outcomeId = outcomeEntities.stream().min((a, b) -> b.getId() - a.getId()).get().getId();
-        profits = outcomeEntities.stream().map(o -> Double.valueOf(o.getTotalProfit())).collect(Collectors.toList());
+        profits = outcomeEntities.stream().map(OutcomeEntity::getTotalProfit).collect(Collectors.toList());
     }
 
 

@@ -5,6 +5,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 
@@ -17,7 +18,7 @@ public class SessionEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private int userId;
-    private String chipValue;
+    private BigDecimal chipValue;
 
     @CreationTimestamp
     private LocalDateTime dateTime;

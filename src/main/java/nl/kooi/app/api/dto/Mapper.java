@@ -1,8 +1,8 @@
 package nl.kooi.app.api.dto;
 
-import nl.kooi.app.api.dto.advises.FullAdviceDto;
+import nl.kooi.app.api.dto.advises.FullAdviseDto;
 import nl.kooi.app.api.dto.metrics.SessionMetricsDto;
-import nl.kooi.app.domain.advises.FullAdvice;
+import nl.kooi.app.domain.advises.FullAdvise;
 import nl.kooi.app.domain.metrics.SessionMetrics;
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
@@ -39,9 +39,9 @@ public class Mapper {
             destination.columnMetrics.percentageSecondColumn = roundsToPercentage(source.getTotalSecondColumn(), totalRounds);
             destination.columnMetrics.percentageThirdColumn = roundsToPercentage(source.getTotalThirdColumn(), totalRounds);
             destination.percentageZero = roundsToPercentage(source.getTotalZero(), totalRounds);
-            destination.currentProfit = new BigDecimal(source.getOutcomeEntities().stream().filter(o -> o.getId() == source.getOutcomeId()).findFirst().get().getTotalProfit());
-            destination.leastProfit = BigDecimal.valueOf(source.getProfits().stream().min(Comparator.naturalOrder()).orElse((double) 0));
-            destination.topProfit = BigDecimal.valueOf(source.getProfits().stream().max(Comparator.naturalOrder()).orElse((double) 0));
+            destination.currentProfit = source.getOutcomeEntities().stream().filter(o -> o.getId() == source.getOutcomeId()).findFirst().get().getTotalProfit();
+            destination.leastProfit = source.getProfits().stream().min(Comparator.naturalOrder()).orElse(BigDecimal.ZERO);
+            destination.topProfit = source.getProfits().stream().max(Comparator.naturalOrder()).orElse(BigDecimal.ZERO);
             return destination;
         }
 
@@ -53,8 +53,8 @@ public class Mapper {
 
     private static ModelMapper modelMapper = new ModelMapper();
 
-    public static FullAdviceDto map(FullAdvice advice) {
-        return modelMapper.map(advice, FullAdviceDto.class);
+    public static FullAdviseDto map(FullAdvise advice) {
+        return modelMapper.map(advice, FullAdviseDto.class);
     }
 
     public static SessionMetricsDto map(SessionMetrics sessionMetrics) {

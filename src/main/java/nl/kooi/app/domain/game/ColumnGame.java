@@ -23,7 +23,7 @@ import static nl.kooi.app.domain.rouletteoutcome.RouletteOutcome.*;
 public class ColumnGame extends RouletteTwoToOne {
     private boolean[] hitArray = {true, true, true};
 
-    public ColumnGame(String chipValue) {
+    public ColumnGame(BigDecimal chipValue) {
         super(chipValue);
     }
 

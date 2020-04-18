@@ -9,6 +9,6 @@ import java.util.Map;
 
 @Setter
 @Data
-public class FullAdviceDto {
+public class FullAdviseDto {
     private Map<RouletteOutcome, BigDecimal> adviceMap;
 }

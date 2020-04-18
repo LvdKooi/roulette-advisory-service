@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AdviseRepository extends JpaRepository<AdviseEntity, Integer> {
-
+    AdviseEntity findFirstBySessionIdOrderByIdDesc(int sessionId);
 }

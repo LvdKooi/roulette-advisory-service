@@ -19,7 +19,7 @@ public class HalfGame extends RouletteOneToOne {
 
     private boolean[] hitArray = {true, true};
 
-    public HalfGame(String chipValue) {
+    public HalfGame(BigDecimal chipValue) {
         super(chipValue);
     }
 

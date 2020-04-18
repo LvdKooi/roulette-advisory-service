@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 public abstract class RouletteOneToOne extends Game {
     private OneToOneBettingSystem oneToOneBettingSystem = new OneToOneBettingSystem(2, 8);
 
-    public RouletteOneToOne(String chipValue) {
+    public RouletteOneToOne(BigDecimal chipValue) {
         super(chipValue);
     }
 

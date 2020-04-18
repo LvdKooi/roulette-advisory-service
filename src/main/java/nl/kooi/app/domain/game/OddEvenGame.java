@@ -19,7 +19,7 @@ import static nl.kooi.app.domain.rouletteoutcome.RouletteOutcome.ODD;
 public class OddEvenGame extends RouletteOneToOne {
     private boolean[] hitArray = {true, true};
 
-    public OddEvenGame(String chipValue) {
+    public OddEvenGame(BigDecimal chipValue) {
         super(chipValue);
     }
 
