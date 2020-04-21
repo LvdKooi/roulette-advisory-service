@@ -1,29 +1,22 @@
 package nl.kooi.app.api.dto.metrics;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import nl.kooi.app.domain.rouletteoutcome.RouletteOutcome;
 
 import java.math.BigDecimal;
+import java.util.NavigableMap;
 
-
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
 public class SessionMetricsDto {
     @Setter
-    public long totalNumberOfRounds;
-    public HalfMetricsDto halfMetrics;
-    public OddEvenMetricsDto oddEvenMetrics;
-    public RedBlackMetricsDto redBlackMetrics;
-    public ColumnMetricsDto columnMetrics;
-    public DozenMetricsDto dozenMetrics;
-    public BigDecimal percentageZero;
-    public BigDecimal currentProfit;
-    public BigDecimal leastProfit;
-    public BigDecimal topProfit;
-
-    public SessionMetricsDto() {
-        halfMetrics = new HalfMetricsDto();
-        oddEvenMetrics = new OddEvenMetricsDto();
-        redBlackMetrics = new RedBlackMetricsDto();
-        columnMetrics = new ColumnMetricsDto();
-        dozenMetrics = new DozenMetricsDto();
-    }
-
+    private NavigableMap<RouletteOutcome, BigDecimal> outcomePercentageMap;
+    private Long totalRounds;
+    private BigDecimal currentProfit;
+    private BigDecimal leastProfit;
+    private BigDecimal topProfit;
 }

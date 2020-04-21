@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import nl.kooi.app.api.dto.Mapper;
 import nl.kooi.app.api.dto.advises.FullAdviseDto;
 import nl.kooi.app.api.dto.metrics.SessionMetricsDto;
-import nl.kooi.app.domain.metrics.SessionMetrics;
 import nl.kooi.app.domain.outcome.Outcome;
 import nl.kooi.app.domain.services.OutcomeService;
 import nl.kooi.app.exceptions.SessionNotFoundException;
@@ -73,7 +72,7 @@ public class RouletteBettingSystemController {
         if (!session.isPresent()) {
             throw new SessionNotFoundException("Session Id not found");
         }
-        return Mapper.map(new SessionMetrics(outcomeRepository.findBySessionIdOrderByIdAsc(sessionId)));
+        return Mapper.map(outcomeService.getSessionsMetrics(sessionId));
 
     }
 

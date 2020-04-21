@@ -2,68 +2,45 @@ package nl.kooi.app.domain.metrics;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import nl.kooi.app.domain.Mapper;
-import nl.kooi.app.domain.outcome.Outcome;
-import nl.kooi.infrastructure.entity.OutcomeEntity;
+import nl.kooi.app.domain.rouletteoutcome.RouletteOutcome;
 
 import java.math.BigDecimal;
-import java.util.Collection;
-import java.util.stream.Collectors;
+import java.math.MathContext;
+import java.math.RoundingMode;
+import java.util.Map;
+import java.util.NavigableMap;
+import java.util.TreeMap;
+
+import static java.math.RoundingMode.HALF_UP;
 
 @Slf4j
 @Getter
 public class SessionMetrics {
-    private Outcome roulette;
-    private int sessionId;
-    private int outcomeId;
-    private Collection<OutcomeEntity> outcomeEntities;
-    private Collection<BigDecimal> profits;
-    private long totalNumberOfRounds;
-    private long totalFirstHalf;
-    private long totalSecondHalf;
-    private long totalOdd;
-    private long totalEven;
-    private long totalRed;
-    private long totalBlack;
-    private long totalZero;
-    private long totalFirstColumn;
-    private long totalSecondColumn;
-    private long totalThirdColumn;
-    private long totalFirstDozen;
-    private long totalSecondDozen;
-    private long totalThirdDozen;
+    private NavigableMap<RouletteOutcome, BigDecimal> outcomePercentageMap;
+    private Long totalRounds;
+    private BigDecimal currentProfit;
+    private BigDecimal leastProfit;
+    private BigDecimal topProfit;
 
-    public SessionMetrics(Collection<OutcomeEntity> outcomeEntities) {
-        this.outcomeEntities = outcomeEntities;
-        totalNumberOfRounds = outcomeEntities.size();
-        outcomeEntities.forEach(CounterHelper::new);
-        sessionId = outcomeEntities.stream().findAny().get().getSession().getId();
-        outcomeId = outcomeEntities.stream().min((a, b) -> b.getId() - a.getId()).get().getId();
-        profits = outcomeEntities.stream().map(OutcomeEntity::getTotalProfit).collect(Collectors.toList());
+
+    public SessionMetrics(Map<RouletteOutcome, Long> outcomeCountersMap, Long totalRounds, BigDecimal currentProfit, BigDecimal leastProfit, BigDecimal topProfit) {
+        this.totalRounds = totalRounds;
+        this.currentProfit = currentProfit;
+        this.leastProfit = leastProfit;
+        this.topProfit = topProfit;
+        setOutcomePercentageMap(outcomeCountersMap, totalRounds);
+
     }
 
+    private void setOutcomePercentageMap(Map<RouletteOutcome, Long> outcomeCountersMap, Long totalRounds) {
+        outcomePercentageMap = new TreeMap<>();
+        outcomeCountersMap.forEach((key, value) -> outcomePercentageMap.put(key, roundsToPercentage(value, totalRounds)));
 
-    public class CounterHelper {
+    }
 
-        public CounterHelper(OutcomeEntity outcomeEntity) {
-            roulette = Mapper.map(outcomeEntity);
-            if (roulette.getZero()) {
-                totalZero++;
-            } else {
-                totalBlack = roulette.getBlack() ? ++totalBlack : totalBlack;
-                totalRed = roulette.getRed() ? ++totalRed : totalRed;
-                totalOdd = roulette.getOdd() ? ++totalOdd : totalOdd;
-                totalEven = roulette.getEven() ? ++totalEven : totalEven;
-                totalFirstHalf = roulette.getFirstHalf() ? ++totalFirstHalf : totalFirstHalf;
-                totalSecondHalf = roulette.getSecondHalf() ? ++totalSecondHalf : totalSecondHalf;
-                totalFirstDozen = roulette.getFirstDozen() ? ++totalFirstDozen : totalFirstDozen;
-                totalSecondDozen = roulette.getSecondDozen() ? ++totalSecondDozen : totalSecondDozen;
-                totalThirdDozen = roulette.getThirdDozen() ? ++totalThirdDozen : totalThirdDozen;
-                totalFirstColumn = roulette.getFirstColumn() ? ++totalFirstColumn : totalFirstColumn;
-                totalSecondColumn = roulette.getSecondColumn() ? ++totalSecondColumn : totalSecondColumn;
-                totalThirdColumn = roulette.getThirdColumn() ? ++totalThirdColumn : totalThirdColumn;
-            }
-        }
+    private BigDecimal roundsToPercentage(long numberOfHits, long numberOfRounds) {
+        MathContext mc = new MathContext(10, RoundingMode.HALF_UP);
+        return new BigDecimal(numberOfHits).divide(new BigDecimal(numberOfRounds), mc).multiply(new BigDecimal(100), mc).setScale(3, HALF_UP);
     }
 
 }
