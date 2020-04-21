@@ -6,7 +6,7 @@ import nl.kooi.app.api.dto.Mapper;
 import nl.kooi.app.api.dto.advises.FullAdviseDto;
 import nl.kooi.app.api.dto.metrics.SessionMetricsDto;
 import nl.kooi.app.domain.outcome.Outcome;
-import nl.kooi.app.domain.services.OutcomeService;
+import nl.kooi.app.domain.services.OutcomeAdviceService;
 import nl.kooi.app.exceptions.SessionNotFoundException;
 import nl.kooi.infrastructure.entity.SessionEntity;
 import nl.kooi.infrastructure.repository.OutcomeRepository;
@@ -41,18 +41,16 @@ public class RouletteBettingSystemController {
     OutcomeRepository outcomeRepository;
 
     @Autowired
-    OutcomeService outcomeService;
+    OutcomeAdviceService outcomeAdviceService;
 
     private ArrayList<Integer> outcomeList = new ArrayList<>();
 
     @RequestMapping(path = "/{userId}/startgame", method = PUT, produces = "application/json")
-    public ResponseEntity startGame(@PathVariable("userId") int userId, @RequestParam("chipvalue") String chipValue) {
-
+    public ResponseEntity<SessionEntity> startGame(@PathVariable("userId") int userId, @RequestParam("chipvalue") String chipValue) {
         SessionEntity sessionEntity = new SessionEntity();
         sessionEntity.setChipValue(new BigDecimal(chipValue));
         sessionEntity.setUserId(userId);
         return ResponseEntity.ok(sessionRepository.save(sessionEntity));
-
     }
 
     @RequestMapping(path = "/{userId}/sessions/{sessionsId}/outcomes/", method = PUT, produces = "application/json")
@@ -60,9 +58,9 @@ public class RouletteBettingSystemController {
 
         Outcome.validateOutcome(outcome);
 
-        outcomeService.saveOutcomeAndAdvise(userId, sessionId, outcome);
+        outcomeAdviceService.saveOutcomeAndAdvise(userId, sessionId, outcome);
 
-        return Mapper.map(outcomeService.findLastAdvice(sessionId));
+        return Mapper.map(outcomeAdviceService.findLastAdvice(sessionId));
 
     }
 
@@ -72,7 +70,7 @@ public class RouletteBettingSystemController {
         if (!session.isPresent()) {
             throw new SessionNotFoundException("Session Id not found");
         }
-        return Mapper.map(outcomeService.getSessionsMetrics(sessionId));
+        return Mapper.map(outcomeAdviceService.getSessionsMetrics(sessionId));
 
     }
 

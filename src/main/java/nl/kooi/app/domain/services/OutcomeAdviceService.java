@@ -23,7 +23,7 @@ import static nl.kooi.app.domain.rouletteoutcome.RouletteOutcome.*;
 
 @Service
 @RequiredArgsConstructor
-public class OutcomeService {
+public class OutcomeAdviceService {
 
     @Autowired
     private OutcomeRepository outcomeRepository;
