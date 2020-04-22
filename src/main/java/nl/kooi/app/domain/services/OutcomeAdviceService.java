@@ -8,6 +8,7 @@ import nl.kooi.app.domain.game.RouletteGame;
 import nl.kooi.app.domain.metrics.SessionMetrics;
 import nl.kooi.app.domain.outcome.Outcome;
 import nl.kooi.app.domain.rouletteoutcome.RouletteOutcome;
+import nl.kooi.app.domain.rouletteoutcome.RouletteOutcomeUtilities;
 import nl.kooi.app.exceptions.SessionNotFoundException;
 import nl.kooi.infrastructure.repository.AdviseRepository;
 import nl.kooi.infrastructure.repository.OutcomeRepository;
@@ -29,9 +30,6 @@ public class OutcomeAdviceService {
     private OutcomeRepository outcomeRepository;
 
     @Autowired
-    private RouletteOutcomeService rouletteOutcomeRepository;
-
-    @Autowired
     private AdviseRepository adviseRepository;
 
     @Autowired
@@ -47,14 +45,14 @@ public class OutcomeAdviceService {
 
         outcomes.add(outcomes.size(), new Outcome(sessionId,
                 number,
-                rouletteOutcomeRepository.getCompoundRouletteOutcome(number)));
+                RouletteOutcomeUtilities.getCompoundRouletteOutcome(number)));
 
         rouletteGame.setHits(outcomes);
 
         var outcome = new Outcome(sessionId,
                 number,
                 rouletteGame.getTotalProfit(),
-                rouletteOutcomeRepository.getCompoundRouletteOutcome(number));
+                RouletteOutcomeUtilities.getCompoundRouletteOutcome(number));
 
         var outcomeEntity = outcomeRepository.save(Mapper.map(outcome));
         var adviseEntity = Mapper.map(rouletteGame.getAdvise());

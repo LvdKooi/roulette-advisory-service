@@ -4,7 +4,9 @@ import lombok.experimental.UtilityClass;
 import nl.kooi.app.exceptions.NotValidOutcomeException;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static nl.kooi.app.domain.rouletteoutcome.RouletteOutcome.*;
 
@@ -13,7 +15,7 @@ import static nl.kooi.app.domain.rouletteoutcome.RouletteOutcome.*;
  */
 
 @UtilityClass
-public final class RouletteOutcomeHelper {
+public final class RouletteOutcomeUtilities {
 
     private static final List<Integer> FIRST_COLUMN_LIST;
     private static final List<Integer> SECOND_COLUMN_LIST;
@@ -26,13 +28,13 @@ public final class RouletteOutcomeHelper {
         SECOND_COLUMN_LIST = new ArrayList<>();
         THIRD_COLUMN_LIST = new ArrayList<>();
         RED_NUMBERS_LIST = new ArrayList<>();
-        BLACK_NUMBERS_LIST =new ArrayList<>();
+        BLACK_NUMBERS_LIST = new ArrayList<>();
 
         // populating columns
         for (int i = 1, j = 0; i < 37; i += 3, j++) {
             FIRST_COLUMN_LIST.add(i);
             SECOND_COLUMN_LIST.add(i + 1);
-            THIRD_COLUMN_LIST.add( i + 2);
+            THIRD_COLUMN_LIST.add(i + 2);
         }
 
         //populating red + black
@@ -78,7 +80,7 @@ public final class RouletteOutcomeHelper {
             return RouletteOutcome.FIRST_COLUMN;
         } else if (SECOND_COLUMN_LIST.contains(currentInput)) {
             return RouletteOutcome.SECOND_COLUMN;
-        } else if (THIRD_COLUMN_LIST.contains( currentInput)) {
+        } else if (THIRD_COLUMN_LIST.contains(currentInput)) {
             return RouletteOutcome.THIRD_COLUMN;
         } else {
             return RouletteOutcome.ZERO;
@@ -88,7 +90,7 @@ public final class RouletteOutcomeHelper {
     private static RouletteOutcome redBlack(int currentInput) {
         if (RED_NUMBERS_LIST.contains(currentInput)) {
             return RED;
-        } else if (BLACK_NUMBERS_LIST.contains( currentInput)) {
+        } else if (BLACK_NUMBERS_LIST.contains(currentInput)) {
             return BLACK;
         } else {
             return RouletteOutcome.ZERO;
@@ -115,4 +117,22 @@ public final class RouletteOutcomeHelper {
         return currentInput == 0;
     }
 
+
+    public static Map<RouletteOutcome, Boolean> getCompoundRouletteOutcome(int outcome) {
+        Map<RouletteOutcome, Boolean> outcomeBooleanMap = new HashMap<>();
+        outcomeBooleanMap.put(BLACK, BLACK.equals(redBlack(outcome)));
+        outcomeBooleanMap.put(RED, RED.equals(redBlack(outcome)));
+        outcomeBooleanMap.put(ODD, ODD.equals(oddEven(outcome)));
+        outcomeBooleanMap.put(EVEN, EVEN.equals(oddEven(outcome)));
+        outcomeBooleanMap.put(FIRST_HALF, FIRST_HALF.equals(half(outcome)));
+        outcomeBooleanMap.put(SECOND_HALF, SECOND_HALF.equals(half(outcome)));
+        outcomeBooleanMap.put(FIRST_COLUMN, FIRST_COLUMN.equals(column(outcome)));
+        outcomeBooleanMap.put(SECOND_COLUMN, SECOND_COLUMN.equals(column(outcome)));
+        outcomeBooleanMap.put(THIRD_COLUMN, THIRD_COLUMN.equals(column(outcome)));
+        outcomeBooleanMap.put(FIRST_DOZEN, FIRST_DOZEN.equals(dozen(outcome)));
+        outcomeBooleanMap.put(SECOND_DOZEN, SECOND_DOZEN.equals(dozen(outcome)));
+        outcomeBooleanMap.put(THIRD_DOZEN, THIRD_DOZEN.equals(dozen(outcome)));
+        outcomeBooleanMap.put(ZERO, isZero(outcome));
+        return outcomeBooleanMap;
+    }
 }
