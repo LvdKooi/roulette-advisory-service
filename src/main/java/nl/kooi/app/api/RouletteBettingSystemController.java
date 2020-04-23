@@ -5,11 +5,9 @@ import lombok.extern.slf4j.Slf4j;
 import nl.kooi.app.api.dto.Mapper;
 import nl.kooi.app.api.dto.advises.FullAdviseDto;
 import nl.kooi.app.api.dto.metrics.SessionMetricsDto;
-import nl.kooi.app.domain.outcome.Outcome;
 import nl.kooi.app.domain.services.OutcomeAdviceService;
 import nl.kooi.app.exceptions.SessionNotFoundException;
 import nl.kooi.infrastructure.entity.SessionEntity;
-import nl.kooi.infrastructure.repository.OutcomeRepository;
 import nl.kooi.infrastructure.repository.SessionRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Optional;
 
 import static org.springframework.web.bind.annotation.RequestMethod.*;
@@ -38,12 +35,7 @@ public class RouletteBettingSystemController {
     SessionRepository sessionRepository;
 
     @Autowired
-    OutcomeRepository outcomeRepository;
-
-    @Autowired
     OutcomeAdviceService outcomeAdviceService;
-
-    private ArrayList<Integer> outcomeList = new ArrayList<>();
 
     @RequestMapping(path = "/{userId}/startgame", method = PUT, produces = "application/json")
     public ResponseEntity<SessionEntity> startGame(@PathVariable("userId") int userId, @RequestParam("chipvalue") String chipValue) {
@@ -55,8 +47,6 @@ public class RouletteBettingSystemController {
 
     @RequestMapping(path = "/{userId}/sessions/{sessionsId}/outcomes/", method = PUT, produces = "application/json")
     public FullAdviseDto setOutcome(@PathVariable("userId") Integer userId, @PathVariable("sessionsId") Integer sessionId, @RequestParam("outcome") int outcome) {
-
-        Outcome.validateOutcome(outcome);
 
         outcomeAdviceService.saveOutcomeAndAdvise(userId, sessionId, outcome);
 

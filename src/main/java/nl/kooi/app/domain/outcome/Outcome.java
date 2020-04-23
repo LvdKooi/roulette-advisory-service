@@ -5,13 +5,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import nl.kooi.app.domain.rouletteoutcome.RouletteOutcome;
-import nl.kooi.app.exceptions.NotValidOutcomeException;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Map;
 
 import static nl.kooi.app.domain.rouletteoutcome.RouletteOutcome.*;
+import static nl.kooi.app.domain.rouletteoutcome.RouletteOutcomeUtilities.validateOutcome;
 
 
 @Getter
@@ -54,12 +54,6 @@ public class Outcome {
                    int outcome,
                    Map<RouletteOutcome, Boolean> rouletteOutcomeBooleanMap) {
         this(sessionId, outcome, BigDecimal.ZERO, rouletteOutcomeBooleanMap);
-    }
-
-    public static void validateOutcome(int outcome) {
-        if (!(outcome > -1 && outcome < 37)) {
-            throw new NotValidOutcomeException("Not a valid roulette outcome. RouletteOutcome can only be within the range of 0 - 36.");
-        }
     }
 
     private void setRouletteFields(Map<RouletteOutcome, Boolean> rouletteOutcomeBooleanMap) {
