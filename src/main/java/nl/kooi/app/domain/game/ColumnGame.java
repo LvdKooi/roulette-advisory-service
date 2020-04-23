@@ -32,7 +32,7 @@ public class ColumnGame extends RouletteTwoToOne {
         hitArray[0] = roulette.getFirstColumn();
         hitArray[1] = roulette.getSecondColumn();
         hitArray[2] = roulette.getThirdColumn();
-        getTwoToOneBettingSystem().compoundDefferedMartingGale(hitArray);
+        getTwoToOneBettingSystem().setHits(hitArray);
     }
 
     @Override

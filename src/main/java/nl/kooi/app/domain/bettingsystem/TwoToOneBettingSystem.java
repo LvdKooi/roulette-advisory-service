@@ -66,8 +66,8 @@ public class TwoToOneBettingSystem extends BettingSystem {
         }
     }
 
-    public void compoundDefferedMartingGale(boolean[] hitArray) {
-
+    @Override
+    public void setHits(boolean[] hitArray) {
         updateOutcomeArray(hitArray);
         setRounds();
         setWinLossCountArray(hitArray);

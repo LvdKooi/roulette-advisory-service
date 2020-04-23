@@ -26,4 +26,6 @@ public abstract class BettingSystem {
 
     public abstract int getProfitCounter();
 
+    public abstract void setHits(boolean[] hitArray);
+
 }

@@ -27,7 +27,7 @@ public class HalfGame extends RouletteOneToOne {
     public void setHits(Outcome roulette) {
         hitArray[0] = roulette.getFirstHalf();
         hitArray[1] = roulette.getSecondHalf();
-        getOneToOneBettingSystem().compoundDefferedMartingGale(hitArray);
+        getOneToOneBettingSystem().setHits(hitArray);
     }
 
     @Override

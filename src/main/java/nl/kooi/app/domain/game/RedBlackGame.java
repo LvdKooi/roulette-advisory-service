@@ -26,7 +26,7 @@ public class RedBlackGame extends RouletteOneToOne {
     public void setHits(Outcome roulette) {
         hitArray[0] = roulette.getRed();
         hitArray[1] = roulette.getBlack();
-        getOneToOneBettingSystem().compoundDefferedMartingGale(hitArray);
+        getOneToOneBettingSystem().setHits(hitArray);
     }
 
     @Override

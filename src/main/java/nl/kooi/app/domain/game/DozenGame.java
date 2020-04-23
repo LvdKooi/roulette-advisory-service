@@ -27,7 +27,7 @@ public class DozenGame extends RouletteTwoToOne {
         hitArray[0] = roulette.getFirstDozen();
         hitArray[1] = roulette.getSecondDozen();
         hitArray[2] = roulette.getThirdDozen();
-        getTwoToOneBettingSystem().compoundDefferedMartingGale(hitArray);
+        getTwoToOneBettingSystem().setHits(hitArray);
     }
 
     @Override
