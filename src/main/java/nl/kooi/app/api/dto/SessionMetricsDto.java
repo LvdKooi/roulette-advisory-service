@@ -1,4 +1,4 @@
-package nl.kooi.app.api.dto.metrics;
+package nl.kooi.app.api.dto;
 
 import lombok.Data;
 import lombok.Setter;

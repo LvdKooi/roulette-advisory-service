@@ -2,11 +2,11 @@ package nl.kooi.app.api;
 
 
 import lombok.extern.slf4j.Slf4j;
+import nl.kooi.app.api.dto.AdviseDto;
 import nl.kooi.app.api.dto.Mapper;
-import nl.kooi.app.api.dto.advises.FullAdviseDto;
-import nl.kooi.app.api.dto.metrics.SessionMetricsDto;
+import nl.kooi.app.api.dto.SessionMetricsDto;
 import nl.kooi.app.domain.services.OutcomeAdviceService;
-import nl.kooi.app.exceptions.SessionNotFoundException;
+import nl.kooi.app.exceptions.NotFoundException;
 import nl.kooi.infrastructure.entity.SessionEntity;
 import nl.kooi.infrastructure.repository.SessionRepository;
 import org.slf4j.Logger;
@@ -46,7 +46,7 @@ public class RouletteBettingSystemController {
     }
 
     @RequestMapping(path = "/{userId}/sessions/{sessionsId}/outcomes/", method = PUT, produces = "application/json")
-    public FullAdviseDto setOutcome(@PathVariable("userId") Integer userId, @PathVariable("sessionsId") Integer sessionId, @RequestParam("outcome") int outcome) {
+    public AdviseDto setOutcome(@PathVariable("userId") Integer userId, @PathVariable("sessionsId") Integer sessionId, @RequestParam("outcome") int outcome) {
 
         outcomeAdviceService.saveOutcomeAndAdvise(userId, sessionId, outcome);
 
@@ -58,7 +58,7 @@ public class RouletteBettingSystemController {
     public SessionMetricsDto getMetrics(@PathVariable("userId") Integer userId, @PathVariable("sessionsId") Integer sessionId) {
         Optional<SessionEntity> session = sessionRepository.findByIdAndUserId(sessionId, userId);
         if (!session.isPresent()) {
-            throw new SessionNotFoundException("Session Id not found");
+            throw new NotFoundException("Session Id not found");
         }
         return Mapper.map(outcomeAdviceService.getSessionsMetrics(sessionId));
 

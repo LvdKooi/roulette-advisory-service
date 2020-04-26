@@ -3,13 +3,13 @@ package nl.kooi.app.domain.services;
 import lombok.RequiredArgsConstructor;
 import lombok.var;
 import nl.kooi.app.domain.Mapper;
-import nl.kooi.app.domain.advises.FullAdvise;
+import nl.kooi.app.domain.advises.Advise;
 import nl.kooi.app.domain.game.RouletteGame;
 import nl.kooi.app.domain.metrics.SessionMetrics;
 import nl.kooi.app.domain.outcome.Outcome;
 import nl.kooi.app.domain.rouletteoutcome.RouletteOutcome;
 import nl.kooi.app.domain.rouletteoutcome.RouletteOutcomeUtilities;
-import nl.kooi.app.exceptions.SessionNotFoundException;
+import nl.kooi.app.exceptions.NotFoundException;
 import nl.kooi.infrastructure.repository.AdviseRepository;
 import nl.kooi.infrastructure.repository.OutcomeRepository;
 import nl.kooi.infrastructure.repository.SessionRepository;
@@ -22,8 +22,8 @@ import java.util.stream.Collectors;
 
 import static nl.kooi.app.domain.rouletteoutcome.RouletteOutcome.*;
 
-@Service
 @RequiredArgsConstructor
+@Service
 public class OutcomeAdviceService {
 
     @Autowired
@@ -37,7 +37,7 @@ public class OutcomeAdviceService {
 
     public Outcome saveOutcomeAndAdvise(int userId, int sessionId, int number) {
         var sessionEntity = sessionRepository.findByIdAndUserId(sessionId, userId)
-                .orElseThrow(() -> new SessionNotFoundException("Session Id not found"));
+                .orElseThrow(() -> new NotFoundException("Session Id not found"));
 
         var rouletteGame = new RouletteGame(sessionEntity.getChipValue());
 
@@ -71,14 +71,23 @@ public class OutcomeAdviceService {
                 .collect(Collectors.toList());
     }
 
-    public FullAdvise findLastAdvice(int sessionId) {
-        return Mapper.map(adviseRepository.findFirstBySessionIdOrderByIdDesc(sessionId));
-
+    public Advise findLastAdvice(int sessionId) {
+        if (adviseRepository.findFirstBySessionIdOrderByIdDesc(sessionId) != null) {
+            return Mapper.map(adviseRepository.findFirstBySessionIdOrderByIdDesc(sessionId));
+        }
+        throw new NotFoundException("No advises found for session.");
     }
 
     public Outcome findLastOutcome(int sessionId) {
-        return Mapper.map(outcomeRepository.findFirstBySessionIdOrderByIdDesc(sessionId));
+        if (outcomeRepository.findFirstBySessionIdOrderByIdDesc(sessionId) != null) {
+            return Mapper.map(outcomeRepository.findFirstBySessionIdOrderByIdDesc(sessionId));
+        }
 
+        throw new NotFoundException("No outcomes found for session.");
+    }
+
+    public void deleteLastOutcome(int sessionId) {
+        outcomeRepository.deleteById(findLastOutcome(sessionId).getId());
     }
 
     public SessionMetrics getSessionsMetrics(int sessionId) {

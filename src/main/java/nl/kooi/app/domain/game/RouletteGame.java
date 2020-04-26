@@ -1,7 +1,7 @@
 package nl.kooi.app.domain.game;
 
 import lombok.Getter;
-import nl.kooi.app.domain.advises.FullAdvise;
+import nl.kooi.app.domain.advises.Advise;
 import nl.kooi.app.domain.outcome.Outcome;
 import nl.kooi.app.domain.rouletteoutcome.RouletteOutcome;
 
@@ -30,12 +30,12 @@ public class RouletteGame {
         }
     }
 
-    public FullAdvise getAdvise() {
+    public Advise getAdvise() {
         NavigableMap<RouletteOutcome, BigDecimal> adviceMap = new TreeMap<>();
 
         gameArray.forEach(x -> adviceMap.putAll(x.getAdvice()));
 
-        return new FullAdvise(adviceMap);
+        return new Advise(adviceMap);
     }
 
     public BigDecimal getTotalProfit() {

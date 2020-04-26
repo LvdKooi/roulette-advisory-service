@@ -1,65 +1,51 @@
 package nl.kooi.app.api;
 
 import lombok.extern.slf4j.Slf4j;
-import nl.kooi.infrastructure.entity.OutcomeEntity;
-import nl.kooi.infrastructure.repository.OutcomeRepository;
+import nl.kooi.app.api.dto.Mapper;
+import nl.kooi.app.api.dto.OutcomeDto;
+import nl.kooi.app.domain.outcome.Outcome;
+import nl.kooi.app.domain.services.OutcomeAdviceService;
+import nl.kooi.app.domain.services.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 
-@RequestMapping(path = "/outcomes")
+@RequestMapping(path = "users/{userId}/sessions/{sessionId}/outcomes")
 @RestController
 @Slf4j
-
 public class OutcomeController {
 
     @Autowired
-    OutcomeRepository outcomeRepository;
+    OutcomeAdviceService outcomeAdviceService;
+    @Autowired
+    private SessionService sessionService;
 
     @GetMapping
-    public ResponseEntity<List<OutcomeEntity>> findAll() {
-        return ResponseEntity.ok(outcomeRepository.findAll());
+    public ResponseEntity<List<Outcome>> findAllBySessionId(@PathVariable int userId, @PathVariable int sessionId) {
+        sessionService.findByIdAndUserId(sessionId, userId);
+        return ResponseEntity.ok(outcomeAdviceService.findOutcomesBySessionIdOrderByIdAsc(sessionId));
     }
 
     @PostMapping
-    public ResponseEntity create(@Valid @RequestBody OutcomeEntity outcomeEntity) {
-        return ResponseEntity.ok(outcomeRepository.save(outcomeEntity));
+    public ResponseEntity<Outcome> create(@Valid @RequestBody OutcomeDto outcomeDto, @PathVariable int userId, @PathVariable int sessionId) {
+        sessionService.findByIdAndUserId(sessionId, userId);
+        return ResponseEntity.ok(outcomeAdviceService.saveOutcomeAndAdvise(userId, sessionId, outcomeDto.getOutcome()));
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<OutcomeEntity> findById(@PathVariable int id) {
-        Optional<OutcomeEntity> stock = outcomeRepository.findById(id);
-        if (!stock.isPresent()) {
-            log.error("Id " + id + " is not existed");
-            return ResponseEntity.notFound().build();
-        }
-
-        return ResponseEntity.ok(stock.get());
+    @GetMapping("/last-outcome")
+    public ResponseEntity<OutcomeDto> findLastOutcome(@PathVariable int sessionId, @PathVariable int userId) {
+        sessionService.findByIdAndUserId(sessionId, userId);
+        return ResponseEntity.ok(Mapper.map(outcomeAdviceService.findLastOutcome(sessionId)));
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<OutcomeEntity> update(@PathVariable int id, @Valid @RequestBody OutcomeEntity outcomeEntity) {
-        if (!outcomeRepository.findById(id).isPresent()) {
-            log.error("Id " + id + " is not existed");
-            return ResponseEntity.notFound().build();
-        }
 
-        return ResponseEntity.ok(outcomeRepository.save(outcomeEntity));
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity delete(@PathVariable int id) {
-        if (!outcomeRepository.findById(id).isPresent()) {
-            log.error("Id " + id + " is not existed");
-            return ResponseEntity.notFound().build();
-        }
-
-        outcomeRepository.deleteById(id);
-
+    @DeleteMapping("/last-outcome")
+    public ResponseEntity deleteLastOutcome(@PathVariable int userId, @PathVariable int sessionId) {
+        sessionService.findByIdAndUserId(sessionId, userId);
+        outcomeAdviceService.deleteLastOutcome(sessionId);
         return ResponseEntity.ok().build();
     }
 }

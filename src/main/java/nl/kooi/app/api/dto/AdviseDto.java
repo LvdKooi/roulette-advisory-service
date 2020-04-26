@@ -1,4 +1,4 @@
-package nl.kooi.app.api.dto.advises;
+package nl.kooi.app.api.dto;
 
 import lombok.Data;
 import lombok.Setter;
@@ -9,6 +9,6 @@ import java.util.NavigableMap;
 
 @Setter
 @Data
-public class FullAdviseDto {
+public class AdviseDto {
     private NavigableMap<RouletteOutcome, BigDecimal> adviceMap;
 }
