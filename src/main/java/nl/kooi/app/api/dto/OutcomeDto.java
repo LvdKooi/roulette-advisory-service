@@ -3,9 +3,18 @@ package nl.kooi.app.api.dto;
 import lombok.Data;
 import lombok.Setter;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+
 @Setter
 @Data
 public class OutcomeDto {
-    int outcome;
+    int id;
+
+    @NotNull(message = "Outcome can't be null.")
+    @Min(value = 0, message = "The smallest number in roulette is 0.")
+    @Max(value = 36, message = "The highest number in roulette is 36.")
+    Integer outcome;
 }
 

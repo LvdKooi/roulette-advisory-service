@@ -21,7 +21,7 @@ import static nl.kooi.app.domain.rouletteoutcome.RouletteOutcomeUtilities.valida
 public class Outcome {
     private int id;
     private int sessionId;
-    private int outcome;
+    private Integer outcome;
     private Boolean red;
     private Boolean black;
     private Boolean odd;

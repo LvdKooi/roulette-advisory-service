@@ -22,7 +22,7 @@ public class OutcomeEntity {
     private int id;
     @ManyToOne
     private SessionEntity session;
-    private int outcome;
+    private Integer outcome;
     private Boolean red;
     private Boolean black;
     private Boolean odd;

@@ -3,7 +3,6 @@ package nl.kooi.app.api;
 import lombok.extern.slf4j.Slf4j;
 import nl.kooi.app.api.dto.Mapper;
 import nl.kooi.app.api.dto.OutcomeDto;
-import nl.kooi.app.domain.outcome.Outcome;
 import nl.kooi.app.domain.services.OutcomeAdviceService;
 import nl.kooi.app.domain.services.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequestMapping(path = "users/{userId}/sessions/{sessionId}/outcomes")
 @RestController
@@ -24,15 +24,18 @@ public class OutcomeController {
     private SessionService sessionService;
 
     @GetMapping
-    public ResponseEntity<List<Outcome>> findAllBySessionId(@PathVariable int userId, @PathVariable int sessionId) {
+    public ResponseEntity<List<OutcomeDto>> findAllBySessionId(@PathVariable int userId, @PathVariable int sessionId) {
         sessionService.findByIdAndUserId(sessionId, userId);
-        return ResponseEntity.ok(outcomeAdviceService.findOutcomesBySessionIdOrderByIdAsc(sessionId));
+        return ResponseEntity.ok(outcomeAdviceService.findOutcomesBySessionIdOrderByIdAsc(sessionId)
+                .stream()
+                .map(Mapper::map)
+                .collect(Collectors.toList()));
     }
 
     @PostMapping
-    public ResponseEntity<Outcome> create(@Valid @RequestBody OutcomeDto outcomeDto, @PathVariable int userId, @PathVariable int sessionId) {
+    public ResponseEntity<OutcomeDto> create(@Valid @RequestBody OutcomeDto outcomeDto, @PathVariable int userId, @PathVariable int sessionId) {
         sessionService.findByIdAndUserId(sessionId, userId);
-        return ResponseEntity.ok(outcomeAdviceService.saveOutcomeAndAdvise(userId, sessionId, outcomeDto.getOutcome()));
+        return ResponseEntity.ok(Mapper.map(outcomeAdviceService.saveOutcomeAndAdvise(userId, sessionId, outcomeDto.getOutcome())));
     }
 
     @GetMapping("/last-outcome")
