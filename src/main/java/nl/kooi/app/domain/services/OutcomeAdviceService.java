@@ -3,14 +3,14 @@ package nl.kooi.app.domain.services;
 import lombok.RequiredArgsConstructor;
 import lombok.var;
 import nl.kooi.app.domain.Mapper;
-import nl.kooi.app.domain.advises.Advise;
+import nl.kooi.app.domain.advises.Advice;
 import nl.kooi.app.domain.game.RouletteGame;
 import nl.kooi.app.domain.metrics.SessionMetrics;
 import nl.kooi.app.domain.outcome.Outcome;
 import nl.kooi.app.domain.rouletteoutcome.RouletteOutcome;
 import nl.kooi.app.domain.rouletteoutcome.RouletteOutcomeUtilities;
 import nl.kooi.app.exceptions.NotFoundException;
-import nl.kooi.infrastructure.repository.AdviseRepository;
+import nl.kooi.infrastructure.repository.AdviceRepository;
 import nl.kooi.infrastructure.repository.OutcomeRepository;
 import nl.kooi.infrastructure.repository.SessionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +30,7 @@ public class OutcomeAdviceService {
     private OutcomeRepository outcomeRepository;
 
     @Autowired
-    private AdviseRepository adviseRepository;
+    private AdviceRepository adviceRepository;
 
     @Autowired
     private SessionRepository sessionRepository;
@@ -59,7 +59,7 @@ public class OutcomeAdviceService {
         adviseEntity.setSession(sessionEntity);
         adviseEntity.setCausingOutcome(outcomeEntity);
 
-        adviseRepository.save(adviseEntity);
+        adviceRepository.save(adviseEntity);
 
         return Mapper.map(outcomeEntity);
     }
@@ -71,9 +71,9 @@ public class OutcomeAdviceService {
                 .collect(Collectors.toList());
     }
 
-    public Advise findLastAdvice(int sessionId) {
-        if (adviseRepository.findFirstBySessionIdOrderByIdDesc(sessionId) != null) {
-            return Mapper.map(adviseRepository.findFirstBySessionIdOrderByIdDesc(sessionId));
+    public Advice findLastAdvice(int sessionId) {
+        if (adviceRepository.findFirstBySessionIdOrderByIdDesc(sessionId) != null) {
+            return Mapper.map(adviceRepository.findFirstBySessionIdOrderByIdDesc(sessionId));
         }
         throw new NotFoundException("No advises found for session.");
     }

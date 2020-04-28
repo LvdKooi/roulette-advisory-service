@@ -9,6 +9,6 @@ import java.util.NavigableMap;
 
 @Setter
 @Data
-public class AdviseDto {
+public class AdviceDto {
     private NavigableMap<RouletteOutcome, BigDecimal> adviceMap;
 }

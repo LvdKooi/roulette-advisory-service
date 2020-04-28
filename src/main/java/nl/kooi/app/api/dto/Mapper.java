@@ -1,6 +1,6 @@
 package nl.kooi.app.api.dto;
 
-import nl.kooi.app.domain.advises.Advise;
+import nl.kooi.app.domain.advises.Advice;
 import nl.kooi.app.domain.metrics.SessionMetrics;
 import nl.kooi.app.domain.outcome.Outcome;
 import nl.kooi.app.domain.session.Session;
@@ -10,8 +10,8 @@ public class Mapper {
 
     private static ModelMapper modelMapper = new ModelMapper();
 
-    public static AdviseDto map(Advise advice) {
-        return modelMapper.map(advice, AdviseDto.class);
+    public static AdviceDto map(Advice advice) {
+        return modelMapper.map(advice, AdviceDto.class);
     }
 
     public static SessionMetricsDto map(SessionMetrics sessionMetrics) {

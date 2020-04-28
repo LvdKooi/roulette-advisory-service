@@ -2,7 +2,7 @@ package nl.kooi.app.api;
 
 
 import lombok.extern.slf4j.Slf4j;
-import nl.kooi.app.api.dto.AdviseDto;
+import nl.kooi.app.api.dto.AdviceDto;
 import nl.kooi.app.api.dto.Mapper;
 import nl.kooi.app.api.dto.SessionMetricsDto;
 import nl.kooi.app.domain.services.OutcomeAdviceService;
@@ -46,7 +46,7 @@ public class RouletteBettingSystemController {
     }
 
     @RequestMapping(path = "/{userId}/sessions/{sessionsId}/outcomes/", method = PUT, produces = "application/json")
-    public AdviseDto setOutcome(@PathVariable("userId") Integer userId, @PathVariable("sessionsId") Integer sessionId, @RequestParam("outcome") int outcome) {
+    public AdviceDto setOutcome(@PathVariable("userId") Integer userId, @PathVariable("sessionsId") Integer sessionId, @RequestParam("outcome") int outcome) {
 
         outcomeAdviceService.saveOutcomeAndAdvise(userId, sessionId, outcome);
 

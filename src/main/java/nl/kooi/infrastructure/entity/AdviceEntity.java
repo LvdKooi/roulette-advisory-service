@@ -8,9 +8,9 @@ import java.math.BigDecimal;
 
 @Data
 @Entity
-@Table(name = "advises")
+@Table(name = "advices")
 @EntityListeners(AuditingEntityListener.class)
-public class AdviseEntity {
+public class AdviceEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

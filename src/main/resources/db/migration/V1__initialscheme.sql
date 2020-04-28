@@ -27,7 +27,7 @@ create table outcomes (
   foreign key (session_id) references sessions(id)
 );
 
-create table advises(
+create table advices(
  id int primary key AUTO_INCREMENT,
  session_id int,
  red_advice decimal,

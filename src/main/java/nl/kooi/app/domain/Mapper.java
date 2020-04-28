@@ -1,11 +1,11 @@
 package nl.kooi.app.domain;
 
 import lombok.var;
-import nl.kooi.app.domain.advises.Advise;
+import nl.kooi.app.domain.advises.Advice;
 import nl.kooi.app.domain.outcome.Outcome;
 import nl.kooi.app.domain.rouletteoutcome.RouletteOutcome;
 import nl.kooi.app.domain.session.Session;
-import nl.kooi.infrastructure.entity.AdviseEntity;
+import nl.kooi.infrastructure.entity.AdviceEntity;
 import nl.kooi.infrastructure.entity.OutcomeEntity;
 import nl.kooi.infrastructure.entity.SessionEntity;
 import org.modelmapper.Converter;
@@ -21,11 +21,11 @@ import static nl.kooi.app.domain.rouletteoutcome.RouletteOutcome.*;
 
 public class Mapper {
     private static ModelMapper modelMapper = new ModelMapper();
-    private static Converter<Advise, AdviseEntity> adviseEntityConverter = new Converter<Advise, AdviseEntity>() {
+    private static Converter<Advice, AdviceEntity> adviseEntityConverter = new Converter<Advice, AdviceEntity>() {
 
         @Override
-        public AdviseEntity convert(MappingContext<Advise, AdviseEntity> mappingContext) {
-            var adviseEntity = new AdviseEntity();
+        public AdviceEntity convert(MappingContext<Advice, AdviceEntity> mappingContext) {
+            var adviseEntity = new AdviceEntity();
             mappingContext
                     .getSource()
                     .getAdviceMap()
@@ -34,17 +34,17 @@ public class Mapper {
             return adviseEntity;
         }
     };
-    private static Converter<AdviseEntity, Advise> fullAdviseConverter = new Converter<AdviseEntity, Advise>() {
+    private static Converter<AdviceEntity, Advice> fullAdviseConverter = new Converter<AdviceEntity, Advice>() {
 
         @Override
-        public Advise convert(MappingContext<AdviseEntity, Advise> mappingContext) {
+        public Advice convert(MappingContext<AdviceEntity, Advice> mappingContext) {
             NavigableMap<RouletteOutcome, BigDecimal> adviseMap = new TreeMap<>();
             adviseEntityToFullAdviseHelper(adviseMap, mappingContext.getSource());
-            return new Advise(adviseMap);
+            return new Advice(adviseMap);
         }
     };
 
-    public static void fullAdviseToAdviseEntityHelper(AdviseEntity entity, Map.Entry<RouletteOutcome, BigDecimal> entry) {
+    public static void fullAdviseToAdviseEntityHelper(AdviceEntity entity, Map.Entry<RouletteOutcome, BigDecimal> entry) {
 
         switch (entry.getKey()) {
             case ZERO:
@@ -88,7 +88,7 @@ public class Mapper {
         }
     }
 
-    public static void adviseEntityToFullAdviseHelper(Map<RouletteOutcome, BigDecimal> adviseMap, AdviseEntity entity) {
+    public static void adviseEntityToFullAdviseHelper(Map<RouletteOutcome, BigDecimal> adviseMap, AdviceEntity entity) {
         adviseMap.put(BLACK, entity.getBlackAdvice());
         adviseMap.put(RED, entity.getRedAdvice());
         adviseMap.put(ODD, entity.getOddAdvice());
@@ -112,15 +112,15 @@ public class Mapper {
         return modelMapper.map(outcomeEntity, Outcome.class);
     }
 
-    public static AdviseEntity map(Advise advise) {
+    public static AdviceEntity map(Advice advice) {
 
         modelMapper.addConverter(adviseEntityConverter);
-        return modelMapper.map(advise, AdviseEntity.class);
+        return modelMapper.map(advice, AdviceEntity.class);
     }
 
-    public static Advise map(AdviseEntity adviseEntity) {
+    public static Advice map(AdviceEntity adviceEntity) {
         modelMapper.addConverter(fullAdviseConverter);
-        return modelMapper.map(adviseEntity, Advise.class);
+        return modelMapper.map(adviceEntity, Advice.class);
     }
 
     public static Session map(SessionEntity sessionEntity) {
