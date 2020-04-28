@@ -13,9 +13,7 @@ import javax.validation.Valid;
 @RequestMapping(path = "users/{userId}/sessions/")
 @RestController
 @Slf4j
-
 public class SessionController {
-
     @Autowired
     private SessionService sessionService;
 
