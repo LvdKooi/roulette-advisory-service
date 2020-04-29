@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>nl.kooi</groupId>
-    <artifactId>RouletteBettingSystem</artifactId>
+    <artifactId>RouletteAdvisorySystem</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <parent>
@@ -138,8 +138,8 @@
                             <goal>copy</goal>
                         </goals>
                         <configuration>
-                            <sourceFile>target/RouletteBettingSystem-1.0-SNAPSHOT.jar</sourceFile>
-                            <destinationFile>docker/RouletteBettingSystem.jar</destinationFile>
+                            <sourceFile>target/RouletteAdvisorySystem-1.0-SNAPSHOT.jar</sourceFile>
+                            <destinationFile>docker/RouletteAdvisorySystem.jar</destinationFile>
                         </configuration>
                     </execution>
                 </executions>
