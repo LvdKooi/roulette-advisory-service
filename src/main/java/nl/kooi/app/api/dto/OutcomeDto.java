@@ -1,13 +1,11 @@
 package nl.kooi.app.api.dto;
 
 import lombok.Data;
-import lombok.Setter;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
-@Setter
 @Data
 public class OutcomeDto {
     int id;
