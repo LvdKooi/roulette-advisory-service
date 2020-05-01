@@ -1,8 +1,10 @@
 package nl.kooi.app.api.dto;
 
 import lombok.var;
+import nl.kooi.app.domain.advises.Advice;
 import nl.kooi.app.domain.metrics.SessionMetrics;
 import nl.kooi.app.domain.outcome.Outcome;
+import nl.kooi.app.domain.rouletteoutcome.RouletteOutcome;
 import nl.kooi.app.domain.rouletteoutcome.RouletteOutcomeUtilities;
 import nl.kooi.app.domain.session.Session;
 import org.junit.Test;
@@ -10,6 +12,7 @@ import org.junit.Test;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -100,7 +103,20 @@ public class MapperTest {
         assertThat("TopProfit of SessionMetricsDto doesn't match the one of SessionMetrics.", BigDecimal.TEN, equalTo(sessionMetricsDto.getTopProfit()));
         assertThat("TotalRounds of SessionMetricsDto doesn't match the one of SessionMetrics.", 10L, equalTo(sessionMetricsDto.getTotalRounds()));
         assertThat("OutcomePercentageMap of SessionMetricsDto doesn't match the one of SessionMetrics.", sessionMetrics.getOutcomePercentageMap(), equalTo(sessionMetricsDto.getOutcomePercentageMap()));
+    }
 
+    @Test
+    public void adviceToAdviceDtoMapperTest() {
 
+        var adviceMap = new TreeMap<RouletteOutcome, BigDecimal>(RouletteOutcomeUtilities.getCompoundRouletteOutcome(12)
+                .entrySet()
+                .stream()
+                .collect(Collectors.toMap(Map.Entry::getKey, x -> BigDecimal.valueOf(Math.random() * 100))));
+
+        var advice = new Advice(adviceMap);
+
+        var adviceDto = Mapper.map(advice);
+
+        assertThat("AdviceMap of adviceDto doesn't match the one of Advice.", advice.getAdviceMap(), equalTo(adviceDto.getAdviceMap()));
     }
 }
