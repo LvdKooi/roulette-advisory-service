@@ -22,10 +22,6 @@ public class Mapper {
         return modelMapper.map(outcome, OutcomeDto.class);
     }
 
-    public static Outcome map(OutcomeDto outcomeDto) {
-        return modelMapper.map(outcomeDto, Outcome.class);
-    }
-
     public static SessionDto map(Session session) {
         return modelMapper.map(session, SessionDto.class);
     }
