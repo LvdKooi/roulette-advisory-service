@@ -44,8 +44,8 @@ public class MapperTest {
 
         var outcomeDto = Mapper.map(outcome);
 
-        assertThat("Id of OutcomeDto doesn't match the one of Outcome.", 1234, equalTo(outcomeDto.id));
-        assertThat("Outcome of OutcomeDto doesn't match the one of Outcome.", 10, equalTo(outcomeDto.outcome));
+        assertThat("Id of OutcomeDto doesn't match the one of Outcome.", 1234, equalTo(outcomeDto.getId()));
+        assertThat("Outcome of OutcomeDto doesn't match the one of Outcome.", 10, equalTo(outcomeDto.getOutcome()));
     }
 
     @Test
@@ -64,9 +64,8 @@ public class MapperTest {
         assertThat("ChipValue of SessionDto doesn't match the one of Session.", BigDecimal.TEN, equalTo(sessionDto.getChipValue()));
     }
 
-
     @Test
-    public void sessionDtoToSessionDMapTest() {
+    public void sessionDtoToSessionMapTest() {
 
         var sessionDto = new SessionDto();
         sessionDto.setChipValue(BigDecimal.TEN);
@@ -86,7 +85,7 @@ public class MapperTest {
         var outcomeMap = RouletteOutcomeUtilities.getCompoundRouletteOutcome(12)
                 .entrySet()
                 .stream()
-                .collect(Collectors.toMap(Map.Entry::getKey, x -> Long.valueOf(10)));
+                .collect(Collectors.toMap(Map.Entry::getKey, x -> 10L));
 
 
         var sessionMetrics = new SessionMetrics(outcomeMap,
@@ -108,7 +107,7 @@ public class MapperTest {
     @Test
     public void adviceToAdviceDtoMapperTest() {
 
-        var adviceMap = new TreeMap<RouletteOutcome, BigDecimal>(RouletteOutcomeUtilities.getCompoundRouletteOutcome(12)
+        var adviceMap = new TreeMap<>(RouletteOutcomeUtilities.getCompoundRouletteOutcome(12)
                 .entrySet()
                 .stream()
                 .collect(Collectors.toMap(Map.Entry::getKey, x -> BigDecimal.valueOf(Math.random() * 100))));

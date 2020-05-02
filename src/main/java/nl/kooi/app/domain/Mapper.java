@@ -21,27 +21,19 @@ import static nl.kooi.app.domain.rouletteoutcome.RouletteOutcome.*;
 
 public class Mapper {
     private static ModelMapper modelMapper = new ModelMapper();
-    private static Converter<Advice, AdviceEntity> adviseEntityConverter = new Converter<Advice, AdviceEntity>() {
-
-        @Override
-        public AdviceEntity convert(MappingContext<Advice, AdviceEntity> mappingContext) {
-            var adviseEntity = new AdviceEntity();
-            mappingContext
-                    .getSource()
-                    .getAdviceMap()
-                    .entrySet()
-                    .forEach(entry -> fullAdviseToAdviseEntityHelper(adviseEntity, entry));
-            return adviseEntity;
-        }
+    private static final Converter<Advice, AdviceEntity> adviseEntityConverter = mappingContext -> {
+        var adviseEntity = new AdviceEntity();
+        mappingContext
+                .getSource()
+                .getAdviceMap()
+                .entrySet()
+                .forEach(entry -> fullAdviseToAdviseEntityHelper(adviseEntity, entry));
+        return adviseEntity;
     };
-    private static Converter<AdviceEntity, Advice> fullAdviseConverter = new Converter<AdviceEntity, Advice>() {
-
-        @Override
-        public Advice convert(MappingContext<AdviceEntity, Advice> mappingContext) {
-            NavigableMap<RouletteOutcome, BigDecimal> adviseMap = new TreeMap<>();
-            adviseEntityToFullAdviseHelper(adviseMap, mappingContext.getSource());
-            return new Advice(adviseMap);
-        }
+    private static final Converter<AdviceEntity, Advice> fullAdviseConverter = mappingContext -> {
+        NavigableMap<RouletteOutcome, BigDecimal> adviseMap = new TreeMap<>();
+        adviseEntityToFullAdviseHelper(adviseMap, mappingContext.getSource());
+        return new Advice(adviseMap);
     };
 
     public static void fullAdviseToAdviseEntityHelper(AdviceEntity entity, Map.Entry<RouletteOutcome, BigDecimal> entry) {
@@ -113,7 +105,6 @@ public class Mapper {
     }
 
     public static AdviceEntity map(Advice advice) {
-
         modelMapper.addConverter(adviseEntityConverter);
         return modelMapper.map(advice, AdviceEntity.class);
     }
