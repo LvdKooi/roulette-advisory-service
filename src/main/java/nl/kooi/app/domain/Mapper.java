@@ -30,7 +30,7 @@ public class Mapper {
                 .forEach(entry -> fullAdviseToAdviseEntityHelper(adviseEntity, entry));
         return adviseEntity;
     };
-    private static final Converter<AdviceEntity, Advice> fullAdviseConverter = mappingContext -> {
+    private static final Converter<AdviceEntity, Advice> adviseConverter = mappingContext -> {
         NavigableMap<RouletteOutcome, BigDecimal> adviseMap = new TreeMap<>();
         adviseEntityToFullAdviseHelper(adviseMap, mappingContext.getSource());
         return new Advice(adviseMap);
@@ -110,7 +110,7 @@ public class Mapper {
     }
 
     public static Advice map(AdviceEntity adviceEntity) {
-        modelMapper.addConverter(fullAdviseConverter);
+        modelMapper.addConverter(adviseConverter);
         return modelMapper.map(adviceEntity, Advice.class);
     }
 
