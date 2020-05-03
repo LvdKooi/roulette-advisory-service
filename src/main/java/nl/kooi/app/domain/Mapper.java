@@ -21,22 +21,32 @@ import static nl.kooi.app.domain.rouletteoutcome.RouletteOutcome.*;
 
 public class Mapper {
     private static ModelMapper modelMapper = new ModelMapper();
-    private static final Converter<Advice, AdviceEntity> adviseEntityConverter = mappingContext -> {
-        var adviseEntity = new AdviceEntity();
-        mappingContext
-                .getSource()
-                .getAdviceMap()
-                .entrySet()
-                .forEach(entry -> fullAdviseToAdviseEntityHelper(adviseEntity, entry));
-        return adviseEntity;
-    };
-    private static final Converter<AdviceEntity, Advice> adviseConverter = mappingContext -> {
-        NavigableMap<RouletteOutcome, BigDecimal> adviseMap = new TreeMap<>();
-        adviseEntityToFullAdviseHelper(adviseMap, mappingContext.getSource());
-        return new Advice(adviseMap);
+
+    private static Converter<Advice, AdviceEntity> adviseEntityConverter = new Converter<Advice, AdviceEntity>() {
+        @Override
+        public AdviceEntity convert(MappingContext<Advice, AdviceEntity> mappingContext) {
+            var adviseEntity = new AdviceEntity();
+            mappingContext
+                    .getSource()
+                    .getAdviceMap()
+                    .entrySet()
+                    .forEach(entry -> adviseToAdviseEntityHelper(adviseEntity, entry));
+            return adviseEntity;
+        }
     };
 
-    public static void fullAdviseToAdviseEntityHelper(AdviceEntity entity, Map.Entry<RouletteOutcome, BigDecimal> entry) {
+private static Converter<AdviceEntity, Advice> adviseConverter = new Converter<AdviceEntity, Advice>(){
+
+@Override
+public Advice convert(MappingContext<AdviceEntity, Advice> mappingContext){
+        NavigableMap<RouletteOutcome, BigDecimal> adviseMap=new TreeMap<>();
+        adviseEntityToFullAdviseHelper(adviseMap,mappingContext.getSource());
+        return new Advice(adviseMap);
+        }
+        };
+
+
+    public static void adviseToAdviseEntityHelper(AdviceEntity entity, Map.Entry<RouletteOutcome, BigDecimal> entry) {
 
         switch (entry.getKey()) {
             case ZERO:
