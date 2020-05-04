@@ -33,13 +33,13 @@ public class RouletteGame {
     public Advice getAdvise() {
         NavigableMap<RouletteOutcome, BigDecimal> adviceMap = new TreeMap<>();
 
-        gameArray.forEach(x -> adviceMap.putAll(x.getAdvice()));
+        gameArray.forEach(game -> adviceMap.putAll(game.getAdvice()));
 
         return new Advice(adviceMap);
     }
 
     public BigDecimal getTotalProfit() {
-        gameArray.forEach(g -> totalProfit = totalProfit.add(g.getProfit()));
+        gameArray.forEach(game -> totalProfit = totalProfit.add(game.getProfit()));
         return totalProfit;
     }
 
