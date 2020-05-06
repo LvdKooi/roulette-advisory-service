@@ -1,4 +1,4 @@
-package nl.kooi.app.domain.advises;
+package nl.kooi.app.domain.advice;
 
 import lombok.Getter;
 import nl.kooi.app.domain.rouletteoutcome.RouletteOutcome;

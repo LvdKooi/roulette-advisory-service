@@ -1,7 +1,7 @@
 package nl.kooi.app.domain.rouletteoutcome;
 
 import lombok.experimental.UtilityClass;
-import nl.kooi.app.exceptions.NotValidOutcomeException;
+import nl.kooi.app.exception.NotValidOutcomeException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,7 +14,6 @@ import static nl.kooi.app.domain.rouletteoutcome.RouletteOutcome.*;
  * @author Laurens van der Kooi
  */
 
-@UtilityClass
 public final class RouletteOutcomeUtilities {
 
     private static final List<Integer> FIRST_COLUMN_LIST;

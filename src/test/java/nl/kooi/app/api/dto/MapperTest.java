@@ -1,10 +1,9 @@
 package nl.kooi.app.api.dto;
 
 import lombok.var;
-import nl.kooi.app.domain.advises.Advice;
-import nl.kooi.app.domain.metrics.SessionMetrics;
+import nl.kooi.app.domain.advice.Advice;
+import nl.kooi.app.domain.metric.SessionMetrics;
 import nl.kooi.app.domain.outcome.Outcome;
-import nl.kooi.app.domain.rouletteoutcome.RouletteOutcome;
 import nl.kooi.app.domain.rouletteoutcome.RouletteOutcomeUtilities;
 import nl.kooi.app.domain.session.Session;
 import org.junit.Test;

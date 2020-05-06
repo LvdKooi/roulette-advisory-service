@@ -1,4 +1,4 @@
-package nl.kooi.app.exceptions;
+package nl.kooi.app.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

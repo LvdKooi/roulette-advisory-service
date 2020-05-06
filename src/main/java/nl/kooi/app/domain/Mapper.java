@@ -1,7 +1,7 @@
 package nl.kooi.app.domain;
 
 import lombok.var;
-import nl.kooi.app.domain.advises.Advice;
+import nl.kooi.app.domain.advice.Advice;
 import nl.kooi.app.domain.outcome.Outcome;
 import nl.kooi.app.domain.rouletteoutcome.RouletteOutcome;
 import nl.kooi.app.domain.session.Session;

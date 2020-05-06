@@ -1,4 +1,4 @@
-package nl.kooi.app.domain.metrics;
+package nl.kooi.app.domain.metric;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;

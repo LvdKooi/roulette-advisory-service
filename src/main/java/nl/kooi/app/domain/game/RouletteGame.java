@@ -1,7 +1,7 @@
 package nl.kooi.app.domain.game;
 
 import lombok.Getter;
-import nl.kooi.app.domain.advises.Advice;
+import nl.kooi.app.domain.advice.Advice;
 import nl.kooi.app.domain.outcome.Outcome;
 import nl.kooi.app.domain.rouletteoutcome.RouletteOutcome;
 
