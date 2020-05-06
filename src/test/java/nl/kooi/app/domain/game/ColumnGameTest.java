@@ -56,6 +56,4 @@ public class ColumnGameTest {
 
         assertThat("HitArray doesn't match expectation.", new boolean[]{false, false, false}, equalTo(columnGame.getHitArray()));
     }
-
-
 }

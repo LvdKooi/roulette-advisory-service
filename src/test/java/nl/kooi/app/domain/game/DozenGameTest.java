@@ -20,7 +20,7 @@ public class DozenGameTest {
     }
 
     @Test
-    public void columnGameChipValueTest() {
+    public void dozenGameChipValueTest() {
         assertThat("ChipValue is not equal to expectation.", BigDecimal.TEN.setScale(2, BigDecimal.ROUND_HALF_UP), equalTo(dozenGame.getChipValue()));
     }
 
@@ -56,5 +56,4 @@ public class DozenGameTest {
 
         assertThat("HitArray doesn't match expectation.", new boolean[]{false, false, false}, equalTo(dozenGame.getHitArray()));
     }
-
 }
