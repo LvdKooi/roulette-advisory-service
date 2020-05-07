@@ -4,10 +4,7 @@ import lombok.Getter;
 import nl.kooi.app.domain.bettingsystem.OneToOneBettingSystem;
 
 import java.math.BigDecimal;
-
-/**
- * @author Laurens van der Kooi
- */
+import java.math.RoundingMode;
 
 @Getter
 public abstract class RouletteOneToOne extends Game {
@@ -24,6 +21,6 @@ public abstract class RouletteOneToOne extends Game {
 
     @Override
     public BigDecimal getProfit() {
-        return getChipValue().multiply(new BigDecimal(oneToOneBettingSystem.getProfitCounter()).setScale(2));
+        return getChipValue().multiply(new BigDecimal(oneToOneBettingSystem.getProfitCounter()).setScale(2, RoundingMode.HALF_UP));
     }
 }
