@@ -38,10 +38,11 @@ public class OneToOneBettingSystemTest {
         bettingSystem.setHits(hitArray);
 
         assertThat("Advice doesn't match expectation", bettingSystem.getAdviceArray(), equalTo(new int[]{0, 2}));
+        assertThat("Profit doesn't match expectation", bettingSystem.getProfitCounter(), equalTo(-1));
     }
 
     @Test
-    public void firstAdviceThenLoseTwoTimesZeroTest() {
+    public void firstAdviceThenLoseTwoTimesZeroTestThenWin() {
         var hitArray = new boolean[]{true, false};
 
         setHitsMultipleTimes(hitArray, 4);
@@ -53,10 +54,17 @@ public class OneToOneBettingSystemTest {
         bettingSystem.setHits(hitArray);
 
         assertThat("Advice doesn't match expectation", bettingSystem.getAdviceArray(), equalTo(new int[]{0, 2}));
+        assertThat("Profit doesn't match expectation", bettingSystem.getProfitCounter(), equalTo(-1));
 
         bettingSystem.setHits(hitArray);
 
         assertThat("Advice doesn't match expectation", bettingSystem.getAdviceArray(), equalTo(new int[]{0, 4}));
+        assertThat("Profit doesn't match expectation", bettingSystem.getProfitCounter(), equalTo(-3));
+
+        hitArray = new boolean[]{false, true};
+        bettingSystem.setHits(hitArray);
+        assertThat("Advice doesn't match expectation", bettingSystem.getAdviceArray(), equalTo(new int[]{0, 1}));
+        assertThat("Profit doesn't match expectation", bettingSystem.getProfitCounter(), equalTo(1));
     }
 
 
