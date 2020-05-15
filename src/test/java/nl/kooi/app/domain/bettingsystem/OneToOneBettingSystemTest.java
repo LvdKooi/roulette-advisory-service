@@ -63,7 +63,6 @@ public class OneToOneBettingSystemTest {
 
         bettingSystem.setHits(hitArray);
 
-        var adviceMap = bettingSystem.getOneToOneAdviceMap(RED, BLACK,BigDecimal.ONE);
         assertAdviceAndProfit(0, 4, -3);
 
         hitArray = new boolean[]{false, true};
