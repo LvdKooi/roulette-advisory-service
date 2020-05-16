@@ -55,7 +55,7 @@ public class OutcomeAdviceService {
                 RouletteOutcomeUtilities.getCompoundRouletteOutcome(number));
 
         var outcomeEntity = outcomeRepository.save(Mapper.map(outcome));
-        var adviseEntity = Mapper.map(rouletteGame.getAdvise());
+        var adviseEntity = Mapper.map(rouletteGame.getAdvice());
         adviseEntity.setSession(sessionEntity);
         adviseEntity.setCausingOutcome(outcomeEntity);
 

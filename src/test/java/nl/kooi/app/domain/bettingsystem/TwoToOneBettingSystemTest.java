@@ -118,7 +118,7 @@ public class TwoToOneBettingSystemTest {
 
     private void assertAdviceAndProfit(int advice1, int advice2, int advice3, int profit) {
 
-        var adviceMap = bettingSystem.getTwoToOneAdviceMap(FIRST_COLUMN, SECOND_COLUMN, THIRD_COLUMN, BigDecimal.ONE);
+        var adviceMap = bettingSystem.getTwoToOneAdvice(FIRST_COLUMN, SECOND_COLUMN, THIRD_COLUMN, BigDecimal.ONE).getAdviceMap();
 
         assertThat("Advice doesn't match expectation", bettingSystem.getAdviceArray(), equalTo(new int[]{advice1, advice2, advice3}));
         assertThat("Profit doesn't match expectation", bettingSystem.getProfitCounter(), equalTo(profit));

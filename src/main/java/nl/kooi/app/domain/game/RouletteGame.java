@@ -30,10 +30,10 @@ public class RouletteGame {
         }
     }
 
-    public Advice getAdvise() {
+    public Advice getAdvice() {
         NavigableMap<RouletteOutcome, BigDecimal> adviceMap = new TreeMap<>();
 
-        gameArray.forEach(game -> adviceMap.putAll(game.getAdvice()));
+        gameArray.forEach(game -> adviceMap.putAll(game.getAdvice().getAdviceMap()));
 
         return new Advice(adviceMap);
     }

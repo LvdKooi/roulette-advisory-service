@@ -7,6 +7,7 @@ package nl.kooi.app.domain.game;
 
 
 import lombok.Getter;
+import nl.kooi.app.domain.advice.Advice;
 import nl.kooi.app.domain.outcome.Outcome;
 import nl.kooi.app.domain.rouletteoutcome.RouletteOutcome;
 
@@ -36,7 +37,7 @@ public class ColumnGame extends RouletteTwoToOne {
     }
 
     @Override
-    public Map<RouletteOutcome, BigDecimal> getAdvice() {
-        return getTwoToOneBettingSystem().getTwoToOneAdviceMap(FIRST_COLUMN, SECOND_COLUMN, THIRD_COLUMN, getChipValue());
+    public Advice getAdvice() {
+        return getTwoToOneBettingSystem().getTwoToOneAdvice(FIRST_COLUMN, SECOND_COLUMN, THIRD_COLUMN, getChipValue());
     }
 }

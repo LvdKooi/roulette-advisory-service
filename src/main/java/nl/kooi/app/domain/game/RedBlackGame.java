@@ -1,11 +1,10 @@
 package nl.kooi.app.domain.game;
 
 import lombok.Getter;
+import nl.kooi.app.domain.advice.Advice;
 import nl.kooi.app.domain.outcome.Outcome;
-import nl.kooi.app.domain.rouletteoutcome.RouletteOutcome;
 
 import java.math.BigDecimal;
-import java.util.Map;
 
 import static nl.kooi.app.domain.rouletteoutcome.RouletteOutcome.BLACK;
 import static nl.kooi.app.domain.rouletteoutcome.RouletteOutcome.RED;
@@ -30,7 +29,7 @@ public class RedBlackGame extends RouletteOneToOne {
     }
 
     @Override
-    public Map<RouletteOutcome, BigDecimal> getAdvice() {
-        return getOneToOneBettingSystem().getOneToOneAdviceMap(RED, BLACK, getChipValue());
+    public Advice getAdvice() {
+        return getOneToOneBettingSystem().getOneToOneAdvice(RED, BLACK, getChipValue());
     }
 }

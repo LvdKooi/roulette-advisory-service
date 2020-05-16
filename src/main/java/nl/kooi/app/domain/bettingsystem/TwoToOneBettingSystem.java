@@ -6,11 +6,13 @@
 package nl.kooi.app.domain.bettingsystem;
 
 import lombok.var;
+import nl.kooi.app.domain.advice.Advice;
 import nl.kooi.app.domain.rouletteoutcome.RouletteOutcome;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * @author Laurens van der Kooi
@@ -208,12 +210,12 @@ public class TwoToOneBettingSystem extends BettingSystem {
         }
     }
 
-    public Map<RouletteOutcome, BigDecimal> getTwoToOneAdviceMap(RouletteOutcome firstOutcome, RouletteOutcome secondOutcome, RouletteOutcome thirdOutcome, BigDecimal chipValue) {
-        var map = new HashMap<RouletteOutcome, BigDecimal>();
+    public Advice getTwoToOneAdvice(RouletteOutcome firstOutcome, RouletteOutcome secondOutcome, RouletteOutcome thirdOutcome, BigDecimal chipValue) {
+        var map = new TreeMap<RouletteOutcome, BigDecimal>();
         map.put(firstOutcome, chipValue.multiply(new BigDecimal(getAdviceArray()[0])));
         map.put(secondOutcome, chipValue.multiply(new BigDecimal(getAdviceArray()[1])));
         map.put(thirdOutcome, chipValue.multiply(new BigDecimal(getAdviceArray()[2])));
-        return map;
+        return new Advice(map);
     }
 
 }

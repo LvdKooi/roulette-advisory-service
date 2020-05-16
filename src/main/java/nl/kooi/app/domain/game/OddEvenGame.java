@@ -2,6 +2,7 @@ package nl.kooi.app.domain.game;
 
 
 import lombok.Getter;
+import nl.kooi.app.domain.advice.Advice;
 import nl.kooi.app.domain.outcome.Outcome;
 import nl.kooi.app.domain.rouletteoutcome.RouletteOutcome;
 
@@ -31,8 +32,8 @@ public class OddEvenGame extends RouletteOneToOne {
     }
 
     @Override
-    public Map<RouletteOutcome, BigDecimal> getAdvice() {
-        return getOneToOneBettingSystem().getOneToOneAdviceMap(ODD, EVEN, getChipValue());
+    public Advice getAdvice() {
+        return getOneToOneBettingSystem().getOneToOneAdvice(ODD, EVEN, getChipValue());
     }
 
 }

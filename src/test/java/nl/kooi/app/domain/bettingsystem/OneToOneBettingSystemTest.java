@@ -1,12 +1,10 @@
 package nl.kooi.app.domain.bettingsystem;
 
 import lombok.var;
-import nl.kooi.app.domain.rouletteoutcome.RouletteOutcome;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.math.BigDecimal;
-import java.util.HashMap;
 
 import static nl.kooi.app.domain.rouletteoutcome.RouletteOutcome.BLACK;
 import static nl.kooi.app.domain.rouletteoutcome.RouletteOutcome.RED;
@@ -121,7 +119,7 @@ public class OneToOneBettingSystemTest {
 
     private void assertAdviceAndProfit(int advice1, int advice2, int profit) {
 
-        var adviceMap = bettingSystem.getOneToOneAdviceMap(RED, BLACK,BigDecimal.ONE);
+        var adviceMap = bettingSystem.getOneToOneAdvice(RED, BLACK,BigDecimal.ONE).getAdviceMap();
 
         assertThat("Advice doesn't match expectation", bettingSystem.getAdviceArray(), equalTo(new int[]{advice1, advice2}));
         assertThat("Profit doesn't match expectation", bettingSystem.getProfitCounter(), equalTo(profit));
