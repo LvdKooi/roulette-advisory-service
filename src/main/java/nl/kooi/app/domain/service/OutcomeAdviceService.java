@@ -44,15 +44,13 @@ public class OutcomeAdviceService {
         var outcomes = findOutcomesBySessionIdOrderByIdAsc(sessionId);
 
         outcomes.add(outcomes.size(), new Outcome(sessionId,
-                number,
-                RouletteOutcomeUtilities.getCompoundRouletteOutcome(number)));
+                number));
 
         rouletteGame.setHits(outcomes);
 
         var outcome = new Outcome(sessionId,
                 number,
-                rouletteGame.getTotalProfit(),
-                RouletteOutcomeUtilities.getCompoundRouletteOutcome(number));
+                rouletteGame.getTotalProfit());
 
         var outcomeEntity = outcomeRepository.save(Mapper.map(outcome));
         var adviseEntity = Mapper.map(rouletteGame.getAdvice());

@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -21,12 +22,12 @@ public class OddEvenGameTest {
 
     @Test
     public void oddEvenGameChipValueTest() {
-        assertThat("ChipValue is not equal to expectation.", BigDecimal.TEN.setScale(2, BigDecimal.ROUND_HALF_UP), equalTo(oddEvenGame.getChipValue()));
+        assertThat("ChipValue is not equal to expectation.", BigDecimal.TEN.setScale(2, RoundingMode.HALF_UP), equalTo(oddEvenGame.getChipValue()));
     }
 
     @Test
     public void hitArrayOddTest() {
-        var outcome = new Outcome(1, 1, BigDecimal.ZERO, RouletteOutcomeUtilities.getCompoundRouletteOutcome(1));
+        var outcome = new Outcome(1, 1, BigDecimal.ZERO);
         oddEvenGame.setHits(outcome);
 
         assertThat("HitArray doesn't match expectation.", new boolean[]{true, false}, equalTo(oddEvenGame.getHitArray()));
@@ -34,7 +35,7 @@ public class OddEvenGameTest {
 
     @Test
     public void hitArrayEvenTest() {
-        var outcome = new Outcome(1, 2, BigDecimal.ZERO, RouletteOutcomeUtilities.getCompoundRouletteOutcome(2));
+        var outcome = new Outcome(1, 2, BigDecimal.ZERO);
         oddEvenGame.setHits(outcome);
 
         assertThat("HitArray doesn't match expectation.", new boolean[]{false, true}, equalTo(oddEvenGame.getHitArray()));
@@ -42,7 +43,7 @@ public class OddEvenGameTest {
 
     @Test
     public void hitArrayZeroTest() {
-        var outcome = new Outcome(1, 0, BigDecimal.ZERO, RouletteOutcomeUtilities.getCompoundRouletteOutcome(0));
+        var outcome = new Outcome(1, 0, BigDecimal.ZERO);
         oddEvenGame.setHits(outcome);
 
         assertThat("HitArray doesn't match expectation.", new boolean[]{false, false}, equalTo(oddEvenGame.getHitArray()));

@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import nl.kooi.app.domain.rouletteoutcome.RouletteOutcome;
+import nl.kooi.app.domain.rouletteoutcome.RouletteOutcomeUtilities;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -39,21 +40,21 @@ public class Outcome {
 
     public Outcome(int sessionId,
                    int outcome,
-                   BigDecimal totalProfit,
-                   Map<RouletteOutcome, Boolean> rouletteOutcomeBooleanMap
+                   BigDecimal totalProfit
     ) {
         validateOutcome(outcome);
         this.sessionId = sessionId;
         this.totalProfit = totalProfit.setScale(2, RoundingMode.HALF_UP);
         this.outcome = outcome;
-        setRouletteFields(rouletteOutcomeBooleanMap);
+        setRouletteFields(RouletteOutcomeUtilities.getCompoundRouletteOutcome(outcome));
 
     }
 
     public Outcome(int sessionId,
-                   int outcome,
-                   Map<RouletteOutcome, Boolean> rouletteOutcomeBooleanMap) {
-        this(sessionId, outcome, BigDecimal.ZERO, rouletteOutcomeBooleanMap);
+                   int outcome) {
+        this(sessionId,
+                outcome,
+                BigDecimal.ZERO);
     }
 
     private void setRouletteFields(Map<RouletteOutcome, Boolean> rouletteOutcomeBooleanMap) {
