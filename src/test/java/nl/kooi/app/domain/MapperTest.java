@@ -99,10 +99,11 @@ public class MapperTest {
                 .stream()
                 .collect(Collectors.toMap(Map.Entry::getKey, x -> BigDecimal.valueOf(Math.random() * 100))));
 
-        var advice = new Advice(adviceMap);
+        var advice = new Advice(14, adviceMap);
 
         var adviceEntity = Mapper.map(advice);
 
+        assertThat("Id of AdviceEntity doesn't match the one of Advice.", advice.getId(), equalTo(adviceEntity.getId()));
         assertThat("An advice of AdviceEntity doesn't match the one of Advice.", advice.getAdviceMap().get(RouletteOutcome.RED), equalTo(adviceEntity.getRedAdvice()));
         assertThat("An advice of AdviceEntity doesn't match the one of Advice.", advice.getAdviceMap().get(RouletteOutcome.BLACK), equalTo(adviceEntity.getBlackAdvice()));
         assertThat("An advice of AdviceEntity doesn't match the one of Advice.", advice.getAdviceMap().get(RouletteOutcome.ODD), equalTo(adviceEntity.getOddAdvice()));
@@ -122,6 +123,7 @@ public class MapperTest {
 
         var adviceEntity = new AdviceEntity();
 
+        adviceEntity.setId(12);
         adviceEntity.setRedAdvice(BigDecimal.valueOf(10L));
         adviceEntity.setBlackAdvice(BigDecimal.valueOf(11L));
         adviceEntity.setOddAdvice(BigDecimal.valueOf(12L));
@@ -137,6 +139,7 @@ public class MapperTest {
 
         var advice = Mapper.map(adviceEntity);
 
+        assertThat("The id of Advice doesn't match the one of AdviceEntity.", adviceEntity.getId(), equalTo(advice.getId()));
         assertThat("An advice of Advice doesn't match the one of AdviceEntity.", adviceEntity.getRedAdvice(), equalTo(advice.getAdviceMap().get(RouletteOutcome.RED)));
         assertThat("An advice of Advice doesn't match the one of AdviceEntity.", adviceEntity.getBlackAdvice(), equalTo(advice.getAdviceMap().get(RouletteOutcome.BLACK)));
         assertThat("An advice of Advice doesn't match the one of AdviceEntity.", adviceEntity.getOddAdvice(), equalTo(advice.getAdviceMap().get(RouletteOutcome.ODD)));

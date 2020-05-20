@@ -31,6 +31,7 @@ public class Mapper {
                     .getAdviceMap()
                     .entrySet()
                     .forEach(entry -> adviseToAdviseEntityHelper(adviseEntity, entry));
+            adviseEntity.setId(mappingContext.getSource().getId());
             return adviseEntity;
         }
     };
@@ -41,7 +42,7 @@ private static Converter<AdviceEntity, Advice> adviseConverter = new Converter<A
 public Advice convert(MappingContext<AdviceEntity, Advice> mappingContext){
         NavigableMap<RouletteOutcome, BigDecimal> adviseMap=new TreeMap<>();
         adviseEntityToFullAdviseHelper(adviseMap,mappingContext.getSource());
-        return new Advice(adviseMap);
+        return new Advice(mappingContext.getSource().getId(), adviseMap);
         }
         };
 

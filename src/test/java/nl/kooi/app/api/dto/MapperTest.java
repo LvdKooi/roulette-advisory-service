@@ -111,10 +111,11 @@ public class MapperTest {
                 .stream()
                 .collect(Collectors.toMap(Map.Entry::getKey, x -> BigDecimal.valueOf(Math.random() * 100))));
 
-        var advice = new Advice(adviceMap);
+        var advice = new Advice(18, adviceMap);
 
         var adviceDto = Mapper.map(advice);
 
+        assertThat("Id of adviceDto doesn't match the one of Advice.", advice.getId(), equalTo(adviceDto.getId()));
         assertThat("AdviceMap of adviceDto doesn't match the one of Advice.", advice.getAdviceMap(), equalTo(adviceDto.getAdviceMap()));
     }
 }

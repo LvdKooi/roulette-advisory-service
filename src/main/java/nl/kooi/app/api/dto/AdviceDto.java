@@ -8,5 +8,6 @@ import java.util.NavigableMap;
 
 @Data
 public class AdviceDto {
+    private int id;
     private NavigableMap<RouletteOutcome, BigDecimal> adviceMap;
 }
