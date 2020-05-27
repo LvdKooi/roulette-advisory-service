@@ -26,13 +26,13 @@ public class SessionController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<SessionDto> findById(@PathVariable int sessionId, @PathVariable int id) {
-        return ResponseEntity.ok(Mapper.map(sessionService.findByIdAndUserId(sessionId, id)));
+    public ResponseEntity<SessionDto> findById(@PathVariable int userId, @PathVariable int id) {
+        return ResponseEntity.ok(Mapper.map(sessionService.findByIdAndUserId(id, userId)));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity delete(@PathVariable int sessionId, @PathVariable int id) {
-        sessionService.findByIdAndUserId(sessionId, id);
+    public ResponseEntity delete(@PathVariable int userId, @PathVariable int id) {
+        sessionService.findByIdAndUserId(id, userId);
         sessionService.deleteById(id);
         return ResponseEntity.ok().build();
     }
