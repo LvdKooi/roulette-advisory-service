@@ -62,7 +62,7 @@ public final class RouletteOutcomeUtilities {
         }
     }
 
-    private static RouletteOutcome dozen(int currentInput) {
+    public static RouletteOutcome dozen(int currentInput) {
         if (currentInput > 0 && currentInput < 13) {
             return FIRST_DOZEN;
         } else if (currentInput > 12 && currentInput < 25) {
@@ -74,7 +74,7 @@ public final class RouletteOutcomeUtilities {
         }
     }
 
-    private static RouletteOutcome column(int currentInput) {
+    public static RouletteOutcome column(int currentInput) {
         if (FIRST_COLUMN_LIST.contains(currentInput)) {
             return RouletteOutcome.FIRST_COLUMN;
         } else if (SECOND_COLUMN_LIST.contains(currentInput)) {
@@ -86,7 +86,7 @@ public final class RouletteOutcomeUtilities {
         }
     }
 
-    private static RouletteOutcome redBlack(int currentInput) {
+    public static RouletteOutcome redBlack(int currentInput) {
         if (RED_NUMBERS_LIST.contains(currentInput)) {
             return RED;
         } else if (BLACK_NUMBERS_LIST.contains(currentInput)) {
@@ -96,7 +96,7 @@ public final class RouletteOutcomeUtilities {
         }
     }
 
-    private static RouletteOutcome oddEven(int currentInput) {
+    public static RouletteOutcome oddEven(int currentInput) {
         if (isZero(currentInput)) {
             return RouletteOutcome.ZERO;
         } else {
@@ -104,7 +104,7 @@ public final class RouletteOutcomeUtilities {
         }
     }
 
-    private static RouletteOutcome half(int currentInput) {
+    public static RouletteOutcome half(int currentInput) {
         if (isZero(currentInput)) {
             return RouletteOutcome.ZERO;
         } else {
@@ -112,7 +112,7 @@ public final class RouletteOutcomeUtilities {
         }
     }
 
-    private static boolean isZero(int currentInput) {
+    public static boolean isZero(int currentInput) {
         return currentInput == 0;
     }
 
