@@ -33,13 +33,13 @@ public class OutcomeController {
     }
 
     @PostMapping
-    public ResponseEntity<OutcomeDto> create(@Valid @RequestBody OutcomeDto outcomeDto, @PathVariable int userId, @PathVariable int sessionId) {
+    public ResponseEntity<OutcomeDto> create(@PathVariable int userId, @PathVariable int sessionId, @Valid @RequestBody OutcomeDto outcomeDto) {
         sessionService.findByIdAndUserId(sessionId, userId);
         return ResponseEntity.ok(Mapper.map(outcomeAdviceService.saveOutcomeAndAdvise(userId, sessionId, outcomeDto.getOutcome())));
     }
 
     @GetMapping("/last-outcome")
-    public ResponseEntity<OutcomeDto> findLastOutcome(@PathVariable int sessionId, @PathVariable int userId) {
+    public ResponseEntity<OutcomeDto> findLastOutcome(@PathVariable int userId, @PathVariable int sessionId) {
         sessionService.findByIdAndUserId(sessionId, userId);
         return ResponseEntity.ok(Mapper.map(outcomeAdviceService.findLastOutcome(sessionId)));
     }
