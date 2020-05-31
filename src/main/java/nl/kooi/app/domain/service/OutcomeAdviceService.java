@@ -85,8 +85,9 @@ public class OutcomeAdviceService {
     }
 
     public void deleteLastOutcome(int sessionId) {
-        outcomeRepository.deleteById(findLastOutcome(sessionId).getId());
+        findLastOutcome(sessionId);
         adviceRepository.deleteById(findLastAdvice(sessionId).getId());
+        outcomeRepository.deleteById(findLastOutcome(sessionId).getId());
     }
 
     public SessionMetrics getSessionsMetrics(int sessionId) {
