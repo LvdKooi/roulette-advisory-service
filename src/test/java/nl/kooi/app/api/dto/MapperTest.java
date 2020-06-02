@@ -9,7 +9,7 @@ import nl.kooi.app.domain.session.Session;
 import org.junit.Test;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
@@ -52,7 +52,7 @@ public class MapperTest {
 
         var session = new Session();
         session.setChipValue(BigDecimal.TEN);
-        session.setDateTime(LocalDateTime.now());
+        session.setDateTime(Instant.now());
         session.setId(1234);
         session.setUserId(2345);
 

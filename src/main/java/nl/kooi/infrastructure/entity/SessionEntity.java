@@ -6,7 +6,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 
 @Data
@@ -21,7 +21,7 @@ public class SessionEntity {
     private BigDecimal chipValue;
 
     @CreationTimestamp
-    private LocalDateTime dateTime;
+    private Instant dateTime;
 
 
 }

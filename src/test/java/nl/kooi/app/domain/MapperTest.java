@@ -11,7 +11,7 @@ import nl.kooi.infrastructure.entity.SessionEntity;
 import org.junit.Test;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
@@ -25,7 +25,7 @@ public class MapperTest {
     public void sessionToSessionEntityMapTest() {
         var session = new Session();
         session.setChipValue(BigDecimal.TEN);
-        session.setDateTime(LocalDateTime.now());
+        session.setDateTime(Instant.now());
         session.setId(1234);
         session.setUserId(2345);
 
@@ -41,7 +41,7 @@ public class MapperTest {
     public void sessionEntityToSessionMapTest() {
         var sessionEntity = new SessionEntity();
         sessionEntity.setChipValue(BigDecimal.TEN);
-        sessionEntity.setDateTime(LocalDateTime.now());
+        sessionEntity.setDateTime(Instant.now());
         sessionEntity.setId(1234);
         sessionEntity.setUserId(2345);
 

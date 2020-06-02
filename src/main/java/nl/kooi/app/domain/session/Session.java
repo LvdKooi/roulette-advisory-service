@@ -3,7 +3,7 @@ package nl.kooi.app.domain.session;
 import lombok.*;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 @Getter
 @Setter
@@ -14,5 +14,5 @@ public class Session {
     private int id;
     private int userId;
     private BigDecimal chipValue;
-    private LocalDateTime dateTime;
+    private Instant dateTime;
 }
