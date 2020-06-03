@@ -10,9 +10,12 @@ import java.time.Instant;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@RequiredArgsConstructor
 public class Session {
     private int id;
+    @NonNull
     private int userId;
+    @NonNull
     private BigDecimal chipValue;
     private Instant dateTime;
 }
