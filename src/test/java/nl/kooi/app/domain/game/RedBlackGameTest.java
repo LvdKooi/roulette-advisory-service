@@ -2,9 +2,8 @@ package nl.kooi.app.domain.game;
 
 import lombok.var;
 import nl.kooi.app.domain.outcome.Outcome;
-import nl.kooi.app.domain.rouletteoutcome.RouletteOutcomeUtilities;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -15,7 +14,7 @@ import static org.hamcrest.Matchers.equalTo;
 public class RedBlackGameTest {
     private RedBlackGame redBlackGame;
 
-    @Before
+    @BeforeEach
     public void initTestDependencies() {
         redBlackGame = new RedBlackGame(BigDecimal.TEN);
     }

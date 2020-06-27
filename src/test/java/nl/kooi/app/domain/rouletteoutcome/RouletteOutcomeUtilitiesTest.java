@@ -1,8 +1,9 @@
 package nl.kooi.app.domain.rouletteoutcome;
 
-import lombok.var;
+
 import nl.kooi.app.exception.NotValidOutcomeException;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;
@@ -106,16 +107,20 @@ public class RouletteOutcomeUtilitiesTest {
         assertTrue("Zero returns a true in the CompoundRouletteOutcome.", RouletteOutcomeUtilities.isZero(0));
     }
 
-    @Test(expected = NotValidOutcomeException.class)
+    @Test
     public void validateOutcomeBelow0Test() {
-        RouletteOutcomeUtilities.validateOutcome(-1);
+
+        Assertions.assertThrows(NotValidOutcomeException.class, () -> {
+            RouletteOutcomeUtilities.validateOutcome(-1);
+        });
 
     }
 
-    @Test(expected = NotValidOutcomeException.class)
+    @Test
     public void validateOutcomeOver36Test() {
-        RouletteOutcomeUtilities.validateOutcome(37);
-
+        Assertions.assertThrows(NotValidOutcomeException.class, () -> {
+            RouletteOutcomeUtilities.validateOutcome(37);
+        });
     }
 
     @Test

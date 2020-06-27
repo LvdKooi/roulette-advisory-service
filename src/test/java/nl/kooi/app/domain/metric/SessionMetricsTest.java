@@ -2,8 +2,8 @@ package nl.kooi.app.domain.metric;
 
 import lombok.var;
 import nl.kooi.app.domain.rouletteoutcome.RouletteOutcomeUtilities;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.util.Map;
@@ -17,7 +17,7 @@ public class SessionMetricsTest {
 
     private SessionMetrics sessionMetrics;
 
-    @Before
+    @BeforeEach
     public void initTestDependencies() {
         var outcomeCounterMap = RouletteOutcomeUtilities
                 .getCompoundRouletteOutcome(1)

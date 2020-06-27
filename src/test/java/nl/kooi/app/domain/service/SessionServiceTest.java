@@ -6,12 +6,12 @@ import nl.kooi.app.domain.session.Session;
 import nl.kooi.app.exception.NotFoundException;
 import nl.kooi.infrastructure.entity.SessionEntity;
 import nl.kooi.infrastructure.repository.SessionRepository;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -22,19 +22,18 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.when;
 
-
-@RunWith(MockitoJUnitRunner.class)
+@SpringBootTest
 public class SessionServiceTest {
 
-    @InjectMocks
+    @Autowired
     private SessionService sessionService;
 
-    @Mock
+    @MockBean
     private SessionRepository sessionRepository;
 
     private Instant instant;
 
-    @Before
+    @BeforeEach
     public void initTestDependencies() {
         var instant = Instant.now();
         when(sessionRepository.save(Mapper.map(getPreSaveSession()))).thenReturn(getSessionEntity());
@@ -52,9 +51,11 @@ public class SessionServiceTest {
         assertSession(sessionService.findById(12));
     }
 
-    @Test(expected = NotFoundException.class)
+    @Test
     public void testFindByIdNonExisting() {
-        assertSession(sessionService.findById(11));
+        Assertions.assertThrows(NotFoundException.class, () -> {
+            assertSession(sessionService.findById(11));
+        });
     }
 
     @Test
@@ -62,14 +63,18 @@ public class SessionServiceTest {
         assertSession(sessionService.findByIdAndUserId(12, 1234));
     }
 
-    @Test(expected = NotFoundException.class)
+    @Test
     public void testFindByIdAndUserIdNonExistingId() {
-        assertSession(sessionService.findByIdAndUserId(11, 1234));
+        Assertions.assertThrows(NotFoundException.class, () -> {
+            assertSession(sessionService.findByIdAndUserId(11, 1234));
+        });
     }
 
-    @Test(expected = NotFoundException.class)
+    @Test
     public void testFindByIdAndUserIdNonExistingUserId() {
-        assertSession(sessionService.findByIdAndUserId(12, 2234));
+        Assertions.assertThrows(NotFoundException.class, () -> {
+            assertSession(sessionService.findByIdAndUserId(12, 2234));
+        });
     }
 
     @Test
@@ -85,9 +90,11 @@ public class SessionServiceTest {
         assertNull(errormessage);
     }
 
-    @Test(expected = NotFoundException.class)
+    @Test
     public void testDeleteByIdNonExistingId() {
-        sessionService.deleteById(11);
+        Assertions.assertThrows(NotFoundException.class, () -> {
+            sessionService.deleteById(11);
+        });
     }
 
     private SessionEntity getSessionEntity() {

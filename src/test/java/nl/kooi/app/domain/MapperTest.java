@@ -8,7 +8,7 @@ import nl.kooi.app.domain.rouletteoutcome.RouletteOutcomeUtilities;
 import nl.kooi.app.domain.session.Session;
 import nl.kooi.infrastructure.entity.AdviceEntity;
 import nl.kooi.infrastructure.entity.SessionEntity;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.time.Instant;

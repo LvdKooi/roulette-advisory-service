@@ -1,8 +1,8 @@
 package nl.kooi.app.domain.bettingsystem;
 
 import lombok.var;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 
@@ -15,7 +15,7 @@ public class OneToOneBettingSystemTest {
 
     private OneToOneBettingSystem bettingSystem;
 
-    @Before
+    @BeforeEach
     public void initTestDependencies() {
         bettingSystem = new OneToOneBettingSystem(2, 4);
     }
