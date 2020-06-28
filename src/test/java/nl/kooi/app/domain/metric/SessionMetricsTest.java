@@ -1,6 +1,5 @@
 package nl.kooi.app.domain.metric;
 
-import lombok.var;
 import nl.kooi.app.domain.rouletteoutcome.RouletteOutcomeUtilities;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

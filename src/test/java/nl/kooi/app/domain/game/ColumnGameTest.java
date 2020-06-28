@@ -1,6 +1,5 @@
 package nl.kooi.app.domain.game;
 
-import lombok.var;
 import nl.kooi.app.domain.outcome.Outcome;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

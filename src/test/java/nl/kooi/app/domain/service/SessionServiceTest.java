@@ -1,6 +1,5 @@
 package nl.kooi.app.domain.service;
 
-import lombok.var;
 import nl.kooi.app.domain.Mapper;
 import nl.kooi.app.domain.session.Session;
 import nl.kooi.app.exception.NotFoundException;
@@ -53,9 +52,7 @@ public class SessionServiceTest {
 
     @Test
     public void testFindByIdNonExisting() {
-        Assertions.assertThrows(NotFoundException.class, () -> {
-            assertSession(sessionService.findById(11));
-        });
+        Assertions.assertThrows(NotFoundException.class, () -> assertSession(sessionService.findById(11)));
     }
 
     @Test
@@ -65,16 +62,12 @@ public class SessionServiceTest {
 
     @Test
     public void testFindByIdAndUserIdNonExistingId() {
-        Assertions.assertThrows(NotFoundException.class, () -> {
-            assertSession(sessionService.findByIdAndUserId(11, 1234));
-        });
+        Assertions.assertThrows(NotFoundException.class, () -> assertSession(sessionService.findByIdAndUserId(11, 1234)));
     }
 
     @Test
     public void testFindByIdAndUserIdNonExistingUserId() {
-        Assertions.assertThrows(NotFoundException.class, () -> {
-            assertSession(sessionService.findByIdAndUserId(12, 2234));
-        });
+        Assertions.assertThrows(NotFoundException.class, () -> assertSession(sessionService.findByIdAndUserId(12, 2234)));
     }
 
     @Test
@@ -92,9 +85,7 @@ public class SessionServiceTest {
 
     @Test
     public void testDeleteByIdNonExistingId() {
-        Assertions.assertThrows(NotFoundException.class, () -> {
-            sessionService.deleteById(11);
-        });
+        Assertions.assertThrows(NotFoundException.class, () -> sessionService.deleteById(11));
     }
 
     private SessionEntity getSessionEntity() {

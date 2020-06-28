@@ -1,14 +1,12 @@
 package nl.kooi.app.domain.service;
 
 import lombok.RequiredArgsConstructor;
-import lombok.var;
 import nl.kooi.app.domain.Mapper;
 import nl.kooi.app.domain.advice.Advice;
 import nl.kooi.app.domain.game.RouletteGame;
 import nl.kooi.app.domain.metric.SessionMetrics;
 import nl.kooi.app.domain.outcome.Outcome;
 import nl.kooi.app.domain.rouletteoutcome.RouletteOutcome;
-import nl.kooi.app.domain.rouletteoutcome.RouletteOutcomeUtilities;
 import nl.kooi.app.exception.NotFoundException;
 import nl.kooi.infrastructure.repository.AdviceRepository;
 import nl.kooi.infrastructure.repository.OutcomeRepository;

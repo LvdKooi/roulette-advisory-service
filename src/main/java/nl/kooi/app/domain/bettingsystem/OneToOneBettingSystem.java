@@ -5,13 +5,10 @@
  */
 package nl.kooi.app.domain.bettingsystem;
 
-import lombok.var;
 import nl.kooi.app.domain.advice.Advice;
 import nl.kooi.app.domain.rouletteoutcome.RouletteOutcome;
 
 import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.TreeMap;
 
 /**

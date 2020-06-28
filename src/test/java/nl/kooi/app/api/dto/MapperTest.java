@@ -1,6 +1,5 @@
 package nl.kooi.app.api.dto;
 
-import lombok.var;
 import nl.kooi.app.domain.advice.Advice;
 import nl.kooi.app.domain.metric.SessionMetrics;
 import nl.kooi.app.domain.outcome.Outcome;

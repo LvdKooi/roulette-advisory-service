@@ -1,6 +1,5 @@
 package nl.kooi.app.domain.bettingsystem;
 
-import lombok.var;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
