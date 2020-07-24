@@ -25,7 +25,6 @@ public class OutcomeRepositoryTest {
     private SessionRepository sessionRepository;
 
     int sessionId;
-    int sessionIdForCounterTests;
 
     @BeforeEach
     public void initTestDependencies() {
@@ -38,26 +37,18 @@ public class OutcomeRepositoryTest {
 
         sessionId = sessionRepository.save(Mapper.map(session)).getId();
 
-        sessionIdForCounterTests = sessionRepository.save(Mapper.map(session)).getId();
+        addAllAvailableRouletteNumbersToOutcomeRepoForSession(sessionId);
 
-        IntStream.rangeClosed(1, 36)
-                .mapToObj(number -> Mapper.map(new Outcome(sessionIdForCounterTests, number)))
-                .forEach(outcomeRepository::save);
-
-        outcomeRepository.save(Mapper.map(new Outcome(sessionIdForCounterTests, 1)));
-
+        outcomeRepository.save(Mapper.map(new Outcome(sessionId, 1)));
     }
 
     @Test
     public void findBySessionIdMethodsTest() {
-        var outcome = new Outcome(sessionId, 1, BigDecimal.TEN);
-        outcomeRepository.save(Mapper.map(outcome));
-
-        outcome = new Outcome(sessionId, 12, BigDecimal.TEN);
+        var outcome = new Outcome(sessionId, 12, BigDecimal.TEN);
         outcomeRepository.save(Mapper.map(outcome));
 
         assertThat(outcomeRepository.findFirstBySessionIdOrderByIdDesc(sessionId).getOutcome()).isEqualTo(12);
-        assertThat(outcomeRepository.findBySessionIdOrderByIdAsc(sessionId).size()).isEqualTo(2);
+        assertThat(outcomeRepository.findBySessionIdOrderByIdAsc(sessionId).size()).isEqualTo(39);
     }
 
     @Test
@@ -77,49 +68,78 @@ public class OutcomeRepositoryTest {
 
     @Test
     public void redBlackCountersTest() {
-        assertThat(outcomeRepository.countByBlackAndSessionId(true, sessionIdForCounterTests)).isEqualTo(18);
-        assertThat(outcomeRepository.countByBlackAndSessionId(false, sessionIdForCounterTests)).isEqualTo(19);
-        assertThat(outcomeRepository.countByRedAndSessionId(true, sessionIdForCounterTests)).isEqualTo(19);
-        assertThat(outcomeRepository.countByRedAndSessionId(false, sessionIdForCounterTests)).isEqualTo(18);
+        assertThat(outcomeRepository.countByBlackAndSessionId(true, sessionId)).isEqualTo(18);
+        assertThat(outcomeRepository.countByBlackAndSessionId(false, sessionId)).isEqualTo(20);
+        assertThat(outcomeRepository.countByRedAndSessionId(true, sessionId)).isEqualTo(19);
+        assertThat(outcomeRepository.countByRedAndSessionId(false, sessionId)).isEqualTo(19);
     }
 
     @Test
     public void halfCountersTest() {
-        assertThat(outcomeRepository.countByFirstHalfAndSessionId(true, sessionIdForCounterTests)).isEqualTo(19);
-        assertThat(outcomeRepository.countByFirstHalfAndSessionId(false, sessionIdForCounterTests)).isEqualTo(18);
-        assertThat(outcomeRepository.countBySecondHalfAndSessionId(true, sessionIdForCounterTests)).isEqualTo(18);
-        assertThat(outcomeRepository.countBySecondHalfAndSessionId(false, sessionIdForCounterTests)).isEqualTo(19);
-
-
+        assertThat(outcomeRepository.countByFirstHalfAndSessionId(true, sessionId)).isEqualTo(19);
+        assertThat(outcomeRepository.countByFirstHalfAndSessionId(false, sessionId)).isEqualTo(19);
+        assertThat(outcomeRepository.countBySecondHalfAndSessionId(true, sessionId)).isEqualTo(18);
+        assertThat(outcomeRepository.countBySecondHalfAndSessionId(false, sessionId)).isEqualTo(20);
     }
 
     @Test
     public void oddEvenCountersTest() {
-        assertThat(outcomeRepository.countByOddAndSessionId(true, sessionIdForCounterTests)).isEqualTo(19);
-        assertThat(outcomeRepository.countByOddAndSessionId(false, sessionIdForCounterTests)).isEqualTo(18);
-        assertThat(outcomeRepository.countByEvenAndSessionId(true, sessionIdForCounterTests)).isEqualTo(18);
-        assertThat(outcomeRepository.countByEvenAndSessionId(false, sessionIdForCounterTests)).isEqualTo(19);
+        assertThat(outcomeRepository.countByOddAndSessionId(true, sessionId)).isEqualTo(19);
+        assertThat(outcomeRepository.countByOddAndSessionId(false, sessionId)).isEqualTo(19);
+        assertThat(outcomeRepository.countByEvenAndSessionId(true, sessionId)).isEqualTo(18);
+        assertThat(outcomeRepository.countByEvenAndSessionId(false, sessionId)).isEqualTo(20);
 
     }
 
     @Test
     public void dozenCountersTest() {
-        assertThat(outcomeRepository.countByFirstDozenAndSessionId(true, sessionIdForCounterTests)).isEqualTo(13);
-        assertThat(outcomeRepository.countByFirstDozenAndSessionId(false, sessionIdForCounterTests)).isEqualTo(24);
-        assertThat(outcomeRepository.countBySecondDozenAndSessionId(true, sessionIdForCounterTests)).isEqualTo(12);
-        assertThat(outcomeRepository.countBySecondDozenAndSessionId(false, sessionIdForCounterTests)).isEqualTo(25);
-        assertThat(outcomeRepository.countByThirdDozenAndSessionId(true, sessionIdForCounterTests)).isEqualTo(12);
-        assertThat(outcomeRepository.countByThirdDozenAndSessionId(false, sessionIdForCounterTests)).isEqualTo(25);
+        assertThat(outcomeRepository.countByFirstDozenAndSessionId(true, sessionId)).isEqualTo(13);
+        assertThat(outcomeRepository.countByFirstDozenAndSessionId(false, sessionId)).isEqualTo(25);
+        assertThat(outcomeRepository.countBySecondDozenAndSessionId(true, sessionId)).isEqualTo(12);
+        assertThat(outcomeRepository.countBySecondDozenAndSessionId(false, sessionId)).isEqualTo(26);
+        assertThat(outcomeRepository.countByThirdDozenAndSessionId(true, sessionId)).isEqualTo(12);
+        assertThat(outcomeRepository.countByThirdDozenAndSessionId(false, sessionId)).isEqualTo(26);
     }
 
     @Test
     public void columnCountersTest() {
-        assertThat(outcomeRepository.countByFirstColumnAndSessionId(true, sessionIdForCounterTests)).isEqualTo(13);
-        assertThat(outcomeRepository.countByFirstColumnAndSessionId(false, sessionIdForCounterTests)).isEqualTo(24);
-        assertThat(outcomeRepository.countBySecondColumnAndSessionId(true, sessionIdForCounterTests)).isEqualTo(12);
-        assertThat(outcomeRepository.countBySecondColumnAndSessionId(false, sessionIdForCounterTests)).isEqualTo(25);
-        assertThat(outcomeRepository.countByThirdColumnAndSessionId(true, sessionIdForCounterTests)).isEqualTo(12);
-        assertThat(outcomeRepository.countByThirdColumnAndSessionId(false, sessionIdForCounterTests)).isEqualTo(25);
+        assertThat(outcomeRepository.countByFirstColumnAndSessionId(true, sessionId)).isEqualTo(13);
+        assertThat(outcomeRepository.countByFirstColumnAndSessionId(false, sessionId)).isEqualTo(25);
+        assertThat(outcomeRepository.countBySecondColumnAndSessionId(true, sessionId)).isEqualTo(12);
+        assertThat(outcomeRepository.countBySecondColumnAndSessionId(false, sessionId)).isEqualTo(26);
+        assertThat(outcomeRepository.countByThirdColumnAndSessionId(true, sessionId)).isEqualTo(12);
+        assertThat(outcomeRepository.countByThirdColumnAndSessionId(false, sessionId)).isEqualTo(26);
+    }
+
+    @Test
+    public void zeroCountersTest() {
+        assertThat(outcomeRepository.countByZeroAndSessionId(true, sessionId)).isEqualTo(1);
+        assertThat(outcomeRepository.countByZeroAndSessionId(false, sessionId)).isEqualTo(37);
+    }
+
+    @Test
+    public void secondSessionForUserDoesNotAffectCountersOfFirstSessionTest() {
+
+        var session = new Session();
+        session.setChipValue(BigDecimal.TEN);
+        session.setUserId(1234);
+
+        var sessionId2 = sessionRepository.save(Mapper.map(session)).getId();
+
+        addAllAvailableRouletteNumbersToOutcomeRepoForSession(sessionId2);
+
+        assertThat(outcomeRepository.countByFirstColumnAndSessionId(true, sessionId)).isEqualTo(13);
+        assertThat(outcomeRepository.countByFirstColumnAndSessionId(false, sessionId)).isEqualTo(25);
+        assertThat(outcomeRepository.countBySecondColumnAndSessionId(true, sessionId)).isEqualTo(12);
+        assertThat(outcomeRepository.countBySecondColumnAndSessionId(false, sessionId)).isEqualTo(26);
+        assertThat(outcomeRepository.countByThirdColumnAndSessionId(true, sessionId)).isEqualTo(12);
+        assertThat(outcomeRepository.countByThirdColumnAndSessionId(false, sessionId)).isEqualTo(26);
+    }
+
+    private void addAllAvailableRouletteNumbersToOutcomeRepoForSession(int sessionId) {
+        IntStream.rangeClosed(0, 36)
+                .mapToObj(number -> Mapper.map(new Outcome(sessionId, number)))
+                .forEach(outcomeRepository::save);
     }
 
 }
