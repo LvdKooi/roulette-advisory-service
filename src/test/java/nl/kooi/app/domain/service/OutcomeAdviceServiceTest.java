@@ -1,9 +1,11 @@
 package nl.kooi.app.domain.service;
 
 import nl.kooi.app.domain.Mapper;
+import nl.kooi.app.domain.advice.Advice;
 import nl.kooi.app.domain.metric.SessionMetrics;
 import nl.kooi.app.domain.outcome.Outcome;
 import nl.kooi.app.domain.rouletteoutcome.RouletteOutcome;
+import nl.kooi.infrastructure.entity.AdviceEntity;
 import nl.kooi.infrastructure.entity.OutcomeEntity;
 import nl.kooi.infrastructure.entity.SessionEntity;
 import nl.kooi.infrastructure.repository.AdviceRepository;
@@ -21,7 +23,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.TreeMap;
+import java.util.function.Function;
 
+import static nl.kooi.app.domain.rouletteoutcome.RouletteOutcome.ZERO;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.verify;
@@ -67,6 +71,7 @@ public class OutcomeAdviceServiceTest {
         when(outcomeRepository.getLeastProfitAmount(12)).thenReturn(BigDecimal.valueOf(-20));
         when(outcomeRepository.getHighestProfitAmount(12)).thenReturn(BigDecimal.TEN);
         when(outcomeRepository.findFirstBySessionIdOrderByIdDesc(12)).thenReturn(getOutcomeEntityWithProfit());
+        when(adviceRepository.findFirstBySessionIdOrderByIdDesc(12)).thenReturn(getAdviceEntity());
     }
 
     @Test
@@ -79,6 +84,11 @@ public class OutcomeAdviceServiceTest {
                 && entity.getSession().equals(getSessionEntity())));
     }
 
+    @Test
+    public void findLastAdviceTest() {
+        assertThat(outcomeAdviceService.findLastAdvice(12)).isEqualTo(getExpectedAdvice());
+
+    }
 
     @Test
     public void getSessionMetricsTest() {
@@ -114,15 +124,31 @@ public class OutcomeAdviceServiceTest {
         return outcome;
     }
 
+    private Advice getExpectedAdvice() {
+        var adviceMap = new TreeMap<>(getCounterMap(BigDecimal::valueOf));
+        adviceMap.remove(ZERO);
+        return new Advice(adviceMap);
+
+    }
+
+    private AdviceEntity getAdviceEntity() {
+        return Mapper.map(getExpectedAdvice());
+    }
+
     private Map<RouletteOutcome, Long> getExpectedOutcomeCounter() {
+        return getCounterMap(Long::valueOf);
+    }
 
-        var outcomeCounterMap = new TreeMap<RouletteOutcome, Long>();
+    private <T> Map<RouletteOutcome, T> getCounterMap(Function<Integer, T> function) {
 
-        var i = 0L;
+        var outcomeCounterMap = new TreeMap<RouletteOutcome, T>();
+
+        var i = 0;
 
         for (RouletteOutcome outcome : RouletteOutcome.values()) {
-            outcomeCounterMap.put(outcome, i);
-            i++;
+            var arg = function.apply(i++);
+            outcomeCounterMap.put(outcome, arg);
+
         }
 
         return outcomeCounterMap;
