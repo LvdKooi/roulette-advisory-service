@@ -1,7 +1,9 @@
 package nl.kooi.app.domain.service;
 
 import nl.kooi.app.domain.Mapper;
+import nl.kooi.app.domain.metric.SessionMetrics;
 import nl.kooi.app.domain.outcome.Outcome;
+import nl.kooi.app.domain.rouletteoutcome.RouletteOutcome;
 import nl.kooi.infrastructure.entity.OutcomeEntity;
 import nl.kooi.infrastructure.entity.SessionEntity;
 import nl.kooi.infrastructure.repository.AdviceRepository;
@@ -16,8 +18,11 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.TreeMap;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -45,6 +50,23 @@ public class OutcomeAdviceServiceTest {
         when(sessionRepository.findByIdAndUserId(12, 1234)).thenReturn(Optional.of(getSessionEntity()));
         when(outcomeRepository.findBySessionIdOrderByIdAsc(12)).thenReturn(getOutcomeEntities());
         when(outcomeRepository.save(Mapper.map(new Outcome(12, 5)))).thenReturn(getOutcomeEntities().get(0));
+        when(outcomeRepository.countByBlackAndSessionId(true, 12)).thenReturn(1L);
+        when(outcomeRepository.countByRedAndSessionId(true, 12)).thenReturn(2L);
+        when(outcomeRepository.countByOddAndSessionId(true, 12)).thenReturn(3L);
+        when(outcomeRepository.countByEvenAndSessionId(true, 12)).thenReturn(4L);
+        when(outcomeRepository.countByFirstHalfAndSessionId(true, 12)).thenReturn(5L);
+        when(outcomeRepository.countBySecondHalfAndSessionId(true, 12)).thenReturn(6L);
+        when(outcomeRepository.countByFirstColumnAndSessionId(true, 12)).thenReturn(7L);
+        when(outcomeRepository.countBySecondColumnAndSessionId(true, 12)).thenReturn(8L);
+        when(outcomeRepository.countByThirdColumnAndSessionId(true, 12)).thenReturn(9L);
+        when(outcomeRepository.countByFirstDozenAndSessionId(true, 12)).thenReturn(10L);
+        when(outcomeRepository.countBySecondDozenAndSessionId(true, 12)).thenReturn(11L);
+        when(outcomeRepository.countByThirdDozenAndSessionId(true, 12)).thenReturn(12L);
+        when(outcomeRepository.countByZeroAndSessionId(true, 12)).thenReturn(0L);
+        when(outcomeRepository.countBySessionId(12)).thenReturn(91L);
+        when(outcomeRepository.getLeastProfitAmount(12)).thenReturn(BigDecimal.valueOf(-20));
+        when(outcomeRepository.getHighestProfitAmount(12)).thenReturn(BigDecimal.TEN);
+        when(outcomeRepository.findFirstBySessionIdOrderByIdDesc(12)).thenReturn(getOutcomeEntityWithProfit());
     }
 
     @Test
@@ -57,6 +79,20 @@ public class OutcomeAdviceServiceTest {
                 && entity.getSession().equals(getSessionEntity())));
     }
 
+
+    @Test
+    public void getSessionMetricsTest() {
+        var totalRounds = 91L;
+        var currentProfit = BigDecimal.valueOf(100);
+        var leastProfit = BigDecimal.valueOf(-20);
+        var topProfit = BigDecimal.TEN;
+
+        var expectedSessionMetrics = new SessionMetrics(getExpectedOutcomeCounter(), totalRounds, currentProfit, leastProfit, topProfit);
+
+        assertThat(outcomeAdviceService.getSessionsMetrics(12)).isEqualTo(expectedSessionMetrics);
+    }
+
+
     private SessionEntity getSessionEntity() {
         var entity = new SessionEntity();
         entity.setChipValue(BigDecimal.TEN);
@@ -68,9 +104,30 @@ public class OutcomeAdviceServiceTest {
 
     private List<OutcomeEntity> getOutcomeEntities() {
         var outcome = new Outcome(12, 5);
-
         return List.of(Mapper.map(outcome), Mapper.map(outcome), Mapper.map(outcome));
-
     }
 
+    private OutcomeEntity getOutcomeEntityWithProfit() {
+        var outcome = new OutcomeEntity();
+        outcome.setSession(getSessionEntity());
+        outcome.setTotalProfit(BigDecimal.valueOf(100));
+        return outcome;
+    }
+
+    private Map<RouletteOutcome, Long> getExpectedOutcomeCounter() {
+
+        var outcomeCounterMap = new TreeMap<RouletteOutcome, Long>();
+
+        var i = 0L;
+
+        for (RouletteOutcome outcome : RouletteOutcome.values()) {
+            outcomeCounterMap.put(outcome, i);
+            i++;
+        }
+
+        return outcomeCounterMap;
+
+    }
 }
+
+

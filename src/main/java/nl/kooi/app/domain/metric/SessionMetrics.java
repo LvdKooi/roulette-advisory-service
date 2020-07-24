@@ -1,6 +1,8 @@
 package nl.kooi.app.domain.metric;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import nl.kooi.app.domain.rouletteoutcome.RouletteOutcome;
 
@@ -14,6 +16,8 @@ import java.util.TreeMap;
 import static java.math.RoundingMode.HALF_UP;
 
 @Slf4j
+@ToString
+@EqualsAndHashCode
 @Getter
 public class SessionMetrics {
     private NavigableMap<RouletteOutcome, BigDecimal> outcomePercentageMap;
