@@ -14,6 +14,7 @@ import nl.kooi.app.persistence.repository.SessionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -33,6 +34,7 @@ public class OutcomeAdviceService {
     @Autowired
     private SessionRepository sessionRepository;
 
+    @Transactional
     public Outcome saveOutcomeAndAdvise(int userId, int sessionId, int number) {
         var sessionEntity = sessionRepository.findByIdAndUserId(sessionId, userId)
                 .orElseThrow(() -> new NotFoundException("Session Id not found"));
