@@ -39,16 +39,13 @@ public class OutcomeRepositoryTest {
 
         addAllAvailableRouletteNumbersToOutcomeRepoForSession(sessionId);
 
-        outcomeRepository.save(Mapper.map(new Outcome(sessionId, 1)));
+        outcomeRepository.save(Mapper.map(new Outcome(sessionId, 7)));
     }
 
     @Test
     public void findBySessionIdMethodsTest() {
-        var outcome = new Outcome(sessionId, 12, BigDecimal.TEN);
-        outcomeRepository.save(Mapper.map(outcome));
-
-        assertThat(outcomeRepository.findFirstBySessionIdOrderByIdDesc(sessionId).getOutcome()).isEqualTo(12);
-        assertThat(outcomeRepository.findBySessionIdOrderByIdAsc(sessionId).size()).isEqualTo(39);
+        assertThat(outcomeRepository.findFirstBySessionIdOrderByIdDesc(sessionId).getOutcome()).isEqualTo(7);
+        assertThat(outcomeRepository.findBySessionIdOrderByIdAsc(sessionId).size()).isEqualTo(38);
     }
 
     @Test
