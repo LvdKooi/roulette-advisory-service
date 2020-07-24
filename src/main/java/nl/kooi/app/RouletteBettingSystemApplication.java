@@ -9,8 +9,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @Slf4j
 @SpringBootApplication
-@EnableJpaRepositories("nl.kooi.infrastructure.repository")
-@EntityScan("nl.kooi.infrastructure.entity")
+@EnableJpaRepositories("nl.kooi.app.persistence.repository")
+@EntityScan("nl.kooi.app.persistence.entity")
 public class RouletteBettingSystemApplication {
 
     public static void main(String[] args) {

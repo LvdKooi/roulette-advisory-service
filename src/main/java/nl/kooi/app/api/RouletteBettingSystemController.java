@@ -7,8 +7,8 @@ import nl.kooi.app.api.dto.Mapper;
 import nl.kooi.app.api.dto.SessionMetricsDto;
 import nl.kooi.app.domain.service.OutcomeAdviceService;
 import nl.kooi.app.exception.NotFoundException;
-import nl.kooi.infrastructure.entity.SessionEntity;
-import nl.kooi.infrastructure.repository.SessionRepository;
+import nl.kooi.app.persistence.entity.SessionEntity;
+import nl.kooi.app.persistence.repository.SessionRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,7 +57,7 @@ public class RouletteBettingSystemController {
     @RequestMapping(path = "/{userId}/sessions/{sessionsId}/metrics/", method = GET, produces = "application/json")
     public SessionMetricsDto getMetrics(@PathVariable("userId") Integer userId, @PathVariable("sessionsId") Integer sessionId) {
         Optional<SessionEntity> session = sessionRepository.findByIdAndUserId(sessionId, userId);
-        if (!session.isPresent()) {
+        if (session.isEmpty()) {
             throw new NotFoundException("Session Id not found");
         }
         return Mapper.map(outcomeAdviceService.getSessionsMetrics(sessionId));

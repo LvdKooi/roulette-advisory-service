@@ -5,8 +5,8 @@ import nl.kooi.app.domain.outcome.Outcome;
 import nl.kooi.app.domain.rouletteoutcome.RouletteOutcome;
 import nl.kooi.app.domain.rouletteoutcome.RouletteOutcomeUtilities;
 import nl.kooi.app.domain.session.Session;
-import nl.kooi.infrastructure.entity.AdviceEntity;
-import nl.kooi.infrastructure.entity.SessionEntity;
+import nl.kooi.app.persistence.entity.AdviceEntity;
+import nl.kooi.app.persistence.entity.SessionEntity;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;

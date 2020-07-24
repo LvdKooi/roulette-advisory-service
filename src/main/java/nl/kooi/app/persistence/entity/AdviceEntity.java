@@ -1,4 +1,4 @@
-package nl.kooi.infrastructure.entity;
+package nl.kooi.app.persistence.entity;
 
 import lombok.Data;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;

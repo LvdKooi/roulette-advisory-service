@@ -1,6 +1,6 @@
-package nl.kooi.infrastructure.repository;
+package nl.kooi.app.persistence.repository;
 
-import nl.kooi.infrastructure.entity.OutcomeEntity;
+import nl.kooi.app.persistence.entity.OutcomeEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

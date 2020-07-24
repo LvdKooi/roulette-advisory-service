@@ -14,4 +14,4 @@ spring:
     generate-ddl: true
     show-sql: false
     repositories:
-      base-package: nl.kooi.infrastructure.repository
+      base-package: nl.kooi.app.persistence.repository

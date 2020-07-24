@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import nl.kooi.app.domain.Mapper;
 import nl.kooi.app.domain.session.Session;
 import nl.kooi.app.exception.NotFoundException;
-import nl.kooi.infrastructure.repository.SessionRepository;
+import nl.kooi.app.persistence.repository.SessionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
