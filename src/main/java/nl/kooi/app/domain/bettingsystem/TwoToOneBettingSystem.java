@@ -5,6 +5,13 @@
  */
 package nl.kooi.app.domain.bettingsystem;
 
+
+import nl.kooi.app.domain.advice.Advice;
+import nl.kooi.app.domain.rouletteoutcome.RouletteOutcome;
+
+import java.math.BigDecimal;
+import java.util.TreeMap;
+
 /**
  * @author Laurens van der Kooi
  */
@@ -13,12 +20,12 @@ public class TwoToOneBettingSystem extends BettingSystem {
 
     private boolean[][] outcomeArray;
     private int[] adviceArray;
-    private int winLossCountArray[][];
+    private int[][] winLossCountArray;
     private int profitCounter;
     private  int maxProfit;
 
-    public TwoToOneBettingSystem(int bettingFactor, int delay, char system) {
-        super(bettingFactor, delay, system);
+    public TwoToOneBettingSystem(int bettingFactor, int delay) {
+        super(bettingFactor, delay);
         outcomeArray = new boolean[3][delay];
         adviceArray = new int[3];
 
@@ -27,7 +34,6 @@ public class TwoToOneBettingSystem extends BettingSystem {
                 outcomeArray[i][j] = true;
             }
         }
-
     }
 
     private void setRounds() {
@@ -60,8 +66,8 @@ public class TwoToOneBettingSystem extends BettingSystem {
         }
     }
 
-    public void compoundDefferedMartingGale(boolean[] hitArray) {
-
+    @Override
+    public void setHits(boolean[] hitArray) {
         updateOutcomeArray(hitArray);
         setRounds();
         setWinLossCountArray(hitArray);
@@ -78,7 +84,7 @@ public class TwoToOneBettingSystem extends BettingSystem {
                 // situation 1: a bet was made but it didn't hit
                 if (adviceArray[i] > 0 && !hitArray[i]) {
 
-                    adviceArray[i] *= super.getBettingFactor();
+                    adviceArray[i] *= getBettingFactor();
 
 
                     // situation 2: a bet was made, the bet was won but conditions still meet: time to bet again.
@@ -112,7 +118,7 @@ public class TwoToOneBettingSystem extends BettingSystem {
 
                         //check whether there are other fields eligible for a bet
                         if (winLossCountArray[j][1] >= getDelay() - 1) {
-                            adviceArray[i] = Math.max(1, adviceArray[i] *= super.getBettingFactor());
+                            adviceArray[i] = Math.max(1, adviceArray[i] *= getBettingFactor());
                             break;
 
                             //if not, not bets advices
@@ -192,7 +198,7 @@ public class TwoToOneBettingSystem extends BettingSystem {
            else  if (adviceArray[i] > 0 && winLossCountArray[i][1] >= getDelay() - 1 && hitArray[i]) {
                 profitCounter = ++maxProfit;
                 break;
-            }  else {
+            } else {
                 if (adviceArray[i] > 0 && !(winLossCountArray[i][1] >= getDelay() - 1 && !hitArray[i])) {
 
                     profitCounter = ++maxProfit;
@@ -201,5 +207,14 @@ public class TwoToOneBettingSystem extends BettingSystem {
             }
         }
     }
+
+    public Advice getTwoToOneAdvice(RouletteOutcome firstOutcome, RouletteOutcome secondOutcome, RouletteOutcome thirdOutcome, BigDecimal chipValue) {
+        var map = new TreeMap<RouletteOutcome, BigDecimal>();
+        map.put(firstOutcome, chipValue.multiply(new BigDecimal(getAdviceArray()[0])));
+        map.put(secondOutcome, chipValue.multiply(new BigDecimal(getAdviceArray()[1])));
+        map.put(thirdOutcome, chipValue.multiply(new BigDecimal(getAdviceArray()[2])));
+        return new Advice(map);
+    }
+
 }
 

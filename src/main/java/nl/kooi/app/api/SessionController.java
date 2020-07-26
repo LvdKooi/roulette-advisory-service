@@ -1,66 +1,39 @@
 package nl.kooi.app.api;
 
 import lombok.extern.slf4j.Slf4j;
-import nl.kooi.app.domain.model.Session;
-import nl.kooi.infrastructure.repository.SessionRepository;
+import nl.kooi.app.api.dto.Mapper;
+import nl.kooi.app.api.dto.SessionDto;
+import nl.kooi.app.domain.service.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
-import java.util.Optional;
 
-@RequestMapping(path = "/sessions")
+@RequestMapping(path = "users/{userId}/sessions/")
 @RestController
 @Slf4j
-
 public class SessionController {
-
     @Autowired
-    SessionRepository sessionRepository;
-
-    @GetMapping
-    public ResponseEntity<List<Session>> findAll() {
-        return ResponseEntity.ok(sessionRepository.findAll());
-    }
+    private SessionService sessionService;
 
     @PostMapping
-    public ResponseEntity create(@Valid @RequestBody Session session) {
-        return ResponseEntity.ok(sessionRepository.save(session));
+    public ResponseEntity<SessionDto> create(@PathVariable int userId, @Valid @RequestBody SessionDto sessionDto) {
+        if (sessionDto.getUserId() == 0) {
+            sessionDto.setUserId(userId);
+        }
+        return ResponseEntity.ok(Mapper.map(sessionService.save(Mapper.map(sessionDto))));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Session> findById(@PathVariable int id) {
-        Optional<Session> stock = sessionRepository.findById(id);
-        if (!stock.isPresent()) {
-            log.error("Id " + id + " is not existed");
-            return ResponseEntity.notFound().build();
-        }
-
-        return ResponseEntity.ok(stock.get());
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<Session> update(@PathVariable int id, @Valid @RequestBody Session session) {
-        if (!sessionRepository.findById(id).isPresent()) {
-            log.error("Id " + id + " is not existed");
-            return ResponseEntity.notFound().build();
-        }
-
-        return ResponseEntity.ok(sessionRepository.save(session));
+    public ResponseEntity<SessionDto> findById(@PathVariable int userId, @PathVariable int id) {
+        return ResponseEntity.ok(Mapper.map(sessionService.findByIdAndUserId(id, userId)));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity delete(@PathVariable int id) {
-        if (!sessionRepository.findById(id).isPresent()) {
-            log.error("Id " + id + " is not existed");
-            return ResponseEntity.notFound().build();
-        }
-
-        sessionRepository.deleteById(id);
-
+    public ResponseEntity delete(@PathVariable int userId, @PathVariable int id) {
+        sessionService.findByIdAndUserId(id, userId);
+        sessionService.deleteById(id);
         return ResponseEntity.ok().build();
     }
 }
