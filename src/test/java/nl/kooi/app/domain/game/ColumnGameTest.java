@@ -7,8 +7,8 @@ import org.junit.jupiter.api.Test;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
+
 
 public class ColumnGameTest {
     private ColumnGame columnGame;
@@ -20,7 +20,7 @@ public class ColumnGameTest {
 
     @Test
     public void columnGameChipValueTest() {
-        assertThat("ChipValue is not equal to expectation.", BigDecimal.TEN.setScale(2, RoundingMode.HALF_UP), equalTo(columnGame.getChipValue()));
+        assertThat(columnGame.getChipValue()).isEqualTo(BigDecimal.TEN.setScale(2, RoundingMode.HALF_UP));
     }
 
     @Test
@@ -28,7 +28,7 @@ public class ColumnGameTest {
         var outcome = new Outcome(1, 1, BigDecimal.ZERO);
         columnGame.setHits(outcome);
 
-        assertThat("HitArray doesn't match expectation.", new boolean[]{true, false, false}, equalTo(columnGame.getHitArray()));
+        assertThat(columnGame.getHitArray()).isEqualTo(new boolean[]{true, false, false});
     }
 
     @Test
@@ -36,7 +36,7 @@ public class ColumnGameTest {
         var outcome = new Outcome(1, 17, BigDecimal.ZERO);
         columnGame.setHits(outcome);
 
-        assertThat("HitArray doesn't match expectation.", new boolean[]{false, true, false}, equalTo(columnGame.getHitArray()));
+        assertThat(columnGame.getHitArray()).isEqualTo(new boolean[]{false, true, false});
     }
 
 
@@ -45,7 +45,7 @@ public class ColumnGameTest {
         var outcome = new Outcome(1, 36, BigDecimal.ZERO);
         columnGame.setHits(outcome);
 
-        assertThat("HitArray doesn't match expectation.", new boolean[]{false, false, true}, equalTo(columnGame.getHitArray()));
+        assertThat(columnGame.getHitArray()).isEqualTo(new boolean[]{false, false, true});
     }
 
     @Test
@@ -53,6 +53,6 @@ public class ColumnGameTest {
         var outcome = new Outcome(1, 0, BigDecimal.ZERO);
         columnGame.setHits(outcome);
 
-        assertThat("HitArray doesn't match expectation.", new boolean[]{false, false, false}, equalTo(columnGame.getHitArray()));
+        assertThat(columnGame.getHitArray()).isEqualTo(new boolean[]{false, false, false});
     }
 }

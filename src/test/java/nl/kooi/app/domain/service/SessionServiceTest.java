@@ -16,8 +16,7 @@ import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.Optional;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.when;
 
@@ -102,9 +101,9 @@ public class SessionServiceTest {
     }
 
     private void assertSession(Session session) {
-        assertThat("UserId of the session doesn't match expectation", session.getUserId(), equalTo(1234));
-        assertThat("Id of the session doesn't match expectation", session.getId(), equalTo(12));
-        assertThat("ChipValue of the session doesn't match expectation", session.getChipValue(), equalTo(BigDecimal.TEN));
-        assertThat("DateTime of the session doesn't match expectation", session.getDateTime(), equalTo(instant));
+        assertThat(session.getUserId()).isEqualTo(1234);
+        assertThat(session.getId()).isEqualTo(12);
+        assertThat(session.getChipValue()).isEqualTo(BigDecimal.TEN);
+        assertThat(session.getDateTime()).isEqualTo(instant);
     }
 }

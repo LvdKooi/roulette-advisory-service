@@ -7,8 +7,8 @@ import org.junit.jupiter.api.Test;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
+
 
 public class DozenGameTest {
     private DozenGame dozenGame;
@@ -20,7 +20,7 @@ public class DozenGameTest {
 
     @Test
     public void dozenGameChipValueTest() {
-        assertThat("ChipValue is not equal to expectation.", BigDecimal.TEN.setScale(2, RoundingMode.HALF_UP), equalTo(dozenGame.getChipValue()));
+        assertThat(dozenGame.getChipValue()).isEqualTo(BigDecimal.TEN.setScale(2, RoundingMode.HALF_UP));
     }
 
     @Test
@@ -28,7 +28,7 @@ public class DozenGameTest {
         var outcome = new Outcome(1, 1, BigDecimal.ZERO);
         dozenGame.setHits(outcome);
 
-        assertThat("HitArray doesn't match expectation.", new boolean[]{true, false, false}, equalTo(dozenGame.getHitArray()));
+        assertThat(dozenGame.getHitArray()).isEqualTo(new boolean[]{true, false, false});
     }
 
     @Test
@@ -36,16 +36,15 @@ public class DozenGameTest {
         var outcome = new Outcome(1, 13, BigDecimal.ZERO);
         dozenGame.setHits(outcome);
 
-        assertThat("HitArray doesn't match expectation.", new boolean[]{false, true, false}, equalTo(dozenGame.getHitArray()));
+        assertThat(dozenGame.getHitArray()).isEqualTo(new boolean[]{false, true, false});
     }
-
 
     @Test
     public void hitArrayThirdDozenTest() {
         var outcome = new Outcome(1, 25, BigDecimal.ZERO);
         dozenGame.setHits(outcome);
 
-        assertThat("HitArray doesn't match expectation.", new boolean[]{false, false, true}, equalTo(dozenGame.getHitArray()));
+        assertThat(dozenGame.getHitArray()).isEqualTo(new boolean[]{false, false, true});
     }
 
     @Test
@@ -53,6 +52,6 @@ public class DozenGameTest {
         var outcome = new Outcome(1, 0, BigDecimal.ZERO);
         dozenGame.setHits(outcome);
 
-        assertThat("HitArray doesn't match expectation.", new boolean[]{false, false, false}, equalTo(dozenGame.getHitArray()));
+        assertThat(dozenGame.getHitArray()).isEqualTo(new boolean[]{false, false, false});
     }
 }

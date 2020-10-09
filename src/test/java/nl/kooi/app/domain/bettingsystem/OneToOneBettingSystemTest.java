@@ -7,8 +7,8 @@ import java.math.BigDecimal;
 
 import static nl.kooi.app.domain.rouletteoutcome.RouletteOutcome.BLACK;
 import static nl.kooi.app.domain.rouletteoutcome.RouletteOutcome.RED;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
+
 
 public class OneToOneBettingSystemTest {
 
@@ -118,12 +118,12 @@ public class OneToOneBettingSystemTest {
 
     private void assertAdviceAndProfit(int advice1, int advice2, int profit) {
 
-        var adviceMap = bettingSystem.getOneToOneAdvice(RED, BLACK,BigDecimal.ONE).getAdviceMap();
+        var adviceMap = bettingSystem.getOneToOneAdvice(RED, BLACK, BigDecimal.ONE).getAdviceMap();
 
-        assertThat("Advice doesn't match expectation", bettingSystem.getAdviceArray(), equalTo(new int[]{advice1, advice2}));
-        assertThat("Profit doesn't match expectation", bettingSystem.getProfitCounter(), equalTo(profit));
-        assertThat("AdviceMap doesn't match expectation",adviceMap.get(RED), equalTo(BigDecimal.valueOf(advice1)));
-        assertThat("AdviceMap doesn't match expectation",adviceMap.get(BLACK), equalTo(BigDecimal.valueOf(advice2)));
+        assertThat(bettingSystem.getAdviceArray()).isEqualTo(new int[]{advice1, advice2});
+        assertThat(bettingSystem.getProfitCounter()).isEqualTo(profit);
+        assertThat(adviceMap.get(RED)).isEqualTo(BigDecimal.valueOf(advice1));
+        assertThat(adviceMap.get(BLACK)).isEqualTo(BigDecimal.valueOf(advice2));
     }
 
 }

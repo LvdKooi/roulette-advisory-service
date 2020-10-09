@@ -7,8 +7,8 @@ import org.junit.jupiter.api.Test;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
+
 
 public class RedBlackGameTest {
     private RedBlackGame redBlackGame;
@@ -20,7 +20,7 @@ public class RedBlackGameTest {
 
     @Test
     public void redBlackGameChipValueTest() {
-        assertThat("ChipValue is not equal to expectation.", BigDecimal.TEN.setScale(2, RoundingMode.HALF_UP), equalTo(redBlackGame.getChipValue()));
+        assertThat(BigDecimal.TEN.setScale(2, RoundingMode.HALF_UP)).isEqualTo(redBlackGame.getChipValue());
     }
 
     @Test
@@ -28,7 +28,7 @@ public class RedBlackGameTest {
         var outcome = new Outcome(1, 1, BigDecimal.ZERO);
         redBlackGame.setHits(outcome);
 
-        assertThat("HitArray doesn't match expectation.", new boolean[]{true, false}, equalTo(redBlackGame.getHitArray()));
+        assertThat(redBlackGame.getHitArray()).isEqualTo(new boolean[]{true, false});
     }
 
     @Test
@@ -36,7 +36,7 @@ public class RedBlackGameTest {
         var outcome = new Outcome(1, 2, BigDecimal.ZERO);
         redBlackGame.setHits(outcome);
 
-        assertThat("HitArray doesn't match expectation.", new boolean[]{false, true}, equalTo(redBlackGame.getHitArray()));
+        assertThat(redBlackGame.getHitArray()).isEqualTo(new boolean[]{false, true});
     }
 
     @Test
@@ -44,6 +44,6 @@ public class RedBlackGameTest {
         var outcome = new Outcome(1, 0, BigDecimal.ZERO);
         redBlackGame.setHits(outcome);
 
-        assertThat("HitArray doesn't match expectation.", new boolean[]{false, false}, equalTo(redBlackGame.getHitArray()));
+        assertThat(redBlackGame.getHitArray()).isEqualTo(new boolean[]{false, false});
     }
 }

@@ -6,8 +6,8 @@ import org.junit.jupiter.api.Test;
 import java.math.BigDecimal;
 
 import static nl.kooi.app.domain.rouletteoutcome.RouletteOutcome.*;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
+
 
 public class TwoToOneBettingSystemTest {
 
@@ -119,11 +119,11 @@ public class TwoToOneBettingSystemTest {
 
         var adviceMap = bettingSystem.getTwoToOneAdvice(FIRST_COLUMN, SECOND_COLUMN, THIRD_COLUMN, BigDecimal.ONE).getAdviceMap();
 
-        assertThat("Advice doesn't match expectation", bettingSystem.getAdviceArray(), equalTo(new int[]{advice1, advice2, advice3}));
-        assertThat("Profit doesn't match expectation", bettingSystem.getProfitCounter(), equalTo(profit));
-        assertThat("AdviceMap doesn't match expectation", adviceMap.get(FIRST_COLUMN), equalTo(BigDecimal.valueOf(advice1)));
-        assertThat("AdviceMap doesn't match expectation", adviceMap.get(SECOND_COLUMN), equalTo(BigDecimal.valueOf(advice2)));
-        assertThat("AdviceMap doesn't match expectation", adviceMap.get(THIRD_COLUMN), equalTo(BigDecimal.valueOf(advice3)));
+        assertThat(bettingSystem.getAdviceArray()).isEqualTo(new int[]{advice1, advice2, advice3});
+        assertThat(bettingSystem.getProfitCounter()).isEqualTo(profit);
+        assertThat(adviceMap.get(FIRST_COLUMN)).isEqualTo(BigDecimal.valueOf(advice1));
+        assertThat(adviceMap.get(SECOND_COLUMN)).isEqualTo(BigDecimal.valueOf(advice2));
+        assertThat(adviceMap.get(THIRD_COLUMN)).isEqualTo(BigDecimal.valueOf(advice3));
     }
 
 }
