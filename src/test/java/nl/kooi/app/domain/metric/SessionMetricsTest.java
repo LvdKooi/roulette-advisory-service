@@ -9,8 +9,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import static java.math.RoundingMode.HALF_UP;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
+
 
 public class SessionMetricsTest {
 
@@ -33,15 +33,15 @@ public class SessionMetricsTest {
 
         for (var entryset : sessionMetrics.getOutcomePercentageMap().entrySet()) {
 
-            assertThat("Percentage of " + entryset.getKey() + "doesn't match expectation.", entryset.getValue(), equalTo(BigDecimal.TEN.setScale(3, HALF_UP)));
+            assertThat(entryset.getValue()).isEqualTo(BigDecimal.TEN.setScale(3, HALF_UP));
         }
     }
 
     @Test
     public void sessionMetricsProfitsTest() {
-        assertThat("CurrentProfit doesn't match expectation.", sessionMetrics.getCurrentProfit(), equalTo(BigDecimal.ONE));
-        assertThat("LeastProfit doesn't match expectation.", sessionMetrics.getLeastProfit(), equalTo(BigDecimal.ZERO));
-        assertThat("TopProfit doesn't match expectation.", sessionMetrics.getTopProfit(), equalTo(BigDecimal.TEN));
+        assertThat(sessionMetrics.getCurrentProfit()).isEqualTo(BigDecimal.ONE);
+        assertThat(sessionMetrics.getLeastProfit()).isEqualTo(BigDecimal.ZERO);
+        assertThat(sessionMetrics.getTopProfit()).isEqualTo(BigDecimal.TEN);
     }
 
 }

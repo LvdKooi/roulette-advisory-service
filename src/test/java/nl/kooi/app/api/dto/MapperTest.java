@@ -13,8 +13,7 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class MapperTest {
 
@@ -42,8 +41,8 @@ public class MapperTest {
 
         var outcomeDto = Mapper.map(outcome);
 
-        assertThat("Id of OutcomeDto doesn't match the one of Outcome.", 1234, equalTo(outcomeDto.getId()));
-        assertThat("Outcome of OutcomeDto doesn't match the one of Outcome.", 10, equalTo(outcomeDto.getOutcome()));
+        assertThat(1234).isEqualTo(outcomeDto.getId());
+        assertThat(10).isEqualTo(outcomeDto.getOutcome());
     }
 
     @Test
@@ -57,9 +56,9 @@ public class MapperTest {
 
         var sessionDto = Mapper.map(session);
 
-        assertThat("Id of SessionDto doesn't match the one of Session.", 1234, equalTo(sessionDto.getId()));
-        assertThat("UserId of SessionDto doesn't match the one of Session.", 2345, equalTo(sessionDto.getUserId()));
-        assertThat("ChipValue of SessionDto doesn't match the one of Session.", BigDecimal.TEN, equalTo(sessionDto.getChipValue()));
+        assertThat(1234).isEqualTo(sessionDto.getId());
+        assertThat(2345).isEqualTo(sessionDto.getUserId());
+        assertThat(BigDecimal.TEN).isEqualTo(sessionDto.getChipValue());
     }
 
     @Test
@@ -72,9 +71,9 @@ public class MapperTest {
 
         var session = Mapper.map(sessionDto);
 
-        assertThat("Id of Session doesn't match the one of SessionDto.", 1234, equalTo(session.getId()));
-        assertThat("UserId of Session doesn't match the one of SessionDto.", 2345, equalTo(session.getUserId()));
-        assertThat("ChipValue of Session doesn't match the one of SessionDto.", BigDecimal.TEN, equalTo(session.getChipValue()));
+        assertThat(session.getId()).isEqualTo(1234);
+        assertThat(session.getUserId()).isEqualTo(2345);
+        assertThat(session.getChipValue()).isEqualTo(BigDecimal.TEN);
     }
 
     @Test
@@ -95,11 +94,11 @@ public class MapperTest {
 
         var sessionMetricsDto = Mapper.map(sessionMetrics);
 
-        assertThat("CurrentProfit of SessionMetricsDto doesn't match the one of SessionMetrics.", BigDecimal.TEN, equalTo(sessionMetricsDto.getCurrentProfit()));
-        assertThat("LeastProfit of SessionMetricsDto doesn't match the one of SessionMetrics.", BigDecimal.ZERO, equalTo(sessionMetricsDto.getLeastProfit()));
-        assertThat("TopProfit of SessionMetricsDto doesn't match the one of SessionMetrics.", BigDecimal.TEN, equalTo(sessionMetricsDto.getTopProfit()));
-        assertThat("TotalRounds of SessionMetricsDto doesn't match the one of SessionMetrics.", 10L, equalTo(sessionMetricsDto.getTotalRounds()));
-        assertThat("OutcomePercentageMap of SessionMetricsDto doesn't match the one of SessionMetrics.", sessionMetrics.getOutcomePercentageMap(), equalTo(sessionMetricsDto.getOutcomePercentageMap()));
+        assertThat(sessionMetricsDto.getCurrentProfit()).isEqualTo(BigDecimal.TEN);
+        assertThat(sessionMetricsDto.getLeastProfit()).isEqualTo(BigDecimal.ZERO);
+        assertThat(sessionMetricsDto.getTopProfit()).isEqualTo(BigDecimal.TEN);
+        assertThat(sessionMetricsDto.getTotalRounds()).isEqualTo(10L);
+        assertThat(sessionMetricsDto.getOutcomePercentageMap()).isEqualTo(sessionMetrics.getOutcomePercentageMap());
     }
 
     @Test
@@ -114,7 +113,7 @@ public class MapperTest {
 
         var adviceDto = Mapper.map(advice);
 
-        assertThat("Id of adviceDto doesn't match the one of Advice.", advice.getId(), equalTo(adviceDto.getId()));
-        assertThat("AdviceMap of adviceDto doesn't match the one of Advice.", advice.getAdviceMap(), equalTo(adviceDto.getAdviceMap()));
+        assertThat(adviceDto.getId()).isEqualTo(advice.getId());
+        assertThat(adviceDto.getAdviceMap()).isEqualTo(advice.getAdviceMap());
     }
 }

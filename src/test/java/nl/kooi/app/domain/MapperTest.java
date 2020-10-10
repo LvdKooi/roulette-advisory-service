@@ -15,8 +15,7 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class MapperTest {
 
@@ -30,9 +29,9 @@ public class MapperTest {
 
         var sessionEntity = Mapper.map(session);
 
-        assertThat("Id of SessionEntity doesn't match the one of Session.", 1234, equalTo(sessionEntity.getId()));
-        assertThat("UserId of SessionEntity doesn't match the one of Session.", 2345, equalTo(sessionEntity.getUserId()));
-        assertThat("ChipValue of SessionEntity doesn't match the one of Session.", BigDecimal.TEN, equalTo(sessionEntity.getChipValue()));
+        assertThat(sessionEntity.getId()).isEqualTo(1234);
+        assertThat(sessionEntity.getUserId()).isEqualTo(2345);
+        assertThat(sessionEntity.getChipValue()).isEqualTo(BigDecimal.TEN);
     }
 
 
@@ -46,9 +45,9 @@ public class MapperTest {
 
         var session = Mapper.map(sessionEntity);
 
-        assertThat("Id of Session doesn't match the one of SessionEntity.", 1234, equalTo(session.getId()));
-        assertThat("UserId of Session doesn't match the one of SessionEntity.", 2345, equalTo(session.getUserId()));
-        assertThat("ChipValue of Session doesn't match the one of SessionEntity.", BigDecimal.TEN, equalTo(session.getChipValue()));
+        assertThat(session.getId()).isEqualTo(1234);
+        assertThat(session.getUserId()).isEqualTo(2345);
+        assertThat(session.getChipValue()).isEqualTo(BigDecimal.TEN);
     }
 
     @Test
@@ -73,21 +72,21 @@ public class MapperTest {
         outcome.setOutcome(10);
 
         var outcomeEntity = Mapper.map(outcome);
-        assertThat("Id of OutcomeEntity doesn't match the one of Outcome.", 1234, equalTo(outcomeEntity.getId()));
-        assertThat("Outcome of OutcomeEntity doesn't match the one of Outcome.", 10, equalTo(outcomeEntity.getOutcome()));
-        assertThat("A RouletteOutcome of OutcomeEntity doesn't match the one of Outcome.", outcome.getBlack(), equalTo(outcomeEntity.getBlack()));
-        assertThat("A RouletteOutcome of OutcomeEntity doesn't match the one of Outcome.", outcome.getRed(), equalTo(outcomeEntity.getRed()));
-        assertThat("A RouletteOutcome of OutcomeEntity doesn't match the one of Outcome.", outcome.getOdd(), equalTo(outcomeEntity.getOdd()));
-        assertThat("A RouletteOutcome of OutcomeEntity doesn't match the one of Outcome.", outcome.getEven(), equalTo(outcomeEntity.getEven()));
-        assertThat("A RouletteOutcome of OutcomeEntity doesn't match the one of Outcome.", outcome.getFirstHalf(), equalTo(outcomeEntity.getFirstHalf()));
-        assertThat("A RouletteOutcome of OutcomeEntity doesn't match the one of Outcome.", outcome.getSecondHalf(), equalTo(outcomeEntity.getSecondHalf()));
-        assertThat("A RouletteOutcome of OutcomeEntity doesn't match the one of Outcome.", outcome.getFirstColumn(), equalTo(outcomeEntity.getFirstColumn()));
-        assertThat("A RouletteOutcome of OutcomeEntity doesn't match the one of Outcome.", outcome.getSecondColumn(), equalTo(outcomeEntity.getSecondColumn()));
-        assertThat("A RouletteOutcome of OutcomeEntity doesn't match the one of Outcome.", outcome.getThirdColumn(), equalTo(outcomeEntity.getThirdColumn()));
-        assertThat("A RouletteOutcome of OutcomeEntity doesn't match the one of Outcome.", outcome.getZero(), equalTo(outcomeEntity.getZero()));
-        assertThat("A RouletteOutcome of OutcomeEntity doesn't match the one of Outcome.", outcome.getFirstDozen(), equalTo(outcomeEntity.getFirstDozen()));
-        assertThat("A RouletteOutcome of OutcomeEntity doesn't match the one of Outcome.", outcome.getSecondDozen(), equalTo(outcomeEntity.getSecondDozen()));
-        assertThat("A RouletteOutcome of OutcomeEntity doesn't match the one of Outcome.", outcome.getThirdDozen(), equalTo(outcomeEntity.getThirdDozen()));
+        assertThat(outcomeEntity.getId()).isEqualTo(1234);
+        assertThat(outcomeEntity.getOutcome()).isEqualTo(10);
+        assertThat(outcomeEntity.getBlack()).isEqualTo(outcome.getBlack());
+        assertThat(outcomeEntity.getRed()).isEqualTo(outcome.getRed());
+        assertThat(outcomeEntity.getOdd()).isEqualTo(outcome.getOdd());
+        assertThat(outcomeEntity.getEven()).isEqualTo(outcome.getEven());
+        assertThat(outcomeEntity.getFirstHalf()).isEqualTo(outcome.getFirstHalf());
+        assertThat(outcomeEntity.getSecondHalf()).isEqualTo(outcome.getSecondHalf());
+        assertThat(outcomeEntity.getFirstColumn()).isEqualTo(outcome.getFirstColumn());
+        assertThat(outcomeEntity.getSecondColumn()).isEqualTo(outcome.getSecondColumn());
+        assertThat(outcomeEntity.getThirdColumn()).isEqualTo(outcome.getThirdColumn());
+        assertThat(outcomeEntity.getZero()).isEqualTo(outcome.getZero());
+        assertThat(outcomeEntity.getFirstDozen()).isEqualTo(outcome.getFirstDozen());
+        assertThat(outcomeEntity.getSecondDozen()).isEqualTo(outcome.getSecondDozen());
+        assertThat(outcomeEntity.getThirdDozen()).isEqualTo(outcome.getThirdDozen());
     }
 
     @Test
@@ -102,19 +101,19 @@ public class MapperTest {
 
         var adviceEntity = Mapper.map(advice);
 
-        assertThat("Id of AdviceEntity doesn't match the one of Advice.", advice.getId(), equalTo(adviceEntity.getId()));
-        assertThat("An advice of AdviceEntity doesn't match the one of Advice.", advice.getAdviceMap().get(RouletteOutcome.RED), equalTo(adviceEntity.getRedAdvice()));
-        assertThat("An advice of AdviceEntity doesn't match the one of Advice.", advice.getAdviceMap().get(RouletteOutcome.BLACK), equalTo(adviceEntity.getBlackAdvice()));
-        assertThat("An advice of AdviceEntity doesn't match the one of Advice.", advice.getAdviceMap().get(RouletteOutcome.ODD), equalTo(adviceEntity.getOddAdvice()));
-        assertThat("An advice of AdviceEntity doesn't match the one of Advice.", advice.getAdviceMap().get(RouletteOutcome.EVEN), equalTo(adviceEntity.getEvenAdvice()));
-        assertThat("An advice of AdviceEntity doesn't match the one of Advice.", advice.getAdviceMap().get(RouletteOutcome.FIRST_HALF), equalTo(adviceEntity.getFirstHalfAdvice()));
-        assertThat("An advice of AdviceEntity doesn't match the one of Advice.", advice.getAdviceMap().get(RouletteOutcome.SECOND_HALF), equalTo(adviceEntity.getSecondHalfAdvice()));
-        assertThat("An advice of AdviceEntity doesn't match the one of Advice.", advice.getAdviceMap().get(RouletteOutcome.FIRST_COLUMN), equalTo(adviceEntity.getFirstColumnAdvice()));
-        assertThat("An advice of AdviceEntity doesn't match the one of Advice.", advice.getAdviceMap().get(RouletteOutcome.SECOND_COLUMN), equalTo(adviceEntity.getSecondColumnAdvice()));
-        assertThat("An advice of AdviceEntity doesn't match the one of Advice.", advice.getAdviceMap().get(RouletteOutcome.THIRD_COLUMN), equalTo(adviceEntity.getThirdColumnAdvice()));
-        assertThat("An advice of AdviceEntity doesn't match the one of Advice.", advice.getAdviceMap().get(RouletteOutcome.FIRST_DOZEN), equalTo(adviceEntity.getFirstDozenAdvice()));
-        assertThat("An advice of AdviceEntity doesn't match the one of Advice.", advice.getAdviceMap().get(RouletteOutcome.SECOND_DOZEN), equalTo(adviceEntity.getSecondDozenAdvice()));
-        assertThat("An advice of AdviceEntity doesn't match the one of Advice.", advice.getAdviceMap().get(RouletteOutcome.THIRD_DOZEN), equalTo(adviceEntity.getThirdDozenAdvice()));
+        assertThat(adviceEntity.getId()).isEqualTo(advice.getId());
+        assertThat(adviceEntity.getRedAdvice()).isEqualTo(advice.getAdviceMap().get(RouletteOutcome.RED));
+        assertThat(adviceEntity.getBlackAdvice()).isEqualTo(advice.getAdviceMap().get(RouletteOutcome.BLACK));
+        assertThat(adviceEntity.getOddAdvice()).isEqualTo(advice.getAdviceMap().get(RouletteOutcome.ODD));
+        assertThat(adviceEntity.getEvenAdvice()).isEqualTo(advice.getAdviceMap().get(RouletteOutcome.EVEN));
+        assertThat(adviceEntity.getFirstHalfAdvice()).isEqualTo(advice.getAdviceMap().get(RouletteOutcome.FIRST_HALF));
+        assertThat(adviceEntity.getSecondHalfAdvice()).isEqualTo(advice.getAdviceMap().get(RouletteOutcome.SECOND_HALF));
+        assertThat(adviceEntity.getFirstColumnAdvice()).isEqualTo(advice.getAdviceMap().get(RouletteOutcome.FIRST_COLUMN));
+        assertThat(adviceEntity.getSecondColumnAdvice()).isEqualTo(advice.getAdviceMap().get(RouletteOutcome.SECOND_COLUMN));
+        assertThat(adviceEntity.getThirdColumnAdvice()).isEqualTo(advice.getAdviceMap().get(RouletteOutcome.THIRD_COLUMN));
+        assertThat(adviceEntity.getFirstDozenAdvice()).isEqualTo(advice.getAdviceMap().get(RouletteOutcome.FIRST_DOZEN));
+        assertThat(adviceEntity.getSecondDozenAdvice()).isEqualTo(advice.getAdviceMap().get(RouletteOutcome.SECOND_DOZEN));
+        assertThat(adviceEntity.getThirdDozenAdvice()).isEqualTo(advice.getAdviceMap().get(RouletteOutcome.THIRD_DOZEN));
     }
 
     @Test
@@ -138,19 +137,19 @@ public class MapperTest {
 
         var advice = Mapper.map(adviceEntity);
 
-        assertThat("The id of Advice doesn't match the one of AdviceEntity.", adviceEntity.getId(), equalTo(advice.getId()));
-        assertThat("An advice of Advice doesn't match the one of AdviceEntity.", adviceEntity.getRedAdvice(), equalTo(advice.getAdviceMap().get(RouletteOutcome.RED)));
-        assertThat("An advice of Advice doesn't match the one of AdviceEntity.", adviceEntity.getBlackAdvice(), equalTo(advice.getAdviceMap().get(RouletteOutcome.BLACK)));
-        assertThat("An advice of Advice doesn't match the one of AdviceEntity.", adviceEntity.getOddAdvice(), equalTo(advice.getAdviceMap().get(RouletteOutcome.ODD)));
-        assertThat("An advice of Advice doesn't match the one of AdviceEntity.", adviceEntity.getEvenAdvice(), equalTo(advice.getAdviceMap().get(RouletteOutcome.EVEN)));
-        assertThat("An advice of Advice doesn't match the one of AdviceEntity.", adviceEntity.getFirstHalfAdvice(), equalTo(advice.getAdviceMap().get(RouletteOutcome.FIRST_HALF)));
-        assertThat("An advice of Advice doesn't match the one of AdviceEntity.", adviceEntity.getSecondHalfAdvice(), equalTo(advice.getAdviceMap().get(RouletteOutcome.SECOND_HALF)));
-        assertThat("An advice of Advice doesn't match the one of AdviceEntity.", adviceEntity.getFirstColumnAdvice(), equalTo(advice.getAdviceMap().get(RouletteOutcome.FIRST_COLUMN)));
-        assertThat("An advice of Advice doesn't match the one of AdviceEntity.", adviceEntity.getSecondColumnAdvice(), equalTo(advice.getAdviceMap().get(RouletteOutcome.SECOND_COLUMN)));
-        assertThat("An advice of Advice doesn't match the one of AdviceEntity.", adviceEntity.getThirdColumnAdvice(), equalTo(advice.getAdviceMap().get(RouletteOutcome.THIRD_COLUMN)));
-        assertThat("An advice of Advice doesn't match the one of AdviceEntity.", adviceEntity.getFirstDozenAdvice(), equalTo(advice.getAdviceMap().get(RouletteOutcome.FIRST_DOZEN)));
-        assertThat("An advice of Advice doesn't match the one of AdviceEntity.", adviceEntity.getSecondDozenAdvice(), equalTo(advice.getAdviceMap().get(RouletteOutcome.SECOND_DOZEN)));
-        assertThat("An advice of Advice doesn't match the one of AdviceEntity.", adviceEntity.getThirdDozenAdvice(), equalTo(advice.getAdviceMap().get(RouletteOutcome.THIRD_DOZEN)));
+        assertThat(advice.getId()).isEqualTo(adviceEntity.getId());
+        assertThat(advice.getAdviceMap().get(RouletteOutcome.RED)).isEqualTo(adviceEntity.getRedAdvice());
+        assertThat(advice.getAdviceMap().get(RouletteOutcome.BLACK)).isEqualTo(adviceEntity.getBlackAdvice());
+        assertThat(advice.getAdviceMap().get(RouletteOutcome.ODD)).isEqualTo(adviceEntity.getOddAdvice());
+        assertThat(advice.getAdviceMap().get(RouletteOutcome.EVEN)).isEqualTo(adviceEntity.getEvenAdvice());
+        assertThat(advice.getAdviceMap().get(RouletteOutcome.FIRST_HALF)).isEqualTo(adviceEntity.getFirstHalfAdvice());
+        assertThat(advice.getAdviceMap().get(RouletteOutcome.SECOND_HALF)).isEqualTo(adviceEntity.getSecondHalfAdvice());
+        assertThat(advice.getAdviceMap().get(RouletteOutcome.FIRST_COLUMN)).isEqualTo(adviceEntity.getFirstColumnAdvice());
+        assertThat(advice.getAdviceMap().get(RouletteOutcome.SECOND_COLUMN)).isEqualTo(adviceEntity.getSecondColumnAdvice());
+        assertThat(advice.getAdviceMap().get(RouletteOutcome.THIRD_COLUMN)).isEqualTo(adviceEntity.getThirdColumnAdvice());
+        assertThat(advice.getAdviceMap().get(RouletteOutcome.FIRST_DOZEN)).isEqualTo(adviceEntity.getFirstDozenAdvice());
+        assertThat(advice.getAdviceMap().get(RouletteOutcome.SECOND_DOZEN)).isEqualTo(adviceEntity.getSecondDozenAdvice());
+        assertThat(advice.getAdviceMap().get(RouletteOutcome.THIRD_DOZEN)).isEqualTo(adviceEntity.getThirdDozenAdvice());
     }
 
 

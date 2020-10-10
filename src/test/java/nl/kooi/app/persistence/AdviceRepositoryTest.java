@@ -4,6 +4,7 @@ import nl.kooi.app.domain.Mapper;
 import nl.kooi.app.domain.outcome.Outcome;
 import nl.kooi.app.domain.session.Session;
 import nl.kooi.app.persistence.entity.AdviceEntity;
+import nl.kooi.app.persistence.entity.SessionEntity;
 import nl.kooi.app.persistence.repository.AdviceRepository;
 import nl.kooi.app.persistence.repository.OutcomeRepository;
 import nl.kooi.app.persistence.repository.SessionRepository;
@@ -29,6 +30,7 @@ public class AdviceRepositoryTest {
     private SessionRepository sessionRepository;
 
     int sessionId;
+    private SessionEntity session;
 
     @BeforeEach
     public void initTestDependencies() {

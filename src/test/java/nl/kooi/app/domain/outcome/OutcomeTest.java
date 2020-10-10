@@ -5,89 +5,89 @@ import org.junit.jupiter.api.Test;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.assertj.core.api.Assertions.assertThat;
+
 
 public class OutcomeTest {
 
 
     @Test
     public void outcomeTestOne() {
-        var outcome = new Outcome(1,1, BigDecimal.TEN);
+        var outcome = new Outcome(1, 1, BigDecimal.TEN);
 
-        assertThat("SessionId of outcome doesn't match expectation", outcome.getSessionId(), equalTo(1));
-        assertThat("TotalProfit of outcome doesn't match expectation", outcome.getTotalProfit(), equalTo(BigDecimal.TEN.setScale(2, RoundingMode.HALF_UP)));
+        assertThat(outcome.getSessionId()).isEqualTo(1);
+        assertThat(outcome.getTotalProfit()).isEqualTo(BigDecimal.TEN.setScale(2, RoundingMode.HALF_UP));
 
-        assertThat("Red outcome doesn't match expectation", outcome.getRed(), equalTo(true));
-        assertThat("Black outcome doesn't match expectation", outcome.getBlack(), equalTo(false));
-        assertThat("Odd outcome doesn't match expectation", outcome.getOdd(), equalTo(true));
-        assertThat("Even outcome doesn't match expectation", outcome.getEven(), equalTo(false));
-        assertThat("FirstHalf outcome doesn't match expectation", outcome.getFirstHalf(), equalTo(true));
-        assertThat("SecondHalf outcome doesn't match expectation", outcome.getSecondHalf(), equalTo(false));
-        assertThat("FirstColumn outcome doesn't match expectation", outcome.getFirstColumn(), equalTo(true));
-        assertThat("SecondColumn outcome doesn't match expectation", outcome.getSecondColumn(), equalTo(false));
-        assertThat("ThirdColumn outcome doesn't match expectation", outcome.getThirdColumn(), equalTo(false));
-        assertThat("FirstDozen outcome doesn't match expectation", outcome.getFirstDozen(), equalTo(true));
-        assertThat("SecondDozen outcome doesn't match expectation", outcome.getSecondDozen(), equalTo(false));
-        assertThat("ThirdDozen outcome doesn't match expectation", outcome.getThirdDozen(), equalTo(false));
-        assertThat("Zero outcome doesn't match expectation", outcome.getZero(), equalTo(false));
+        assertThat(outcome.getRed()).isTrue();
+        assertThat(outcome.getBlack()).isFalse();
+        assertThat(outcome.getOdd()).isTrue();
+        assertThat(outcome.getEven()).isFalse();
+        assertThat(outcome.getFirstHalf()).isTrue();
+        assertThat(outcome.getSecondHalf()).isFalse();
+        assertThat(outcome.getFirstColumn()).isTrue();
+        assertThat(outcome.getSecondColumn()).isFalse();
+        assertThat(outcome.getThirdColumn()).isFalse();
+        assertThat(outcome.getFirstDozen()).isTrue();
+        assertThat(outcome.getSecondDozen()).isFalse();
+        assertThat(outcome.getThirdDozen()).isFalse();
+        assertThat(outcome.getZero()).isFalse();
     }
 
     @Test
     public void outcomeTestSeventeen() {
-        var outcome = new Outcome(1,17, BigDecimal.TEN);
+        var outcome = new Outcome(1, 17, BigDecimal.TEN);
 
-        assertThat("Red outcome doesn't match expectation", outcome.getRed(), equalTo(false));
-        assertThat("Black outcome doesn't match expectation", outcome.getBlack(), equalTo(true));
-        assertThat("Odd outcome doesn't match expectation", outcome.getOdd(), equalTo(true));
-        assertThat("Even outcome doesn't match expectation", outcome.getEven(), equalTo(false));
-        assertThat("FirstHalf outcome doesn't match expectation", outcome.getFirstHalf(), equalTo(true));
-        assertThat("SecondHalf outcome doesn't match expectation", outcome.getSecondHalf(), equalTo(false));
-        assertThat("FirstColumn outcome doesn't match expectation", outcome.getFirstColumn(), equalTo(false));
-        assertThat("SecondColumn outcome doesn't match expectation", outcome.getSecondColumn(), equalTo(true));
-        assertThat("ThirdColumn outcome doesn't match expectation", outcome.getThirdColumn(), equalTo(false));
-        assertThat("FirstDozen outcome doesn't match expectation", outcome.getFirstDozen(), equalTo(false));
-        assertThat("SecondDozen outcome doesn't match expectation", outcome.getSecondDozen(), equalTo(true));
-        assertThat("ThirdDozen outcome doesn't match expectation", outcome.getThirdDozen(), equalTo(false));
-        assertThat("Zero outcome doesn't match expectation", outcome.getZero(), equalTo(false));
+        assertThat(outcome.getRed()).isFalse();
+        assertThat(outcome.getBlack()).isTrue();
+        assertThat(outcome.getOdd()).isTrue();
+        assertThat(outcome.getEven()).isFalse();
+        assertThat(outcome.getFirstHalf()).isTrue();
+        assertThat(outcome.getSecondHalf()).isFalse();
+        assertThat(outcome.getFirstColumn()).isFalse();
+        assertThat(outcome.getSecondColumn()).isTrue();
+        assertThat(outcome.getThirdColumn()).isFalse();
+        assertThat(outcome.getFirstDozen()).isFalse();
+        assertThat(outcome.getSecondDozen()).isTrue();
+        assertThat(outcome.getThirdDozen()).isFalse();
+        assertThat(outcome.getZero()).isFalse();
     }
 
     @Test
     public void outcomeTestThirty() {
-        var outcome = new Outcome(1,30, BigDecimal.TEN);
+        var outcome = new Outcome(1, 30, BigDecimal.TEN);
 
-        assertThat("Red outcome doesn't match expectation", outcome.getRed(), equalTo(true));
-        assertThat("Black outcome doesn't match expectation", outcome.getBlack(), equalTo(false));
-        assertThat("Odd outcome doesn't match expectation", outcome.getOdd(), equalTo(false));
-        assertThat("Even outcome doesn't match expectation", outcome.getEven(), equalTo(true));
-        assertThat("FirstHalf outcome doesn't match expectation", outcome.getFirstHalf(), equalTo(false));
-        assertThat("SecondHalf outcome doesn't match expectation", outcome.getSecondHalf(), equalTo(true));
-        assertThat("FirstColumn outcome doesn't match expectation", outcome.getFirstColumn(), equalTo(false));
-        assertThat("SecondColumn outcome doesn't match expectation", outcome.getSecondColumn(), equalTo(false));
-        assertThat("ThirdColumn outcome doesn't match expectation", outcome.getThirdColumn(), equalTo(true));
-        assertThat("FirstDozen outcome doesn't match expectation", outcome.getFirstDozen(), equalTo(false));
-        assertThat("SecondDozen outcome doesn't match expectation", outcome.getSecondDozen(), equalTo(false));
-        assertThat("ThirdDozen outcome doesn't match expectation", outcome.getThirdDozen(), equalTo(true));
-        assertThat("Zero outcome doesn't match expectation", outcome.getZero(), equalTo(false));
+        assertThat(outcome.getRed()).isTrue();
+        assertThat(outcome.getBlack()).isFalse();
+        assertThat(outcome.getOdd()).isFalse();
+        assertThat(outcome.getEven()).isTrue();
+        assertThat(outcome.getFirstHalf()).isFalse();
+        assertThat(outcome.getSecondHalf()).isTrue();
+        assertThat(outcome.getFirstColumn()).isFalse();
+        assertThat(outcome.getSecondColumn()).isFalse();
+        assertThat(outcome.getThirdColumn()).isTrue();
+        assertThat(outcome.getFirstDozen()).isFalse();
+        assertThat(outcome.getSecondDozen()).isFalse();
+        assertThat(outcome.getThirdDozen()).isTrue();
+        assertThat(outcome.getZero()).isFalse();
     }
 
     @Test
     public void outcomeTestZero() {
-        var outcome = new Outcome(1,0, BigDecimal.TEN);
+        var outcome = new Outcome(1, 0, BigDecimal.TEN);
 
-        assertThat("Red outcome doesn't match expectation", outcome.getRed(), equalTo(false));
-        assertThat("Black outcome doesn't match expectation", outcome.getBlack(), equalTo(false));
-        assertThat("Odd outcome doesn't match expectation", outcome.getOdd(), equalTo(false));
-        assertThat("Even outcome doesn't match expectation", outcome.getEven(), equalTo(false));
-        assertThat("FirstHalf outcome doesn't match expectation", outcome.getFirstHalf(), equalTo(false));
-        assertThat("SecondHalf outcome doesn't match expectation", outcome.getSecondHalf(), equalTo(false));
-        assertThat("FirstColumn outcome doesn't match expectation", outcome.getFirstColumn(), equalTo(false));
-        assertThat("SecondColumn outcome doesn't match expectation", outcome.getSecondColumn(), equalTo(false));
-        assertThat("ThirdColumn outcome doesn't match expectation", outcome.getThirdColumn(), equalTo(false));
-        assertThat("FirstDozen outcome doesn't match expectation", outcome.getFirstDozen(), equalTo(false));
-        assertThat("SecondDozen outcome doesn't match expectation", outcome.getSecondDozen(), equalTo(false));
-        assertThat("ThirdDozen outcome doesn't match expectation", outcome.getThirdDozen(), equalTo(false));
-        assertThat("Zero outcome doesn't match expectation", outcome.getZero(), equalTo(true));
+        assertThat(outcome.getRed()).isFalse();
+        assertThat(outcome.getBlack()).isFalse();
+        assertThat(outcome.getOdd()).isFalse();
+        assertThat(outcome.getEven()).isFalse();
+        assertThat(outcome.getFirstHalf()).isFalse();
+        assertThat(outcome.getSecondHalf()).isFalse();
+        assertThat(outcome.getFirstColumn()).isFalse();
+        assertThat(outcome.getSecondColumn()).isFalse();
+        assertThat(outcome.getThirdColumn()).isFalse();
+        assertThat(outcome.getFirstDozen()).isFalse();
+        assertThat(outcome.getSecondDozen()).isFalse();
+        assertThat(outcome.getThirdDozen()).isFalse();
+        assertThat(outcome.getZero()).isTrue();
     }
 
 }
