@@ -5,14 +5,12 @@ import nl.kooi.app.domain.Mapper;
 import nl.kooi.app.domain.session.Session;
 import nl.kooi.app.exception.NotFoundException;
 import nl.kooi.app.persistence.repository.SessionRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
 public class SessionService {
-    @Autowired
-    private SessionRepository sessionRepository;
+    private final SessionRepository sessionRepository;
 
     public Session save(Session session) {
         return Mapper.map(sessionRepository.save(Mapper.map(session)));

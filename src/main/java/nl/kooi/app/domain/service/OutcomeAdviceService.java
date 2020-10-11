@@ -11,7 +11,6 @@ import nl.kooi.app.exception.NotFoundException;
 import nl.kooi.app.persistence.repository.AdviceRepository;
 import nl.kooi.app.persistence.repository.OutcomeRepository;
 import nl.kooi.app.persistence.repository.SessionRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -24,15 +23,9 @@ import static nl.kooi.app.domain.rouletteoutcome.RouletteOutcome.*;
 @RequiredArgsConstructor
 @Service
 public class OutcomeAdviceService {
-
-    @Autowired
-    private OutcomeRepository outcomeRepository;
-
-    @Autowired
-    private AdviceRepository adviceRepository;
-
-    @Autowired
-    private SessionRepository sessionRepository;
+    private final OutcomeRepository outcomeRepository;
+    private final AdviceRepository adviceRepository;
+    private final SessionRepository sessionRepository;
 
     @Transactional
     public Outcome saveOutcomeAndAdvise(int userId, int sessionId, int number) {

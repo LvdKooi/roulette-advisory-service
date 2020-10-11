@@ -1,6 +1,7 @@
 package nl.kooi.app.api;
 
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import nl.kooi.app.api.dto.AdviceDto;
 import nl.kooi.app.api.dto.Mapper;
@@ -9,9 +10,6 @@ import nl.kooi.app.domain.service.OutcomeAdviceService;
 import nl.kooi.app.exception.NotFoundException;
 import nl.kooi.app.persistence.entity.SessionEntity;
 import nl.kooi.app.persistence.repository.SessionRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,18 +22,15 @@ import java.util.Optional;
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 
-@Slf4j
 @RequestMapping(path = "/roulette-betting-system")
 @RestController
+@Slf4j
+@RequiredArgsConstructor
 public class RouletteBettingSystemController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(RouletteBettingSystemController.class.getName());
+    private final SessionRepository sessionRepository;
 
-    @Autowired
-    SessionRepository sessionRepository;
-
-    @Autowired
-    OutcomeAdviceService outcomeAdviceService;
+    private final OutcomeAdviceService outcomeAdviceService;
 
     @RequestMapping(path = "/{userId}/startgame", method = PUT, produces = "application/json")
     public ResponseEntity<SessionEntity> startGame(@PathVariable("userId") int userId, @RequestParam("chipvalue") String chipValue) {
@@ -73,8 +68,8 @@ public class RouletteBettingSystemController {
 
         int id = sessionRepository.save(sessionEntity).getId();
 
-        LOGGER.info("Id of testsession is: {}", id);
-        LOGGER.info("UserId of testsession is: {}", "1234");
+        log.info("Id of testsession is: {}", id);
+        log.info("UserId of testsession is: {}", "1234");
 
         for (int i = 0; i < rounds; i++) {
 

@@ -1,11 +1,11 @@
 package nl.kooi.app.api;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import nl.kooi.app.api.dto.Mapper;
 import nl.kooi.app.api.dto.OutcomeDto;
 import nl.kooi.app.domain.service.OutcomeAdviceService;
 import nl.kooi.app.domain.service.SessionService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,12 +16,10 @@ import java.util.stream.Collectors;
 @RequestMapping(path = "users/{userId}/sessions/{sessionId}/outcomes")
 @RestController
 @Slf4j
+@RequiredArgsConstructor
 public class OutcomeController {
-
-    @Autowired
-    OutcomeAdviceService outcomeAdviceService;
-    @Autowired
-    private SessionService sessionService;
+    private final OutcomeAdviceService outcomeAdviceService;
+    private final SessionService sessionService;
 
     @GetMapping
     public ResponseEntity<List<OutcomeDto>> findAllBySessionId(@PathVariable int userId, @PathVariable int sessionId) {
