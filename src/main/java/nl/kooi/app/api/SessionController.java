@@ -32,7 +32,7 @@ public class SessionController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity delete(@PathVariable int userId, @PathVariable int id) {
+    public ResponseEntity<Void> delete(@PathVariable int userId, @PathVariable int id) {
         sessionService.findByIdAndUserId(id, userId);
         sessionService.deleteById(id);
         return ResponseEntity.ok().build();

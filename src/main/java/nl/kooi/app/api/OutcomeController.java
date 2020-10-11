@@ -44,7 +44,7 @@ public class OutcomeController {
 
 
     @DeleteMapping("/last-outcome")
-    public ResponseEntity deleteLastOutcome(@PathVariable int userId, @PathVariable int sessionId) {
+    public ResponseEntity<Void> deleteLastOutcome(@PathVariable int userId, @PathVariable int sessionId) {
         sessionService.findByIdAndUserId(sessionId, userId);
         outcomeAdviceService.deleteLastOutcome(sessionId);
         return ResponseEntity.ok().build();
