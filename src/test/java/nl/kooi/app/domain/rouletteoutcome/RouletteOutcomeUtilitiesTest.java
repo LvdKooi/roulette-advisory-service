@@ -12,7 +12,7 @@ import java.util.stream.IntStream;
 import static nl.kooi.app.domain.rouletteoutcome.RouletteOutcome.*;
 import static org.junit.Assert.*;
 
-public class RouletteOutcomeUtilitiesTest {
+class RouletteOutcomeUtilitiesTest {
 
 
     private static final List<Integer> RED_NUMBERS = Arrays.asList(1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36);
@@ -110,17 +110,13 @@ public class RouletteOutcomeUtilitiesTest {
     @Test
     public void validateOutcomeBelow0Test() {
 
-        Assertions.assertThrows(NotValidOutcomeException.class, () -> {
-            RouletteOutcomeUtilities.validateOutcome(-1);
-        });
+        Assertions.assertThrows(NotValidOutcomeException.class, () -> RouletteOutcomeUtilities.validateOutcome(-1));
 
     }
 
     @Test
     public void validateOutcomeOver36Test() {
-        Assertions.assertThrows(NotValidOutcomeException.class, () -> {
-            RouletteOutcomeUtilities.validateOutcome(37);
-        });
+        Assertions.assertThrows(NotValidOutcomeException.class, () -> RouletteOutcomeUtilities.validateOutcome(37));
     }
 
     @Test

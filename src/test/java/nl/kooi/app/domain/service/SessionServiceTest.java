@@ -21,7 +21,7 @@ import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.when;
 
 @SpringJUnitConfig(SessionService.class)
-public class SessionServiceTest {
+class SessionServiceTest {
 
     @Autowired
     private SessionService sessionService;

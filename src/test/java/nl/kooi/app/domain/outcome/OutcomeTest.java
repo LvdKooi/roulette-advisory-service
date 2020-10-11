@@ -8,7 +8,7 @@ import java.math.RoundingMode;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-public class OutcomeTest {
+class OutcomeTest {
 
 
     @Test

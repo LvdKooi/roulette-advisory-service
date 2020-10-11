@@ -10,7 +10,7 @@ import static nl.kooi.app.domain.rouletteoutcome.RouletteOutcome.RED;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-public class OneToOneBettingSystemTest {
+class OneToOneBettingSystemTest {
 
     private OneToOneBettingSystem bettingSystem;
 

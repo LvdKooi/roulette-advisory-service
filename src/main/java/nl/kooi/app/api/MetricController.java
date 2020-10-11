@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RequiredArgsConstructor
 public class MetricController {
-
     private final SessionService sessionService;
     private final OutcomeAdviceService outcomeAdviceService;
 

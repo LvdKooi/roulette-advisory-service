@@ -12,7 +12,7 @@ import static java.math.RoundingMode.HALF_UP;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-public class SessionMetricsTest {
+class SessionMetricsTest {
 
     private SessionMetrics sessionMetrics;
 

@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
-public class SessionRepositoryTest {
+class SessionRepositoryTest {
 
     @Autowired
     private SessionRepository sessionRepository;

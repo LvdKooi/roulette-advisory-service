@@ -32,7 +32,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @SpringJUnitConfig(OutcomeAdviceService.class)
-public class OutcomeAdviceServiceTest {
+class OutcomeAdviceServiceTest {
 
     @Autowired
     private OutcomeAdviceService outcomeAdviceService;

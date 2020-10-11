@@ -10,7 +10,7 @@ import java.math.RoundingMode;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-public class DozenGameTest {
+class DozenGameTest {
     private DozenGame dozenGame;
 
     @BeforeEach
