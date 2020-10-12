@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
+import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.math.BigDecimal;
@@ -40,14 +41,16 @@ class AdviceControllerTest {
 
     private ObjectMapper objectMapper;
 
+    private MockMvc mockMvc;
+
     @BeforeEach
     public void initTestDependencies() {
         objectMapper = new ObjectMapper();
+        mockMvc = MockMvcBuilders.standaloneSetup(adviceController).build();
     }
 
     @Test
     void getAdvice() throws Exception {
-        var mockMvc = MockMvcBuilders.standaloneSetup(adviceController).build();
         var advice = getTestAdvice();
         when(sessionService.findByIdAndUserId(1, 1234)).thenReturn(getTestSession());
         when(outcomeAdviceService.findLastAdvice(1)).thenReturn(advice);
@@ -65,8 +68,6 @@ class AdviceControllerTest {
 
     @Test
     void getAdviceOfNonExistingUser() throws Exception {
-        var mockMvc = MockMvcBuilders.standaloneSetup(adviceController).build();
-
         when(sessionService.findByIdAndUserId(1, 1234)).thenThrow(new NotFoundException("Session not found"));
 
         mockMvc.perform(get("/users/1234/sessions/1/advices/last-advice"))
@@ -90,6 +91,5 @@ class AdviceControllerTest {
                 .collect(Collectors.toMap(Map.Entry::getKey, x -> BigDecimal.valueOf(Math.random() * 100))));
 
         return new Advice(18, adviceMap);
-
     }
 }
