@@ -7,6 +7,9 @@ import nl.kooi.app.exception.NotFoundException;
 import nl.kooi.app.persistence.repository.SessionRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RequiredArgsConstructor
 @Service
 public class SessionService {
@@ -30,5 +33,7 @@ public class SessionService {
         return Mapper.map(sessionRepository.findByIdAndUserId(sessionId, userId).orElseThrow(() -> new NotFoundException("User not found")));
     }
 
-
+    public List<Session> findByUserId(int userId) {
+        return sessionRepository.findByUserId(userId).stream().map(Mapper::map).collect(Collectors.toList());
+    }
 }

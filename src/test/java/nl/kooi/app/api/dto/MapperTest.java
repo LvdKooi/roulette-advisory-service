@@ -46,7 +46,7 @@ public class MapperTest {
     }
 
     @Test
-    public void sessionToSessionDtoMapTest() {
+    public void sessionToSessionDtoTest() {
 
         var session = new Session();
         session.setChipValue(BigDecimal.TEN);
@@ -62,7 +62,7 @@ public class MapperTest {
     }
 
     @Test
-    public void sessionDtoToSessionMapTest() {
+    public void sessionDtoToSessionTest() {
 
         var sessionDto = new SessionDto();
         sessionDto.setChipValue(BigDecimal.TEN);
