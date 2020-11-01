@@ -47,4 +47,14 @@ class SessionRepositoryTest {
         assertThat(sessionRepository.findByIdAndUserId(sessionId, 9999)).isEmpty();
     }
 
+    @Test
+    public void findByKnownUserId() {
+        assertThat(sessionRepository.findByUserId(1234)).hasSize(1);
+    }
+
+    @Test
+    public void findByUnknownUserId() {
+        assertThat(sessionRepository.findByUserId(4321)).hasSize(0);
+    }
+
 }
