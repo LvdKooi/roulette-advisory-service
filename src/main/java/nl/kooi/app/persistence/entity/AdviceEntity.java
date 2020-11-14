@@ -1,7 +1,6 @@
 package nl.kooi.app.persistence.entity;
 
 import lombok.Data;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -9,7 +8,6 @@ import java.math.BigDecimal;
 @Data
 @Entity
 @Table(name = "advices")
-@EntityListeners(AuditingEntityListener.class)
 public class AdviceEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
