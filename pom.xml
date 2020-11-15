@@ -37,6 +37,7 @@
         <maven.compiler.release>13</maven.compiler.release>
         <junit-jupiter-api.version>5.5.0-M1</junit-jupiter-api.version>
         <junit-jupiter-engine.version>5.5.0-M1</junit-jupiter-engine.version>
+        <hamcrest.version>2.2</hamcrest.version>
         <maven-surefire-plugin.version>3.0.0-M4</maven-surefire-plugin.version>
         <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
         <copy-rename-maven-plugin.version>1.0</copy-rename-maven-plugin.version>
@@ -91,6 +92,14 @@
             <artifactId>json-path</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest</artifactId>
+            <version>${hamcrest.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>

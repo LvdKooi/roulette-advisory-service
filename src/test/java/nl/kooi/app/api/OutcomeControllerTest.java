@@ -6,6 +6,7 @@ import nl.kooi.app.domain.outcome.Outcome;
 import nl.kooi.app.domain.service.OutcomeAdviceService;
 import nl.kooi.app.domain.service.SessionService;
 import nl.kooi.app.domain.session.Session;
+import org.hamcrest.core.Is;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringJUnitConfig(OutcomeController.class)
@@ -52,13 +54,10 @@ class OutcomeControllerTest {
         when(sessionService.findByIdAndUserId(1, 1234)).thenReturn(getTestSession());
         when(outcomeAdviceService.findOutcomesBySessionIdOrderByIdAsc(1)).thenReturn(getTestOutcomes());
 
-        var mvcResult = mockMvc.perform(get("/users/1234/sessions/1/outcomes"))
+        mockMvc.perform(get("/users/1234/sessions/1/outcomes"))
                 .andExpect(status().isOk())
-                .andReturn()
-                .getResponse();
-
-        var response = objectMapper.readValue(mvcResult.getContentAsString(), List.class);
-        assertThat(response.size()).isEqualTo(2);
+                .andExpect(jsonPath("$[0].outcome", Is.is(30)))
+                .andExpect(jsonPath("$[1].outcome", Is.is(12)));
     }
 
     @Test
