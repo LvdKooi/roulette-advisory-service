@@ -6,11 +6,11 @@ import nl.kooi.app.domain.outcome.Outcome;
 import nl.kooi.app.domain.service.OutcomeAdviceService;
 import nl.kooi.app.domain.service.SessionService;
 import nl.kooi.app.domain.session.Session;
-import org.hamcrest.core.Is;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -20,10 +20,11 @@ import java.time.Instant;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringJUnitConfig(OutcomeController.class)
 class OutcomeControllerTest {
@@ -56,8 +57,10 @@ class OutcomeControllerTest {
 
         mockMvc.perform(get("/users/1234/sessions/1/outcomes"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].outcome", Is.is(30)))
-                .andExpect(jsonPath("$[1].outcome", Is.is(12)));
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$", hasSize(2)))
+                .andExpect(jsonPath("$[0].outcome", is(30)))
+                .andExpect(jsonPath("$[1].outcome", is(12)));
     }
 
     @Test
@@ -72,6 +75,7 @@ class OutcomeControllerTest {
 
         var mvcResult = mockMvc.perform(get("/users/1234/sessions/1/outcomes/last-outcome"))
                 .andExpect(status().isOk())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andReturn()
                 .getResponse();
         var response = objectMapper.readValue(mvcResult.getContentAsString(), OutcomeDto.class);

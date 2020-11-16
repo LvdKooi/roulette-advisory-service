@@ -21,6 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringJUnitConfig(SessionController.class)
@@ -58,6 +59,7 @@ class SessionControllerTest {
         var mvcResult = mockMvc.perform(post("/users/1234/sessions/")
                 .contentType(MediaType.APPLICATION_JSON).content(objectMapper.writeValueAsString(getSessionDto())))
                 .andExpect(status().isOk())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andReturn()
                 .getResponse();
 
@@ -73,6 +75,7 @@ class SessionControllerTest {
 
         var mvcResult = mockMvc.perform(get("/users/1234/sessions/1234"))
                 .andExpect(status().isOk())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andReturn()
                 .getResponse();
 

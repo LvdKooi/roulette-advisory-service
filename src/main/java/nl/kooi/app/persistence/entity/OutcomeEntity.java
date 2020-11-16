@@ -1,8 +1,6 @@
 package nl.kooi.app.persistence.entity;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -10,8 +8,6 @@ import java.math.BigDecimal;
 import java.time.Instant;
 
 @Data
-@Getter
-@Setter
 @Entity
 @Table(name = "outcomes")
 public class OutcomeEntity {
