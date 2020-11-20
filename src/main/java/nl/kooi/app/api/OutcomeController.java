@@ -6,6 +6,7 @@ import nl.kooi.app.api.dto.Mapper;
 import nl.kooi.app.api.dto.OutcomeDto;
 import nl.kooi.app.domain.service.OutcomeAdviceService;
 import nl.kooi.app.domain.service.SessionService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,12 +23,13 @@ public class OutcomeController {
     private final SessionService sessionService;
 
     @GetMapping
-    public ResponseEntity<List<OutcomeDto>> findAllBySessionId(@PathVariable int userId, @PathVariable int sessionId) {
+    @ResponseStatus(HttpStatus.OK)
+    public List<OutcomeDto> findAllBySessionId(@PathVariable int userId, @PathVariable int sessionId) {
         sessionService.findByIdAndUserId(sessionId, userId);
-        return ResponseEntity.ok(outcomeAdviceService.findOutcomesBySessionIdOrderByIdAsc(sessionId)
+        return outcomeAdviceService.findOutcomesBySessionIdOrderByIdAsc(sessionId)
                 .stream()
                 .map(Mapper::map)
-                .collect(Collectors.toList()));
+                .collect(Collectors.toList());
     }
 
     @PostMapping
