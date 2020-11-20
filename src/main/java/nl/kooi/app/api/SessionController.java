@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import nl.kooi.app.api.dto.Mapper;
 import nl.kooi.app.api.dto.SessionDto;
 import nl.kooi.app.domain.service.SessionService;
-import nl.kooi.app.exception.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,10 +23,6 @@ public class SessionController {
     public SessionDto create(@PathVariable int userId, @Valid @RequestBody SessionDto sessionDto) {
         if (sessionDto.getUserId() == 0) {
             sessionDto.setUserId(userId);
-        }
-
-        if (sessionService.findByUserId(userId).isEmpty()) {
-            throw new NotFoundException("User with id " + userId + " does not exist.");
         }
 
         return Mapper.map(sessionService.save(Mapper.map(sessionDto)));

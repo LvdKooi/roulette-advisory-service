@@ -44,13 +44,6 @@ class SessionControllerTest {
     }
 
     @Test
-    void createWithUnknownUser() throws Exception {
-        mockMvc.perform(post("/users/1234/sessions/")
-                .contentType(MediaType.APPLICATION_JSON).content(objectMapper.writeValueAsString(getSessionDto())))
-                .andExpect(status().isNotFound());
-    }
-
-    @Test
     void createWithKnownUser() throws Exception {
 
         when(sessionService.findByUserId(1234)).thenReturn(List.of(Mapper.map(getSessionDto())));
