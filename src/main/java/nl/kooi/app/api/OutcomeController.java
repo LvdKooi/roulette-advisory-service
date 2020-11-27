@@ -7,7 +7,6 @@ import nl.kooi.app.api.dto.OutcomeDto;
 import nl.kooi.app.domain.service.OutcomeAdviceService;
 import nl.kooi.app.domain.service.SessionService;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -33,22 +32,23 @@ public class OutcomeController {
     }
 
     @PostMapping
-    public ResponseEntity<OutcomeDto> create(@PathVariable int userId, @PathVariable int sessionId, @Valid @RequestBody OutcomeDto outcomeDto) {
+    @ResponseStatus(HttpStatus.OK)
+    public OutcomeDto create(@PathVariable int userId, @PathVariable int sessionId, @Valid @RequestBody OutcomeDto outcomeDto) {
         sessionService.findByIdAndUserId(sessionId, userId);
-        return ResponseEntity.ok(Mapper.map(outcomeAdviceService.saveOutcomeAndAdvise(userId, sessionId, outcomeDto.getOutcome())));
+        return Mapper.map(outcomeAdviceService.saveOutcomeAndAdvise(userId, sessionId, outcomeDto.getOutcome()));
     }
 
     @GetMapping("/last-outcome")
-    public ResponseEntity<OutcomeDto> findLastOutcome(@PathVariable int userId, @PathVariable int sessionId) {
+    @ResponseStatus(HttpStatus.OK)
+    public OutcomeDto findLastOutcome(@PathVariable int userId, @PathVariable int sessionId) {
         sessionService.findByIdAndUserId(sessionId, userId);
-        return ResponseEntity.ok(Mapper.map(outcomeAdviceService.findLastOutcome(sessionId)));
+        return Mapper.map(outcomeAdviceService.findLastOutcome(sessionId));
     }
 
-
     @DeleteMapping("/last-outcome")
-    public ResponseEntity<Void> deleteLastOutcome(@PathVariable int userId, @PathVariable int sessionId) {
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteLastOutcome(@PathVariable int userId, @PathVariable int sessionId) {
         sessionService.findByIdAndUserId(sessionId, userId);
         outcomeAdviceService.deleteLastOutcome(sessionId);
-        return ResponseEntity.ok().build();
     }
 }
