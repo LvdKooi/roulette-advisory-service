@@ -5,10 +5,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @Slf4j
 @SpringBootApplication
-public class RouletteAdvisorySystemApplication {
+public class RouletteAdviceApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(RouletteAdvisorySystemApplication.class, args);
+        SpringApplication.run(RouletteAdviceApplication.class, args);
     }
 
 }
