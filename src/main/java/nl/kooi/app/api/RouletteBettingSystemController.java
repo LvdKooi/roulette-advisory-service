@@ -10,6 +10,7 @@ import nl.kooi.app.domain.service.OutcomeAdviceService;
 import nl.kooi.app.exception.NotFoundException;
 import nl.kooi.app.persistence.entity.SessionEntity;
 import nl.kooi.app.persistence.repository.SessionRepository;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,10 +27,9 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 @RestController
 @Slf4j
 @RequiredArgsConstructor
+@Profile("tst")
 public class RouletteBettingSystemController {
-
     private final SessionRepository sessionRepository;
-
     private final OutcomeAdviceService outcomeAdviceService;
 
     @RequestMapping(path = "/{userId}/startgame", method = PUT, produces = "application/json")
