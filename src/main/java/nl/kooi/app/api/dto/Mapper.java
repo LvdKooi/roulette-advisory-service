@@ -4,6 +4,7 @@ import nl.kooi.app.domain.advice.Advice;
 import nl.kooi.app.domain.metric.SessionMetrics;
 import nl.kooi.app.domain.outcome.Outcome;
 import nl.kooi.app.domain.session.Session;
+import nl.kooi.app.api.dto.AdviceDto;
 import org.modelmapper.ModelMapper;
 
 public class Mapper {

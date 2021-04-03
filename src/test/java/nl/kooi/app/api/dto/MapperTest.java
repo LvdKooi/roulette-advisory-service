@@ -3,9 +3,11 @@ package nl.kooi.app.api.dto;
 import nl.kooi.app.domain.advice.Advice;
 import nl.kooi.app.domain.metric.SessionMetrics;
 import nl.kooi.app.domain.outcome.Outcome;
+import nl.kooi.app.domain.rouletteoutcome.RouletteOutcome;
 import nl.kooi.app.domain.rouletteoutcome.RouletteOutcomeUtilities;
 import nl.kooi.app.domain.session.Session;
 import org.junit.jupiter.api.Test;
+import org.springframework.data.util.Pair;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -14,6 +16,7 @@ import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class MapperTest {
 
@@ -103,7 +106,6 @@ public class MapperTest {
 
     @Test
     public void adviceToAdviceDtoMapperTest() {
-
         var adviceMap = new TreeMap<>(RouletteOutcomeUtilities.getCompoundRouletteOutcome(12)
                 .entrySet()
                 .stream()
@@ -114,6 +116,13 @@ public class MapperTest {
         var adviceDto = Mapper.map(advice);
 
         assertThat(adviceDto.getId()).isEqualTo(advice.getId());
-        assertThat(adviceDto.getAdviceMap()).isEqualTo(advice.getAdviceMap());
+
+        assertTrue(adviceDto
+                .getAdviceMap()
+                .entrySet()
+                .stream()
+                .map(entry -> Pair.of(RouletteOutcome.valueOf(entry.getKey()), entry.getValue()))
+                .allMatch(pair ->
+                        pair.getSecond().equals(advice.getAdviceMap().get(pair.getFirst()))));
     }
 }

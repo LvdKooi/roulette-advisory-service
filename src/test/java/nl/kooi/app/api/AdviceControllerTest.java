@@ -2,6 +2,7 @@ package nl.kooi.app.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import nl.kooi.app.api.dto.AdviceDto;
+import nl.kooi.app.api.dto.Mapper;
 import nl.kooi.app.domain.advice.Advice;
 import nl.kooi.app.domain.rouletteoutcome.RouletteOutcomeUtilities;
 import nl.kooi.app.domain.service.OutcomeAdviceService;
@@ -65,7 +66,7 @@ class AdviceControllerTest {
 
         var response = objectMapper.readValue(mvcResult.getContentAsString(), AdviceDto.class);
 
-        assertThat(response.getAdviceMap()).isEqualTo(advice.getAdviceMap());
+        assertThat(response.getAdviceMap()).isEqualTo(Mapper.map(advice).getAdviceMap());
         assertThat(response.getId()).isEqualTo(18);
     }
 

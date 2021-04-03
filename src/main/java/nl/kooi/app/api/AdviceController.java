@@ -6,22 +6,20 @@ import nl.kooi.app.api.dto.AdviceDto;
 import nl.kooi.app.api.dto.Mapper;
 import nl.kooi.app.domain.service.OutcomeAdviceService;
 import nl.kooi.app.domain.service.SessionService;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RestController;
 
-@RequestMapping(path = "users/{userId}/sessions/{sessionId}/advices")
 @RestController
 @Slf4j
 @RequiredArgsConstructor
-public class AdviceController {
+public class AdviceController implements nl.kooi.app.api.controller.AdviceApi {
     private final SessionService sessionService;
     private final OutcomeAdviceService outcomeAdviceService;
 
-    @GetMapping("/last-advice")
-    @ResponseStatus(HttpStatus.OK)
-    public AdviceDto getAdvice(@PathVariable("userId") int userId, @PathVariable("sessionId") int sessionId) {
+    @Override
+    public ResponseEntity<AdviceDto> getAdvice(Integer userId, Integer sessionId) {
         sessionService.findByIdAndUserId(sessionId, userId);
-        return Mapper.map(outcomeAdviceService.findLastAdvice(sessionId));
+        return ResponseEntity.ok(Mapper.map(outcomeAdviceService.findLastAdvice(sessionId)));
     }
 }
 

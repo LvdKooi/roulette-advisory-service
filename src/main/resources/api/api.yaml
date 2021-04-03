@@ -1,0 +1,96 @@
+openapi: 3.0.0
+
+info:
+  title: Roulette Advisory API
+  description: Roulette Advisory Service
+  version: "1.0"
+
+servers:
+  - url: http://localhost:8080
+    description: "Development server"
+
+tags:
+  - name: Advice
+    description: Advice REST API
+  - name: Metric
+    description: Metric REST API
+  - name: Outcome
+    description: Outcome REST API
+  - name: Session
+    description: Session REST API
+security:
+  - BearerAuth: [ ]
+
+paths:
+  /users/{userId}/sessions/{sessionId}/advices/last-advice:
+    get:
+      operationId: getAdvice
+      summary: Get the last advice
+      description: "Get the last advice for this session"
+      tags:
+        - Advice
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          description: User ID
+          schema:
+            type: string
+            format: integer
+        - name: sessionId
+          in: path
+          required: true
+          description: Session ID
+          schema:
+            type: string
+            format: integer
+      responses:
+        '200':
+          description: The repayment schedule of the loan
+          content:
+            application/json:
+              schema:
+                type: Advice
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/ServerError'
+components:
+  responses:
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    ServerError:
+      description: Server side problem
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  schemas:
+    Advice:
+      type: object
+      title: Advice
+      description: The Advice
+      properties:
+        id:
+          type: integer
+          description: The id
+        adviceMap:
+          type: object
+          additionalProperties:
+            type: number
+    ErrorResponse:
+      type: object
+      title: Error response
+      description: Error response attributes
+      properties:
+        reason:
+          type: string
+          description: Message
+        reference:
+          type: string
+          format: uuid
+          description: Reference UUID
