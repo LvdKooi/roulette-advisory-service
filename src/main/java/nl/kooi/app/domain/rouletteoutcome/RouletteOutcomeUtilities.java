@@ -1,12 +1,11 @@
 package nl.kooi.app.domain.rouletteoutcome;
 
-import lombok.experimental.UtilityClass;
 import nl.kooi.app.exception.NotValidOutcomeException;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.NavigableSet;
+import java.util.TreeSet;
 
 import static nl.kooi.app.domain.rouletteoutcome.RouletteOutcome.*;
 
@@ -16,43 +15,43 @@ import static nl.kooi.app.domain.rouletteoutcome.RouletteOutcome.*;
 
 public final class RouletteOutcomeUtilities {
 
-    private static final List<Integer> FIRST_COLUMN_LIST;
-    private static final List<Integer> SECOND_COLUMN_LIST;
-    private static final List<Integer> THIRD_COLUMN_LIST;
-    private static final List<Integer> RED_NUMBERS_LIST;
-    private static final List<Integer> BLACK_NUMBERS_LIST;
+    private static final NavigableSet<Integer> FIRST_COLUMN_SET;
+    private static final NavigableSet<Integer> SECOND_COLUMN_SET;
+    private static final NavigableSet<Integer> THIRD_COLUMN_SET;
+    private static final NavigableSet<Integer> RED_NUMBERS_SET;
+    private static final NavigableSet<Integer> BLACK_NUMBERS_SET;
 
     static {
-        FIRST_COLUMN_LIST = new ArrayList<>();
-        SECOND_COLUMN_LIST = new ArrayList<>();
-        THIRD_COLUMN_LIST = new ArrayList<>();
-        RED_NUMBERS_LIST = new ArrayList<>();
-        BLACK_NUMBERS_LIST = new ArrayList<>();
+        FIRST_COLUMN_SET = new TreeSet<>();
+        SECOND_COLUMN_SET = new TreeSet<>();
+        THIRD_COLUMN_SET = new TreeSet<>();
+        RED_NUMBERS_SET = new TreeSet<>();
+        BLACK_NUMBERS_SET = new TreeSet<>();
 
         // populating columns
         for (int i = 1, j = 0; i < 37; i += 3, j++) {
-            FIRST_COLUMN_LIST.add(i);
-            SECOND_COLUMN_LIST.add(i + 1);
-            THIRD_COLUMN_LIST.add(i + 2);
+            FIRST_COLUMN_SET.add(i);
+            SECOND_COLUMN_SET.add(i + 1);
+            THIRD_COLUMN_SET.add(i + 2);
         }
 
         //populating red + black
         for (int i = 1, j = 0; i < 10; i += 2, j++) {
-            RED_NUMBERS_LIST.add(i);
-            BLACK_NUMBERS_LIST.add(i + 1);
+            RED_NUMBERS_SET.add(i);
+            BLACK_NUMBERS_SET.add(i + 1);
         }
         for (int i = 12, j = 5; i < 19; i += 2, j++) {
-            RED_NUMBERS_LIST.add(i);
-            BLACK_NUMBERS_LIST.add(i - 1);
+            RED_NUMBERS_SET.add(i);
+            BLACK_NUMBERS_SET.add(i - 1);
         }
         for (int i = 19, j = 9; i < 28; i += 2, j++) {
-            RED_NUMBERS_LIST.add(i);
-            BLACK_NUMBERS_LIST.add(i + 1);
+            RED_NUMBERS_SET.add(i);
+            BLACK_NUMBERS_SET.add(i + 1);
         }
 
         for (int i = 30, j = 14; i < 37; i += 2, j++) {
-            RED_NUMBERS_LIST.add(i);
-            BLACK_NUMBERS_LIST.add(i - 1);
+            RED_NUMBERS_SET.add(i);
+            BLACK_NUMBERS_SET.add(i - 1);
         }
     }
 
@@ -75,11 +74,11 @@ public final class RouletteOutcomeUtilities {
     }
 
     public static RouletteOutcome column(int currentInput) {
-        if (FIRST_COLUMN_LIST.contains(currentInput)) {
+        if (FIRST_COLUMN_SET.contains(currentInput)) {
             return RouletteOutcome.FIRST_COLUMN;
-        } else if (SECOND_COLUMN_LIST.contains(currentInput)) {
+        } else if (SECOND_COLUMN_SET.contains(currentInput)) {
             return RouletteOutcome.SECOND_COLUMN;
-        } else if (THIRD_COLUMN_LIST.contains(currentInput)) {
+        } else if (THIRD_COLUMN_SET.contains(currentInput)) {
             return RouletteOutcome.THIRD_COLUMN;
         } else {
             return RouletteOutcome.ZERO;
@@ -87,9 +86,9 @@ public final class RouletteOutcomeUtilities {
     }
 
     public static RouletteOutcome redBlack(int currentInput) {
-        if (RED_NUMBERS_LIST.contains(currentInput)) {
+        if (RED_NUMBERS_SET.contains(currentInput)) {
             return RED;
-        } else if (BLACK_NUMBERS_LIST.contains(currentInput)) {
+        } else if (BLACK_NUMBERS_SET.contains(currentInput)) {
             return BLACK;
         } else {
             return RouletteOutcome.ZERO;
