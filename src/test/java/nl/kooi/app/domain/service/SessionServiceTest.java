@@ -5,7 +5,6 @@ import nl.kooi.app.domain.session.Session;
 import nl.kooi.app.exception.NotFoundException;
 import nl.kooi.app.persistence.entity.SessionEntity;
 import nl.kooi.app.persistence.repository.SessionRepository;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +13,12 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 @SpringJUnitConfig(SessionService.class)
@@ -37,6 +38,7 @@ class SessionServiceTest {
         when(sessionRepository.save(Mapper.map(getPreSaveSession()))).thenReturn(getSessionEntity());
         when(sessionRepository.findById(12)).thenReturn(Optional.of(getSessionEntity()));
         when(sessionRepository.findByIdAndUserId(12, 1234)).thenReturn(Optional.of(getSessionEntity()));
+        when(sessionRepository.findByUserId(1234)).thenReturn(List.of(getSessionEntity()));
     }
 
     @Test
@@ -51,7 +53,7 @@ class SessionServiceTest {
 
     @Test
     public void testFindByIdNonExisting() {
-        Assertions.assertThrows(NotFoundException.class, () -> assertSession(sessionService.findById(11)));
+        assertThrows(NotFoundException.class, () -> assertSession(sessionService.findById(11)));
     }
 
     @Test
@@ -61,12 +63,12 @@ class SessionServiceTest {
 
     @Test
     public void testFindByIdAndUserIdNonExistingId() {
-        Assertions.assertThrows(NotFoundException.class, () -> assertSession(sessionService.findByIdAndUserId(11, 1234)));
+        assertThrows(NotFoundException.class, () -> assertSession(sessionService.findByIdAndUserId(11, 1234)));
     }
 
     @Test
     public void testFindByIdAndUserIdNonExistingUserId() {
-        Assertions.assertThrows(NotFoundException.class, () -> assertSession(sessionService.findByIdAndUserId(12, 2234)));
+        assertThrows(NotFoundException.class, () -> assertSession(sessionService.findByIdAndUserId(12, 2234)));
     }
 
     @Test
@@ -84,7 +86,14 @@ class SessionServiceTest {
 
     @Test
     public void testDeleteByIdNonExistingId() {
-        Assertions.assertThrows(NotFoundException.class, () -> sessionService.deleteById(11));
+        assertThrows(NotFoundException.class, () -> sessionService.deleteById(11));
+    }
+
+    @Test
+    void findByUserId() {
+        var sessions = sessionService.findByUserId(1234);
+        assertThat(sessions.size()).isEqualTo(1);
+        assertSession(sessions.get(0));
     }
 
     private SessionEntity getSessionEntity() {
@@ -106,4 +115,6 @@ class SessionServiceTest {
         assertThat(session.getChipValue()).isEqualTo(BigDecimal.TEN);
         assertThat(session.getDateTime()).isEqualTo(instant);
     }
+
+
 }

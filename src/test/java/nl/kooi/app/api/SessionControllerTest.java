@@ -18,11 +18,12 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringJUnitConfig(SessionController.class)
 class SessionControllerTest {
@@ -76,6 +77,19 @@ class SessionControllerTest {
 
         assertThat(response.getChipValue()).isEqualTo(getSessionDto().getChipValue());
         assertThat(response.getUserId()).isEqualTo(getSessionDto().getUserId());
+    }
+
+    @Test
+    void findByUserId() throws Exception {
+        when(sessionService.findByUserId(1234))
+                .thenReturn(List.of(Mapper.map(getSessionDto()), Mapper.map(getSessionDto())));
+
+        mockMvc.perform(get("/users/1234/sessions/"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$", hasSize(2)))
+                .andExpect(jsonPath("$[0].userId", is(1234)))
+                .andExpect(jsonPath("$[1].userId", is(1234)));
     }
 
     @Test

@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RequestMapping(path = "users/{userId}/sessions")
 @RestController
@@ -26,6 +28,12 @@ public class SessionController {
         }
 
         return Mapper.map(sessionService.save(Mapper.map(sessionDto)));
+    }
+
+    @GetMapping("/")
+    @ResponseStatus(HttpStatus.OK)
+    public List<SessionDto> findByUserId(@PathVariable int userId) {
+        return sessionService.findByUserId(userId).stream().map(Mapper::map).collect(Collectors.toList());
     }
 
     @GetMapping("/{id}")
