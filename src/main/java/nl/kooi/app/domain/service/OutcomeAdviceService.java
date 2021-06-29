@@ -11,11 +11,13 @@ import nl.kooi.app.exception.NotFoundException;
 import nl.kooi.app.persistence.repository.AdviceRepository;
 import nl.kooi.app.persistence.repository.OutcomeRepository;
 import nl.kooi.app.persistence.repository.SessionRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.HashMap;
-import java.util.List;
 import java.util.stream.Collectors;
 
 import static nl.kooi.app.domain.rouletteoutcome.RouletteOutcome.*;
@@ -34,7 +36,7 @@ public class OutcomeAdviceService {
 
         var rouletteGame = new RouletteGame(sessionEntity.getChipValue());
 
-        var outcomes = findOutcomesBySessionIdOrderByIdAsc(sessionId);
+        var outcomes = findOutcomesBySessionIdOrderByIdAsc(sessionId, Pageable.unpaged()).get().collect(Collectors.toList());
 
         outcomes.add(outcomes.size(), new Outcome(sessionId,
                 number));
@@ -55,11 +57,13 @@ public class OutcomeAdviceService {
         return Mapper.map(outcomeEntity);
     }
 
-    public List<Outcome> findOutcomesBySessionIdOrderByIdAsc(int sessionId) {
-        return outcomeRepository.findBySessionIdOrderByIdAsc(sessionId)
+    public Page<Outcome> findOutcomesBySessionIdOrderByIdAsc(int sessionId, Pageable pageable) {
+        var page = outcomeRepository.findBySessionId(sessionId, pageable);
+
+        return new PageImpl<>(page
                 .stream()
                 .map(Mapper::map)
-                .collect(Collectors.toList());
+                .collect(Collectors.toList()), pageable, page.getTotalElements());
     }
 
     public Advice findLastAdvice(int sessionId) {

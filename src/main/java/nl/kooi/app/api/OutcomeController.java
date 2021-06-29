@@ -6,11 +6,13 @@ import nl.kooi.app.api.dto.Mapper;
 import nl.kooi.app.api.dto.OutcomeDto;
 import nl.kooi.app.domain.service.OutcomeAdviceService;
 import nl.kooi.app.domain.service.SessionService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 import java.util.stream.Collectors;
 
 @RequestMapping(path = "users/{userId}/sessions/{sessionId}/outcomes")
@@ -23,12 +25,13 @@ public class OutcomeController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<OutcomeDto> findAllBySessionId(@PathVariable int userId, @PathVariable int sessionId) {
+    public Page<OutcomeDto> findAllBySessionId(@PathVariable int userId, @PathVariable int sessionId, Pageable pageable) {
         sessionService.findByIdAndUserId(sessionId, userId);
-        return outcomeAdviceService.findOutcomesBySessionIdOrderByIdAsc(sessionId)
-                .stream()
+        var outcomesPage = outcomeAdviceService.findOutcomesBySessionIdOrderByIdAsc(sessionId, pageable);
+        var outcomes = outcomesPage.stream()
                 .map(Mapper::map)
                 .collect(Collectors.toList());
+        return new PageImpl<>(outcomes, pageable, outcomesPage.getTotalElements());
     }
 
     @PostMapping

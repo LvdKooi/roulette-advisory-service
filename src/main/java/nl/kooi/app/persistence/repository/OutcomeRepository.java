@@ -1,17 +1,18 @@
 package nl.kooi.app.persistence.repository;
 
 import nl.kooi.app.persistence.entity.OutcomeEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
-import java.util.Collection;
 
 @Repository
 public interface OutcomeRepository extends JpaRepository<OutcomeEntity, Integer> {
 
-    Collection<OutcomeEntity> findBySessionIdOrderByIdAsc(int id);
+    Page<OutcomeEntity> findBySessionId(int id, Pageable pageable);
 
     OutcomeEntity findFirstBySessionIdOrderByIdDesc(int id);
 
