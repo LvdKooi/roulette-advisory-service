@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
+import java.util.Collection;
 
 @Repository
 public interface OutcomeRepository extends JpaRepository<OutcomeEntity, Integer> {
@@ -54,4 +55,5 @@ public interface OutcomeRepository extends JpaRepository<OutcomeEntity, Integer>
             nativeQuery = true)
     BigDecimal getHighestProfitAmount(int sessionId);
 
+    Collection<OutcomeEntity> findBySessionIdOrderByIdAsc(int sessionId);
 }

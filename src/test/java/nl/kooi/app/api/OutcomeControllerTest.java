@@ -12,6 +12,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.web.servlet.MockMvc;
@@ -48,20 +51,22 @@ class OutcomeControllerTest {
     @BeforeEach
     public void initTestDependencies() {
         objectMapper = new ObjectMapper();
-        mockMvc = MockMvcBuilders.standaloneSetup(outcomeController).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(outcomeController)
+                .setCustomArgumentResolvers(new PageableHandlerMethodArgumentResolver())
+                .build();
     }
 
     @Test
     void findAllBySessionId() throws Exception {
         when(sessionService.findByIdAndUserId(1, 1234)).thenReturn(getTestSession());
-        when(outcomeAdviceService.findOutcomesBySessionIdOrderByIdAsc(1)).thenReturn(getTestOutcomes());
+        when(outcomeAdviceService.findOutcomesBySessionId(anyInt(), any(Pageable.class))).thenReturn(new PageImpl<>(getTestOutcomes()));
 
         mockMvc.perform(get("/users/1234/sessions/1/outcomes"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$", hasSize(2)))
-                .andExpect(jsonPath("$[0].outcome", is(30)))
-                .andExpect(jsonPath("$[1].outcome", is(12)));
+                .andExpect(jsonPath("$['content']", hasSize(2)))
+                .andExpect(jsonPath("$['content'][0].outcome", is(30)))
+                .andExpect(jsonPath("$['content'][1].outcome", is(12)));
     }
 
     @Test

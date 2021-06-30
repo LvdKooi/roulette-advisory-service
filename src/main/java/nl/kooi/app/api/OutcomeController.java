@@ -25,9 +25,9 @@ public class OutcomeController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public Page<OutcomeDto> findAllBySessionId(@PathVariable int userId, @PathVariable int sessionId, Pageable pageable) {
+    public Page<OutcomeDto> findAllBySessionIdPaged(@PathVariable int userId, @PathVariable int sessionId, Pageable pageable) {
         sessionService.findByIdAndUserId(sessionId, userId);
-        var outcomesPage = outcomeAdviceService.findOutcomesBySessionIdOrderByIdAsc(sessionId, pageable);
+        var outcomesPage = outcomeAdviceService.findOutcomesBySessionId(sessionId, pageable);
         var outcomes = outcomesPage.stream()
                 .map(Mapper::map)
                 .collect(Collectors.toList());

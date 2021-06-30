@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.HashMap;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import static nl.kooi.app.domain.rouletteoutcome.RouletteOutcome.*;
@@ -36,7 +37,7 @@ public class OutcomeAdviceService {
 
         var rouletteGame = new RouletteGame(sessionEntity.getChipValue());
 
-        var outcomes = findOutcomesBySessionIdOrderByIdAsc(sessionId, Pageable.unpaged()).get().collect(Collectors.toList());
+        var outcomes = findOutcomesBySessionIdOrderByIdAsc(sessionId);
 
         outcomes.add(outcomes.size(), new Outcome(sessionId,
                 number));
@@ -57,7 +58,11 @@ public class OutcomeAdviceService {
         return Mapper.map(outcomeEntity);
     }
 
-    public Page<Outcome> findOutcomesBySessionIdOrderByIdAsc(int sessionId, Pageable pageable) {
+    private List<Outcome> findOutcomesBySessionIdOrderByIdAsc(int sessionId) {
+        return outcomeRepository.findBySessionIdOrderByIdAsc(sessionId).stream().map(Mapper::map).collect(Collectors.toList());
+    }
+
+    public Page<Outcome> findOutcomesBySessionId(int sessionId, Pageable pageable) {
         var page = outcomeRepository.findBySessionId(sessionId, pageable);
 
         return new PageImpl<>(page
