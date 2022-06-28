@@ -11,7 +11,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.2.2.RELEASE</version>
+        <version>2.7.1</version>
     </parent>
     <profiles>
         <profile>
@@ -30,19 +30,17 @@
             </properties>
         </profile>
     </profiles>
-
-
     <properties>
+        <spring-boot-starter.version>2.7.1</spring-boot-starter.version>
         <java.version>1.13</java.version>
         <maven.compiler.release>13</maven.compiler.release>
-        <junit-jupiter-api.version>5.5.0-M1</junit-jupiter-api.version>
-        <junit-jupiter-engine.version>5.5.0-M1</junit-jupiter-engine.version>
         <hamcrest.version>2.2</hamcrest.version>
         <maven-surefire-plugin.version>3.0.0-M4</maven-surefire-plugin.version>
         <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
         <copy-rename-maven-plugin.version>1.0</copy-rename-maven-plugin.version>
         <swagger.version>2.9.2</swagger.version>
         <modelmapper.version>2.3.0</modelmapper.version>
+        <testcontainers.version>1.17.2</testcontainers.version>
     </properties>
     <dependencies>
         <dependency>
@@ -93,29 +91,31 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.hamcrest</groupId>
-            <artifactId>hamcrest</artifactId>
-            <version>${hamcrest.version}</version>
-            <scope>test</scope>
-        </dependency>
-
-
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <version>${junit-jupiter-api.version}</version>
-            <scope>runtime</scope>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
-            <version>${junit-jupiter-engine.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>testcontainers</artifactId>
+            <version>${testcontainers.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>${testcontainers.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>mysql</artifactId>
+            <version>${testcontainers.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+            <version>${spring-boot-starter.version}</version>
         </dependency>
     </dependencies>
 
