@@ -8,15 +8,13 @@ import nl.kooi.app.persistence.repository.SessionRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.math.BigDecimal;
 import java.util.stream.IntStream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@DataJpaTest
-class OutcomeRepositoryTest {
+class OutcomeRepositoryTest extends DataJpaTestContainersBase {
 
     @Autowired
     private OutcomeRepository outcomeRepository;

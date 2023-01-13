@@ -4,21 +4,18 @@ import nl.kooi.app.domain.Mapper;
 import nl.kooi.app.domain.outcome.Outcome;
 import nl.kooi.app.domain.session.Session;
 import nl.kooi.app.persistence.entity.AdviceEntity;
-import nl.kooi.app.persistence.entity.SessionEntity;
 import nl.kooi.app.persistence.repository.AdviceRepository;
 import nl.kooi.app.persistence.repository.OutcomeRepository;
 import nl.kooi.app.persistence.repository.SessionRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.math.BigDecimal;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@DataJpaTest
-class AdviceRepositoryTest {
+class AdviceRepositoryTest extends DataJpaTestContainersBase {
 
     @Autowired
     private AdviceRepository adviceRepository;
@@ -30,7 +27,6 @@ class AdviceRepositoryTest {
     private SessionRepository sessionRepository;
 
     int sessionId;
-    private SessionEntity session;
 
     @BeforeEach
     public void initTestDependencies() {
